@@ -84,6 +84,14 @@ export async function fetchData<T>(
 // Example: Fetch user by ID
 export async function fetchUserById(userId: string) {
   const { userSchema } = await import('../schemas/api');
+  // Validate UUID format
+  if (
+    !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(
+      userId
+    )
+  ) {
+    throw new FetchError('Invalid user ID format');
+  }
   return fetchData(`/api/users/${userId}`, { schema: userSchema });
 }
 

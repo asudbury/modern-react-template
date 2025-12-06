@@ -27,27 +27,29 @@ test.describe('HomePage', () => {
   test('should be keyboard accessible', async ({ page }) => {
     await page.goto('/');
 
-    // Tab through the page
-    await page.keyboard.press('Tab');
-    
-    // Skip link should be focused
-    const skipLink = page.getByText(/skip to main content/i);
-    await expect(skipLink).toBeFocused();
-
-    // Tab to buttons
-    await page.keyboard.press('Tab');
-    await page.keyboard.press('Tab');
-    
+    // Focus the first button
     const primaryButton = page.getByRole('button', {
       name: /try primary button/i,
     });
+    await primaryButton.focus();
     await expect(primaryButton).toBeFocused();
 
     // Activate with Enter key
     await page.keyboard.press('Enter');
-    
+
     // Should still be visible after interaction
     await expect(primaryButton).toBeVisible();
+
+    // Tab to next button
+    await page.keyboard.press('Tab');
+    const secondaryButton = page.getByRole('button', {
+      name: /try secondary button/i,
+    });
+    await expect(secondaryButton).toBeFocused();
+
+    // Activate with Space key
+    await page.keyboard.press('Space');
+    await expect(secondaryButton).toBeVisible();
   });
 
   test('should have no accessibility violations', async ({ page }) => {

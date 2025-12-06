@@ -74,6 +74,18 @@ export async function updateUser(
   data: { name: string; email: string }
 ) {
   const { userSchema } = await import('../schemas/api');
+  // Validate UUID format
+  if (
+    !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(
+      userId
+    )
+  ) {
+    throw new Error('Invalid user ID format');
+  }
+  // Validate data
+  if (!data.name || !data.email) {
+    throw new Error('Name and email are required');
+  }
   return fetchData(`/api/users/${userId}`, {
     method: 'PUT',
     body: JSON.stringify(data),
@@ -83,5 +95,13 @@ export async function updateUser(
 
 // Example: Delete post
 export async function deletePost(postId: string) {
+  // Validate UUID format
+  if (
+    !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(
+      postId
+    )
+  ) {
+    throw new Error('Invalid post ID format');
+  }
   return deleteResource(`/api/posts/${postId}`);
 }

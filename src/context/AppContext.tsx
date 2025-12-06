@@ -1,5 +1,6 @@
 import { createContext, useContext, useReducer } from 'react';
 import type { ReactNode } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 /**
  * Application State Management
@@ -65,7 +66,7 @@ function appReducer(state: AppState, action: AppAction): AppState {
           ...state.notifications,
           {
             ...action.payload,
-            id: crypto.randomUUID(),
+            id: uuidv4(),
             timestamp: Date.now(),
           },
         ],

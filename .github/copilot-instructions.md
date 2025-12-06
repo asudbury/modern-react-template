@@ -290,19 +290,18 @@ const { data, isLoading, error } = useQuery({
 
 ## Testing and CI
 
-- **Unit tests**: Vitest + React Testing Library. Use `userEvent.setup()` for interactions and `expect(...).toBeInTheDocument()` / accessible assertions
+- **Unit tests**: Vitest + React Testing Library (see Testing Requirements section above for detailed standards)
 - **Accessibility in unit tests**: Use `jest-axe` or `axe` to assert no violations for key components
 - **E2E and accessibility**: Playwright tests run `axe` scans in CI to detect regressions against WCAG 2.2 AA. E2E scripts are in the `playwright` folder and invoked by CI
-- **CI pipeline**: Lint → Unit tests → Build → E2E (Playwright + axe). Axe failures should fail the workflow
+- **CI pipeline**: Lint → Format Check → Unit tests → Build → E2E (Playwright + axe). Axe failures should fail the workflow
 
 ## Required Libraries & Tools
 
 - **TanStack Query**: All data fetching and mutations must use TanStack Query (`@tanstack/react-query`)
-- **npm**: Use npm for installing dependencies. Example:
+- **npm**: Use npm for installing dependencies per this project's convention. Example:
   ```bash
   npm install @tanstack/react-query
   ```
-  Do not use `pnpm install` unless specifically required for legacy compatibility
 
 ## Component Guidelines and Examples
 
@@ -466,7 +465,7 @@ Keep this file updated as tooling or conventions change. When introducing new es
 ## Common Pitfalls
 
 - **Don't** mutate reducer state directly - always return new objects
-- **Don't** use array indices as React keys - use UUIDs (generated via `uuid.v4()`)
+- **Don't** use array indices as React keys - use stable unique identifiers (database IDs, UUIDs via `uuid.v4()`, or other stable unique values)
 - **Don't** mix client/server state - campaigns from API go through TanStack Query only
 - **Don't** disable ESLint rules without justification - discuss with maintainers first
 - **Don't** use inline styles or hardcoded colors - always use Tailwind tokens

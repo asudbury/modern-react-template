@@ -1,0 +1,12 @@
+# Ignore all .env files
+.env
+.env.*
+
+# Ignore test credentials
+src/**/test-credentials.json
+
+# Ignore specific patterns (example)
+# [[rules]]
+# description = "Ignore example API key"
+# regex = '''example-api-key-[a-z0-9]{32}'''
+# path = ".*"

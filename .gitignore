@@ -1,0 +1,40 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# dependencies
+node_modules
+dist
+dist-ssr
+*.local
+
+# build output
+/.next
+/.turbo
+
+# test coverage
+coverage/
+playwright-report/
+test-results/
+
+# misc
+.DS_Store
+.env
+.env.*
+!.env.example
+
+# IDE/editor
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.swp

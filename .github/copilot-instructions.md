@@ -257,8 +257,9 @@ const { data, isLoading, error } = useQuery({
 
 - **Unit Tests**: Vitest + React Testing Library
   - Use `userEvent.setup()` for interactions (never `fireEvent`)
-  - Query by role/label (accessibility-first): `getByRole('combobox')`, `getByLabelText()`
+  - Query by role/label (accessibility-first): `getByRole('combobox')`, `getByLabelText()`, `getByText`
   - Test user behavior, not implementation details
+  - Test accessibility: keyboard navigation, ARIA attributes
   - See `src/components/CustomReactSelect/CustomReactSelect.test.tsx` for reference
   - See also for reference https://kentcdodds.com/blog/common-mistakes-with-react-testing-library#not-using-testing-libraryuser-event
   - Avoid `waitFor`, prefer `findByX` for reference https://kentcdodds.com/blog/common-mistakes-with-react-testing-library#using-waitfor-to-wait-for-elements-that-can-be-queried-with-find
@@ -268,12 +269,6 @@ const { data, isLoading, error } = useQuery({
     - `findByRole`
   - Mock as little as possible
   - Prefer `toEqual` instead of `toBe`
-
-### Unit Tests
-- Use Vitest + React Testing Library
-- Use accessible queries: `getByRole`, `getByLabelText`, `getByText`
-- Use `userEvent.setup()` for user interactions (never `fireEvent`)
-- Test accessibility: keyboard navigation, ARIA attributes
 
 ### E2E Tests
 - Use Playwright with Axe for accessibility testing
@@ -291,10 +286,6 @@ const { data, isLoading, error } = useQuery({
 - Define schemas in `src/schemas/api.ts`
 - Export both schema and TypeScript type
 - Use UUID validation for IDs
-
-### APIs and Data Validation
-
-- Use `zod` schemas to validate server responses and local data boundaries. Place schemas near the data-fetching code (e.g., `src/queries/schemas.ts`)
 - Treat all external data as untrusted; validate and map to typed shapes before usage
 
 ## Testing and CI

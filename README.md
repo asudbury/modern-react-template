@@ -118,6 +118,31 @@ modern-react-template/
 - **Design tokens only** - No hardcoded colors or spacing
 - **Strict TypeScript** - All code must be fully typed
 - **Zod validation** - All external data must be validated
+- **JSDoc documentation** - All exported functions, components, and types must have JSDoc comments
+
+### JSDoc Documentation
+
+All public APIs (exported functions, components, types) must include JSDoc comments:
+
+```tsx
+/**
+ * Button Component
+ *
+ * An accessible button component following WCAG 2.2 AA guidelines.
+ *
+ * @example
+ * ```tsx
+ * <Button variant="primary" onClick={handleClick}>
+ *   Click me
+ * </Button>
+ * ```
+ */
+export function Button({ variant = 'primary', ...props }: ButtonProps) {
+  // Implementation
+}
+```
+
+See `.github/copilot-instructions.md` for detailed JSDoc formatting guidelines.
 
 ### Component Guidelines
 

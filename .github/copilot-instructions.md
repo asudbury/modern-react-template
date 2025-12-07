@@ -484,6 +484,16 @@ VITE_ANALYTICS_KEY=your-analytics-key-here
 # Used by scripts like `npm run build:gh-pages`. Leave false by default and
 # set to true explicitly in CI or local env when you want to build GH Pages.
 ENABLE_GH_PAGES=false
+
+# Optional: enable Storybook builds in CI and Pages workflows
+# Controlled via GitHub Actions variables (ENABLE_STORYBOOK_BUILD) and this
+# local flag for consistency. Leave false by default for forks.
+ENABLE_STORYBOOK_BUILD=false
+
+# Optional: enable HTML JSDoc (TypeDoc) builds in CI and Pages workflows
+# Controlled via GitHub Actions variables (ENABLE_JSDOC_BUILD) and this
+# local flag for consistency. Leave false by default for forks.
+ENABLE_JSDOC_BUILD=false
 ```
 
 > **Tip:** Prefix all variables with `VITE_` to expose them to the Vite client runtime.

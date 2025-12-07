@@ -86,8 +86,14 @@ jobs:
           node-version: '20'
           cache: 'npm'
       - run: npm ci
-      - run: npm run build-storybook
+      - name: Export ENABLE_STORYBOOK_BUILD from repo variables
+        run: |
+          echo "ENABLE_STORYBOOK_BUILD=${{ vars.ENABLE_STORYBOOK_BUILD }}" >> $GITHUB_ENV
+      - name: Build Storybook (optional)
+        if: env.ENABLE_STORYBOOK_BUILD == 'true'
+        run: npm run build-storybook
       - uses: actions/upload-artifact@v4
+        if: env.ENABLE_STORYBOOK_BUILD == 'true'
         with:
           name: storybook-static
           path: storybook-static/

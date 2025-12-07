@@ -11,7 +11,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: "pages"
+  group: 'pages'
   cancel-in-progress: false
 
 jobs:
@@ -99,7 +99,7 @@ jobs:
               .card {
                 background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
                 color: white;
-                padding: 2rem;
+                padding: 1.5rem;
                 border-radius: 0.5rem;
                 text-decoration: none;
                 transition: transform 0.2s, box-shadow 0.2s;
@@ -110,7 +110,7 @@ jobs:
                 box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
               }
               .card h2 {
-                font-size: 1.5rem;
+                font-size: 1.2rem;
                 margin-bottom: 0.5rem;
               }
               .card p {

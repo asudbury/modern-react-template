@@ -8,7 +8,7 @@
 
 > `const` **apiErrorSchema**: `ZodObject`\<\{ `code`: `ZodOptional`\<`ZodString`\>; `details`: `ZodOptional`\<`ZodRecord`\<`ZodString`, `ZodUnknown`\>\>; `message`: `ZodString`; \}, `$strip`\>
 
-Defined in: [src/schemas/api.ts:81](https://github.com/asudbury/modern-react-template/blob/000be6994f4ac0ab10bd189fe11233a0d8a44ac0/src/schemas/api.ts#L81)
+Defined in: [src/schemas/api.ts:81](https://github.com/asudbury/modern-react-template/blob/fa66b8a6e1100d41a1986ade93b6bfe3f02d8e6b/src/schemas/api.ts#L81)
 
 API Error Schema
 

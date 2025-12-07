@@ -6,7 +6,7 @@
 
 # Interface: AppState
 
-Defined in: [src/context/appTypes.ts:3](https://github.com/asudbury/modern-react-template/blob/000be6994f4ac0ab10bd189fe11233a0d8a44ac0/src/context/appTypes.ts#L3)
+Defined in: [src/context/appTypes.ts:3](https://github.com/asudbury/modern-react-template/blob/fa66b8a6e1100d41a1986ade93b6bfe3f02d8e6b/src/context/appTypes.ts#L3)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/context/appTypes.ts:3](https://github.com/asudbury/modern-react
 
 > **notifications**: [`Notification`](Notification.md)[]
 
-Defined in: [src/context/appTypes.ts:6](https://github.com/asudbury/modern-react-template/blob/000be6994f4ac0ab10bd189fe11233a0d8a44ac0/src/context/appTypes.ts#L6)
+Defined in: [src/context/appTypes.ts:6](https://github.com/asudbury/modern-react-template/blob/fa66b8a6e1100d41a1986ade93b6bfe3f02d8e6b/src/context/appTypes.ts#L6)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/context/appTypes.ts:6](https://github.com/asudbury/modern-react
 
 > **sidebarOpen**: `boolean`
 
-Defined in: [src/context/appTypes.ts:5](https://github.com/asudbury/modern-react-template/blob/000be6994f4ac0ab10bd189fe11233a0d8a44ac0/src/context/appTypes.ts#L5)
+Defined in: [src/context/appTypes.ts:5](https://github.com/asudbury/modern-react-template/blob/fa66b8a6e1100d41a1986ade93b6bfe3f02d8e6b/src/context/appTypes.ts#L5)
 
 ***
 
@@ -30,4 +30,4 @@ Defined in: [src/context/appTypes.ts:5](https://github.com/asudbury/modern-react
 
 > **theme**: `"light"` \| `"dark"`
 
-Defined in: [src/context/appTypes.ts:4](https://github.com/asudbury/modern-react-template/blob/000be6994f4ac0ab10bd189fe11233a0d8a44ac0/src/context/appTypes.ts#L4)
+Defined in: [src/context/appTypes.ts:4](https://github.com/asudbury/modern-react-template/blob/fa66b8a6e1100d41a1986ade93b6bfe3f02d8e6b/src/context/appTypes.ts#L4)

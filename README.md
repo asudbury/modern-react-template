@@ -194,14 +194,16 @@ If any check fails, the commit is blocked.
 The template automatically deploys three sites to GitHub Pages on every push to `main`:
 
 1. **Main Landing Page** - Links to all resources
-2. **Demo App** - The built application
-3. **Storybook** - Interactive component library
-4. **API Documentation** - TypeDoc generated docs
+2. **Demo App** - The built application at `/app/`
+3. **Storybook** - Interactive component library at `/storybook/`
+4. **API Documentation** - TypeDoc generated docs at `/docs/`
 
 **Setup Requirements:**
 1. Go to repository Settings → Pages
 2. Set Source to "GitHub Actions"
 3. Push to `main` branch to trigger deployment
+
+**Important:** Deployment only happens from the `main` branch. The workflow automatically configures proper base paths for asset loading.
 
 ## Key Conventions
 

@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { HomePage } from './HomePage';
 import { AppProvider } from '../../context/AppContext';
+import packageJson from '../../../package.json';
 
 describe('HomePage', () => {
   const renderWithProviders = (component: React.ReactElement) => {
@@ -74,5 +75,15 @@ describe('HomePage', () => {
       name: /performance/i,
     });
     expect(performanceCard).toBeInTheDocument();
+  });
+
+  it('shows the template version in the footer', () => {
+    renderWithProviders(<HomePage />);
+
+    const versionText = screen.getByText(/template version/i);
+    expect(versionText).toBeInTheDocument();
+
+    const versionValue = screen.getByText(packageJson.version);
+    expect(versionValue).toBeInTheDocument();
   });
 });

@@ -2,6 +2,8 @@
 
 A modern, accessibility-first React 19 application built with Vite 7 and TypeScript 5. This template enforces strict rules for accessibility (WCAG 2.2 AA), performance, and code quality.
 
+> 📘 **New to this template?** Check out the [SETUP.md](./SETUP.md) guide for detailed instructions on configuring Storybook, SonarCloud, and GitHub Pages.
+
 ## Features
 
 - ✨ **React 19** with the latest features

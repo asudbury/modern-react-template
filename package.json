@@ -12,6 +12,7 @@
     "preview": "vite preview",
     "test": "vitest",
     "test:unit": "vitest",
+    "test:coverage": "vitest run --coverage",
     "test:ui": "vitest --ui",
     "test:e2e": "playwright test",
     "prepare": "husky",

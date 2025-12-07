@@ -15,12 +15,13 @@ export default defineConfig({
     ],
     coverage: {
       provider: 'v8',
-      reporter: ['text', 'json', 'html'],
+      reporter: ['text', 'json', 'html', 'lcov'],
       exclude: [
         'node_modules/',
         'src/test/',
         '**/*.test.{ts,tsx}',
         '**/*.config.{ts,js}',
+        '**/*.stories.{ts,tsx}',
       ],
     },
   },

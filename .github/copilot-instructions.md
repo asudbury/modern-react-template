@@ -10,6 +10,12 @@ This document is the authoritative source of conventions, constraints, and expec
 
 Use this file to guide Copilot suggestions and human contributors — prefer solutions that are accessible, well-typed, and maintainable.
 
+### Development Tools
+
+- **Storybook**: Component development and documentation in isolation. All components should have corresponding `.stories.tsx` files.
+- **TypeDoc**: Automated API documentation generation from JSDoc comments. Documentation is published to GitHub Pages.
+- **SonarCloud**: Continuous code quality and security analysis integrated into CI/CD pipeline.
+
 ## Core Principles
 
 1. **Accessibility First**: Every component must be keyboard-navigable, screen reader friendly, and WCAG 2.2 AA compliant
@@ -17,9 +23,11 @@ Use this file to guide Copilot suggestions and human contributors — prefer sol
 3. **No Default Exports**: Use named exports only for components and modules
 4. **Design Tokens Only**: Never use hardcoded colors or spacing - always use design tokens from `src/styles/tokens.css`
 5. **Data Validation**: All external data must be validated using Zod schemas
-6. **Predictable APIs**: Components expose clear controlled/uncontrolled APIs, forward refs, accept `className` and `data-*` props
-7. **No inline JSX functions**: Avoid inline callbacks in JSX (e.g., `onClick={() => ...}`). Use `useCallback` or named functions defined outside of JSX to improve performance and testability
-8. **Tokenized styles**: Use design tokens via `src/styles/tokens.css` and Tailwind utilities. Do not hardcode color or spacing values in components
+6. **Storybook Stories**: All UI components must have Storybook stories for documentation and testing
+7. **JSDoc Documentation**: All exported functions, components, and types must have comprehensive JSDoc comments for TypeDoc generation
+8. **Predictable APIs**: Components expose clear controlled/uncontrolled APIs, forward refs, accept `className` and `data-*` props
+9. **No inline JSX functions**: Avoid inline callbacks in JSX (e.g., `onClick={() => ...}`). Use `useCallback` or named functions defined outside of JSX to improve performance and testability
+10. **Tokenized styles**: Use design tokens via `src/styles/tokens.css` and Tailwind utilities. Do not hardcode color or spacing values in components
 
 ## Repository Conventions
 
@@ -141,9 +149,10 @@ All functions, components, and types should have JSDoc comments following these 
 ### Component File Organization
 ```
 ComponentName/
-├── ComponentName.tsx       # Main component implementation
-├── ComponentName.test.tsx  # Unit tests
-└── index.ts               # Re-export (named export only)
+├── ComponentName.tsx         # Main component implementation
+├── ComponentName.test.tsx    # Unit tests
+├── ComponentName.stories.tsx # Storybook stories
+└── index.ts                  # Re-export (named export only)
 ```
 
 ### Component Template
@@ -179,6 +188,50 @@ export const ComponentName = forwardRef<HTMLDivElement, ComponentNameProps>(
 ComponentName.displayName = 'ComponentName';
 ```
 
+## Storybook Guidelines
+
+### Story File Structure
+All UI components must have accompanying Storybook stories:
+
+```tsx
+import type { Meta, StoryObj } from '@storybook/react';
+import { ComponentName } from './ComponentName';
+
+const meta = {
+  title: 'Components/ComponentName',
+  component: ComponentName,
+  parameters: {
+    layout: 'centered',
+  },
+  tags: ['autodocs'],
+  argTypes: {
+    variant: {
+      control: 'select',
+      options: ['primary', 'secondary'],
+    },
+  },
+} satisfies Meta<typeof ComponentName>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const Primary: Story = {
+  args: {
+    variant: 'primary',
+    children: 'Example',
+  },
+};
+```
+
+### Story Requirements
+- Include all component variants and states
+- Add accessibility considerations in story descriptions
+- Use `tags: ['autodocs']` for automatic documentation
+- Test components in isolation with different props
+- Include interactive examples where applicable
+
+
+## Accessibility Requirements
 ## Accessibility (WCAG 2.2 AA) Rules
 
 These are enforced via linting, unit/E2E tests, and CI. Key checks:

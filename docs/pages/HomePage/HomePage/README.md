@@ -1,0 +1,11 @@
+[**modern-react-template v0.0.0**](../../../README.md)
+
+***
+
+[modern-react-template](../../../modules.md) / pages/HomePage/HomePage
+
+# pages/HomePage/HomePage
+
+## Functions
+
+- [HomePage](functions/HomePage.md)

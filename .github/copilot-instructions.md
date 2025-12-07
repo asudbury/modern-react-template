@@ -479,6 +479,11 @@ VITE_FEATURE_X=true
 
 # Analytics key (do not use real secrets in example)
 VITE_ANALYTICS_KEY=your-analytics-key-here
+
+# Optional: enable preparing GitHub Pages artifacts (dist/gh-pages-index.html)
+# Used by scripts like `npm run build:gh-pages`. Leave false by default and
+# set to true explicitly in CI or local env when you want to build GH Pages.
+ENABLE_GH_PAGES=false
 ```
 
 > **Tip:** Prefix all variables with `VITE_` to expose them to the Vite client runtime.

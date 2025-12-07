@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build && npm run update:gh-version",
+    "build": "tsc -b && vite build",
     "lint": "eslint \"src/**/*.{ts,tsx}\"",
     "lint:fix": "eslint \"src/**/*.{ts,tsx}\" --fix",
     "prettier": "prettier --write \"src/**/*.{ts,tsx,css}\"",
@@ -20,7 +20,8 @@
     "docs:md": "typedoc --options typedoc.json",
     "docs:html": "typedoc --options typedoc.html.json",
     "docs": "npm run docs:md && npm run docs:html",
-    "update:gh-version": "node ./scripts/update-gh-pages-version.cjs dist/gh-pages-index.html"
+    "update:gh-version": "node ./scripts/update-gh-pages-version.cjs dist/gh-pages-index.html",
+    "build:gh-pages": "ENABLE_GH_PAGES=true npm run build && npm run update:gh-version"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.90.12",

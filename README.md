@@ -52,7 +52,7 @@ Visit `http://localhost:5173` to see your application.
 
 ### Development
 - `npm run dev` - Start development server
-- `npm run build` - Build for production
+- `npm run build` - Build for production (no GitHub Pages side effects)
 - `npm run preview` - Preview production build
 
 ### Code Quality
@@ -75,6 +75,10 @@ Visit `http://localhost:5173` to see your application.
 - `npm run docs` - Generate both markdown and HTML documentation
 - `npm run docs:md` - Generate markdown documentation in `docs/`
 - `npm run docs:html` - Generate HTML documentation in `docs-html/`
+
+### GitHub Pages (Optional)
+- `npm run update:gh-version` - Inject `package.json` version into a copy of `public/gh-pages-index.html` and write it to `dist/gh-pages-index.html` (used for GitHub Pages landing page)
+- `npm run build:gh-pages` - Build the app and, when `ENABLE_GH_PAGES=true`, generate GitHub Pages artifacts (including `dist/gh-pages-index.html`)
 
 ## Project Structure
 

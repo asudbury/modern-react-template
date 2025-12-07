@@ -29,6 +29,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Export ENABLE_GH_PAGES from repo variables
+        run: |
+          echo "ENABLE_GH_PAGES=${{ vars.ENABLE_GH_PAGES }}" >> $GITHUB_ENV
+
       - name: Build app
         env:
           VITE_BASE_PATH: /modern-react-template/app/
@@ -42,6 +46,10 @@ jobs:
       - name: Generate documentation
         run: npm run docs:html
 
+      - name: Build GitHub Pages landing (optional)
+        if: env.ENABLE_GH_PAGES == 'true'
+        run: npm run build:gh-pages
+
       - name: Create GitHub Pages structure
         run: |
           mkdir -p gh-pages
@@ -51,8 +59,12 @@ jobs:
           cp -r storybook-static gh-pages/storybook
           # Copy documentation
           cp -r docs-html gh-pages/docs
-          # Copy the pre-built index.html that links to all three
-          cp public/gh-pages-index.html gh-pages/index.html
+          # Copy the landing page
+          if [ -f dist/gh-pages-index.html ]; then
+            cp dist/gh-pages-index.html gh-pages/index.html
+          else
+            cp public/gh-pages-index.html gh-pages/index.html
+          fi
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

@@ -22,15 +22,19 @@ import { HomePage } from './pages/HomePage';
 /**
  * TanStack Query client configuration
  *
- * Configured with sensible defaults:
- * - 5 minute stale time to reduce unnecessary refetches
- * - No refetch on window focus to prevent interrupting user workflows
+ * Configured with sensible defaults that can be tuned via env vars:
+ * - `VITE_QUERY_STALE_TIME_MS` (default: 0)
+ * - `VITE_QUERY_REFETCH_ON_WINDOW_FOCUS` (default: false)
  */
+const queryStaleTime = Number(import.meta.env.VITE_QUERY_STALE_TIME_MS) || 0;
+const queryRefetchOnWindowFocus =
+  (import.meta.env.VITE_QUERY_REFETCH_ON_WINDOW_FOCUS ?? 'false') === 'true';
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 1000 * 60 * 5, // 5 minutes
-      refetchOnWindowFocus: false,
+      staleTime: queryStaleTime,
+      refetchOnWindowFocus: queryRefetchOnWindowFocus,
     },
   },
 });

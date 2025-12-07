@@ -1,0 +1,181 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build app
+        run: npm run build
+
+      - name: Build Storybook
+        run: npm run build-storybook
+
+      - name: Generate documentation
+        run: npm run docs:html
+
+      - name: Create GitHub Pages structure
+        run: |
+          mkdir -p gh-pages
+          # Copy the main app
+          cp -r dist gh-pages/app
+          # Copy Storybook
+          cp -r storybook-static gh-pages/storybook
+          # Copy documentation
+          cp -r docs-html gh-pages/docs
+          # Create an index.html that links to all three
+          cat > gh-pages/index.html << 'EOF'
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Modern React Template</title>
+            <style>
+              * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+              }
+              body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                min-height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 2rem;
+              }
+              .container {
+                max-width: 800px;
+                background: white;
+                border-radius: 1rem;
+                padding: 3rem;
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+              }
+              h1 {
+                color: #333;
+                margin-bottom: 1rem;
+                font-size: 2.5rem;
+              }
+              p {
+                color: #666;
+                margin-bottom: 2rem;
+                line-height: 1.6;
+              }
+              .links {
+                display: grid;
+                gap: 1rem;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+              }
+              .card {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                padding: 2rem;
+                border-radius: 0.5rem;
+                text-decoration: none;
+                transition: transform 0.2s, box-shadow 0.2s;
+                display: block;
+              }
+              .card:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+              }
+              .card h2 {
+                font-size: 1.5rem;
+                margin-bottom: 0.5rem;
+              }
+              .card p {
+                color: rgba(255, 255, 255, 0.9);
+                margin-bottom: 0;
+                font-size: 0.9rem;
+              }
+              .footer {
+                margin-top: 2rem;
+                padding-top: 2rem;
+                border-top: 1px solid #eee;
+                text-align: center;
+                color: #999;
+                font-size: 0.9rem;
+              }
+              .footer a {
+                color: #667eea;
+                text-decoration: none;
+              }
+              .footer a:hover {
+                text-decoration: underline;
+              }
+            </style>
+          </head>
+          <body>
+            <div class="container">
+              <h1>🚀 Modern React Template</h1>
+              <p>
+                A modern, accessibility-first React 19 application built with Vite 7 and TypeScript 5.
+                This template enforces strict rules for accessibility (WCAG 2.2 AA), performance, and code quality.
+              </p>
+              <div class="links">
+                <a href="./app/" class="card">
+                  <h2>📱 Demo App</h2>
+                  <p>View the live application demo</p>
+                </a>
+                <a href="./storybook/" class="card">
+                  <h2>📚 Storybook</h2>
+                  <p>Browse component library and stories</p>
+                </a>
+                <a href="./docs/" class="card">
+                  <h2>📖 Documentation</h2>
+                  <p>Explore API documentation (TypeDoc)</p>
+                </a>
+              </div>
+              <div class="footer">
+                <p>
+                  View the source on 
+                  <a href="https://github.com/asudbury/modern-react-template" target="_blank">GitHub</a>
+                </p>
+              </div>
+            </div>
+          </body>
+          </html>
+          EOF
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: gh-pages
+
+  deploy:
+    name: Deploy to GitHub Pages
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

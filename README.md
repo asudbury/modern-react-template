@@ -11,24 +11,23 @@ A modern, accessibility-first React 19 application built with Vite 7 and TypeScr
 
 ## Features
 
-- ✨ **React 19** with the latest features
-- ⚡ **Vite 7** for lightning-fast development
-- 📘 **TypeScript 5** with strict mode enabled
-- 🎨 **Tailwind CSS** with design tokens
-- ♿ **Accessibility-first** (WCAG 2.2 AA compliant)
-- 🔄 **TanStack Query** for server state management
-- 🎯 **Context + Reducers** for client state
-- 🧪 **Vitest** + **React Testing Library** for unit tests
-- 🎭 **Playwright** + **Axe** for E2E accessibility testing
-- 🔒 **Strict ESLint** + **Prettier** configuration
-- 🪝 **Husky** pre-commit hooks
- - 🪝 **Husky** pre-commit + commit-msg hooks
- - 📝 **Commitlint** enforcing conventional commit messages
-- 🔐 **Zod** validation for all external data
-- 📚 **Storybook** for component development and documentation
-- 📖 **TypeDoc** for automated API documentation
-- 🔍 **SonarCloud** for continuous code quality analysis
-- 🌐 **GitHub Pages** deployment for app, Storybook, and docs
+- ✨ [**React 19**](https://react.dev/) with the latest features
+- ⚡ [**Vite 7**](https://vite.dev/) for lightning-fast development
+- 📘 [**TypeScript 5**](https://www.typescriptlang.org/docs/) with strict mode enabled
+- 🎨 [**Tailwind CSS**](https://tailwindcss.com/docs) with design tokens
+- ♿ [**Accessibility-first**](https://www.w3.org/WAI/WCAG22/quickref/) (WCAG 2.2 AA compliant)
+- 🔄 [**TanStack Query**](https://tanstack.com/query/latest) for server state management
+- 🎯 [**React Context + Reducers**](https://react.dev/learn/passing-data-deeply-with-context) for client state
+- 🧪 [**Vitest**](https://vitest.dev/) + [**React Testing Library**](https://testing-library.com/docs/react-testing-library/intro/) for unit tests
+- 🎭 [**Playwright**](https://playwright.dev/) + [**axe-core**](https://www.deque.com/axe/devtools/) for E2E accessibility testing
+- 🔒 [**ESLint**](https://eslint.org/) + [**Prettier**](https://prettier.io/) configuration
+- 🪝 [**Husky**](https://typicode.github.io/husky/) pre-commit + commit-msg hooks
+- 📝 [**Commitlint**](https://commitlint.js.org/#/) enforcing conventional commit messages
+- 🔐 [**Zod**](https://zod.dev/) validation for all external data
+- 📚 [**Storybook**](https://storybook.js.org/) for component development and documentation
+- 📖 [**TypeDoc**](https://typedoc.org/) for automated API documentation
+- 🔍 [**SonarCloud**](https://sonarcloud.io/) for continuous code quality analysis
+- 🌐 [**GitHub Pages**](https://docs.github.com/en/pages) deployment for app, Storybook, and docs
 
 ## Quick Start
 
@@ -455,9 +454,21 @@ MIT
 
 - [React 19 Documentation](https://react.dev)
 - [Vite Documentation](https://vite.dev)
-- [TypeScript Documentation](https://www.typescriptlang.org)
-- [Tailwind CSS Documentation](https://tailwindcss.com)
-- [TanStack Query Documentation](https://tanstack.com/query)
-- [WCAG 2.2 Guidelines](https://www.w3.org/WAI/WCAG22/quickref/)
-- [Playwright Documentation](https://playwright.dev)
+- [TypeScript Documentation](https://www.typescriptlang.org/docs/)
+- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
+- [Accessibility (WCAG 2.2 AA)](https://www.w3.org/WAI/WCAG22/quickref/)
+- [TanStack Query Documentation](https://tanstack.com/query/latest)
+- [React Context](https://react.dev/learn/passing-data-deeply-with-context)
 - [Vitest Documentation](https://vitest.dev)
+- [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
+- [Playwright Documentation](https://playwright.dev)
+- [axe-core](https://www.deque.com/axe/devtools/)
+- [ESLint](https://eslint.org/)
+- [Prettier](https://prettier.io/)
+- [Husky](https://typicode.github.io/husky/)
+- [Commitlint](https://commitlint.js.org/#/)
+- [Zod](https://zod.dev/)
+- [Storybook](https://storybook.js.org/)
+- [TypeDoc](https://typedoc.org/)
+- [SonarCloud](https://sonarcloud.io/)
+- [GitHub Pages](https://docs.github.com/en/pages)

@@ -1,7 +1,7 @@
 {
   "name": "modern-react-template",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -20,7 +20,7 @@
     "docs:md": "typedoc --options typedoc.json",
     "docs:html": "typedoc --options typedoc.html.json",
     "docs": "npm run docs:md && npm run docs:html",
-    "update:gh-version": "node ./scripts/update-gh-pages-version.cjs"
+    "update:gh-version": "node ./scripts/update-gh-pages-version.cjs dist/gh-pages-index.html"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.90.12",

@@ -98,6 +98,23 @@ GitHub Pages hosts three sites from this repository:
 2. **Storybook** - Interactive component library
 3. **API Docs** - TypeDoc generated documentation
 
+### Important Configuration Details
+
+**Branch:** The deployment uses the `main` branch only. The workflow is triggered on:
+- Every push to `main`
+- Manual workflow dispatch (via GitHub Actions UI)
+
+**What Gets Deployed:**
+- **App**: Built with `npm run build` and deployed to `/app/` path
+- **Storybook**: Built with `npm run build-storybook` and deployed to `/storybook/` path
+- **Documentation**: Generated with `npm run docs:html` and deployed to `/docs/` path
+- **Landing Page**: Auto-generated index page linking to all three above
+
+**Base Paths:** The Vite and Storybook builds are configured with proper base paths to work correctly under the GitHub Pages subdirectory structure:
+- Vite uses the `VITE_BASE_PATH` environment variable
+- Storybook uses the `STORYBOOK_BASE_PATH` environment variable
+- These are automatically set by the deployment workflow
+
 ### Setup Steps
 
 1. **Enable GitHub Pages**

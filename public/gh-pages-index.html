@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modern React Template</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+          Ubuntu, Cantarell, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+      }
+      .container {
+        max-width: 1000px;
+        background: white;
+        border-radius: 1rem;
+        padding: 3rem;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      }
+      h1 {
+        color: #333;
+        margin-bottom: 1rem;
+        font-size: 2.5rem;
+      }
+      p {
+        color: #666;
+        margin-bottom: 2rem;
+        line-height: 1.6;
+      }
+      .links {
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      }
+      .card {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+        text-decoration: none;
+        transition: transform 0.2s, box-shadow 0.2s;
+        display: block;
+      }
+      .card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      }
+      .card h2 {
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+      }
+      .card p {
+        color: rgba(255, 255, 255, 0.9);
+        margin-bottom: 0;
+        font-size: 0.9rem;
+      }
+      .footer {
+        margin-top: 2rem;
+        padding-top: 2rem;
+        border-top: 1px solid #eee;
+        text-align: center;
+        color: #999;
+        font-size: 0.9rem;
+      }
+      .footer a {
+        color: #667eea;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+      }
+      .footer a:hover {
+        text-decoration: underline;
+      }
+      .github-icon {
+        width: 14px;
+        height: 14px;
+        fill: currentColor;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>🚀 Modern React Template</h1>
+      <p>
+        A modern, accessibility-first React 19 application built with Vite 7 and
+        TypeScript 5. This template enforces strict rules for accessibility
+        (WCAG 2.2 AA), performance, and code quality.
+      </p>
+      <div class="links">
+        <a href="./app/" class="card">
+          <h2>📱 Demo App</h2>
+          <p>View the live application demo</p>
+        </a>
+        <a href="./storybook/" class="card">
+          <h2>📚 Storybook</h2>
+          <p>Browse component library and stories</p>
+        </a>
+        <a href="./docs/" class="card">
+          <h2>📖 Documentation</h2>
+          <p>Explore API documentation (TypeDoc)</p>
+        </a>
+      </div>
+      <div class="footer">
+        <p>
+          View the source on
+          <a
+            href="https://github.com/asudbury/modern-react-template"
+            target="_blank"
+            aria-label="View the Modern React Template source on GitHub"
+          >
+            <svg
+              class="github-icon"
+              viewBox="0 0 16 16"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path
+                d="M8 0.198a8 8 0 0 0-2.53 15.591c0.4.074.547-.174.547-.386 0-.19-.007-.693-.01-1.36-2.226.483-2.695-1.073-2.695-1.073-.364-.924-.89-1.17-.89-1.17-.727-.497.055-.487.055-.487.804.057 1.227.826 1.227.826.715 1.225 1.874.871 2.33.666.072-.518.28-.871.508-1.071-1.777-.202-3.644-.888-3.644-3.953 0-.873.312-1.587.824-2.146-.083-.203-.357-1.018.078-2.122 0 0 .671-.215 2.2.82a7.626 7.626 0 0 1 2.003-.27 7.6 7.6 0 0 1 2.003.27c1.528-1.035 2.198-.82 2.198-.82.437 1.104.163 1.919.08 2.122.513.559.823 1.273.823 2.146 0 3.073-1.87 3.748-3.652 3.947.288.248.543.737.543 1.486 0 1.073-.01 1.936-.01 2.198 0 .214.145.463.55.385A8.002 8.002 0 0 0 8 0.198"
+              />
+            </svg>
+            GitHub
+          </a>
+        </p>
+      </div>
+    </div>
+  </body>
+</html>

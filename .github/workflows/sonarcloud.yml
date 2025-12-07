@@ -11,6 +11,7 @@ permissions:
 
 jobs:
   sonarcloud:
+    if: ${{ vars.RUN_SONARCLOUD == 'true' }}
     name: SonarCloud Scan
     runs-on: ubuntu-latest
     permissions:
@@ -18,7 +19,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
 
       - uses: actions/setup-node@v4
         with:
@@ -34,7 +35,7 @@ jobs:
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           args: >

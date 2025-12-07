@@ -1,0 +1,7 @@
+# Allow disabling commit message linting via environment variable.
+# Set SKIP_COMMITLINT=true to bypass commitlint locally if needed.
+if [ "$SKIP_COMMITLINT" = "true" ]; then
+	exit 0
+fi
+
+npx commitlint --edit "$1"

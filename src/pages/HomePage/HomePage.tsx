@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { Button } from '../../components/Button';
-import { useNotifications } from '../../context/AppContext';
+import { useNotifications } from '../../context/useAppContext';
 
 /**
  * HomePage Component

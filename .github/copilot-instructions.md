@@ -263,6 +263,8 @@ These are enforced via linting, unit/E2E tests, and CI. Key checks:
 - **ESLint**: The repo uses `eslint.config.js` configured with `@typescript-eslint`, `jsx-a11y`, and custom rules enforcing the project's conventions
 - **Prettier**: Use `.prettierrc` for formatting. Pre-commit hooks run formatting and linting
 - **Husky + lint-staged**: Commits must pass linters and unit tests as configured in `package.json` scripts
+ - **Commitlint**: Commit messages must follow Conventional Commits and are
+   validated by a Husky `commit-msg` hook
 
 ### Husky Pre-commit Hook
 
@@ -276,6 +278,20 @@ npm run build
 ```
 
 Add these commands to your `.husky/pre-commit` file to ensure all code is formatted, tested, linted, and builds successfully before each commit.
+
+### Commit Message Conventions
+
+- Use [Conventional Commits](https://www.conventionalcommits.org/)
+- Common types: `feat`, `fix`, `chore`, `refactor`, `test`, `docs`, `ci`
+- Subject line should be imperative and concise (≤ 50 characters)
+
+Examples:
+
+```text
+feat: add Tailwind token mapping
+fix: align AppContext callbacks with useCallback
+chore: configure commitlint hook
+```
 
 ### Code Style (enforced by ESLint)
 

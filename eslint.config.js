@@ -6,6 +6,8 @@ import tseslint from 'typescript-eslint';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
 import prettier from 'eslint-plugin-prettier';
 import prettierConfig from 'eslint-config-prettier';
+import testingLibrary from 'eslint-plugin-testing-library';
+import vitest from 'eslint-plugin-vitest';
 
 export default tseslint.config(
   {
@@ -29,6 +31,8 @@ export default tseslint.config(
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
       'jsx-a11y': jsxA11y,
+      'testing-library': testingLibrary,
+      vitest,
       prettier,
     },
     rules: {
@@ -51,6 +55,15 @@ export default tseslint.config(
       'jsx-a11y/no-autofocus': 'warn',
       'jsx-a11y/click-events-have-key-events': 'warn',
       'jsx-a11y/no-static-element-interactions': 'warn',
+      // Testing best practices (Vitest + Testing Library)
+      'testing-library/no-debugging-utils': 'warn',
+      'testing-library/no-node-access': 'warn',
+      'testing-library/prefer-screen-queries': 'warn',
+      'testing-library/prefer-user-event': 'warn',
+      'vitest/consistent-test-it': [
+        'warn',
+        { fn: 'test', withinDescribe: 'it' },
+      ],
     },
   },
   prettierConfig

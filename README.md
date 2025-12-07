@@ -17,6 +17,8 @@ A modern, accessibility-first React 19 application built with Vite 7 and TypeScr
 - 🎭 **Playwright** + **Axe** for E2E accessibility testing
 - 🔒 **Strict ESLint** + **Prettier** configuration
 - 🪝 **Husky** pre-commit hooks
+ - 🪝 **Husky** pre-commit + commit-msg hooks
+ - 📝 **Commitlint** enforcing conventional commit messages
 - 🔐 **Zod** validation for all external data
 - 📚 **Storybook** for component development and documentation
 - 📖 **TypeDoc** for automated API documentation
@@ -57,6 +59,7 @@ Visit `http://localhost:5173` to see your application.
 - `npm run lint` - Run ESLint
 - `npm run lint:fix` - Fix ESLint issues
 - `npm run prettier` - Format code with Prettier
+ - Conventional commits enforced via commitlint on `git commit`
 
 ### Testing
 - `npm run test` - Run unit tests in watch mode
@@ -169,15 +172,23 @@ All UI components should have corresponding `.stories.tsx` files showcasing vari
 
 ### SonarCloud Integration
 
-This template uses SonarCloud for continuous code quality and security analysis. The analysis runs automatically on every push and pull request.
+This template uses SonarCloud for continuous code quality and security analysis. Configuration is driven by environment variables so forks can set up their own SonarCloud projects without editing source files.
 
-**Setup Requirements:**
+**Setup Requirements (for your fork or repo):**
 1. Sign up at [SonarCloud](https://sonarcloud.io/)
-2. Import your repository
-3. Add `SONAR_TOKEN` to your GitHub repository secrets
-4. Update `sonar.projectKey` and `sonar.organization` in `sonar-project.properties`
+2. Import **your** repository into SonarCloud and note the generated:
+  - Organization key (e.g. `my-org`)
+  - Project key (e.g. `my-org_modern-react-template`)
+3. Add `SONAR_TOKEN` to your GitHub repository secrets (Project Settings → Security → Tokens in SonarCloud).
+4. In your GitHub repository settings, add the following **Actions secrets/variables**:
+  - `SONAR_ORGANIZATION` – your SonarCloud organization key
+  - `SONAR_PROJECT_KEY` – your SonarCloud project key
+  - `SONAR_TOKEN` – the token from SonarCloud
+5. (Optional) Go to **Settings → Variables → Actions** in your GitHub repository and create a variable named `RUN_SONARCLOUD` with value `true` to enable SonarCloud analysis. Set it to `false` (or remove it) to skip the SonarCloud job.
 
-View your project's quality metrics on the SonarCloud dashboard.
+The `sonar-project.properties` file reads `SONAR_ORGANIZATION` and `SONAR_PROJECT_KEY` at analysis time, so no changes are required in the file when you fork this template.
+
+View your project's quality metrics on the SonarCloud dashboard when analysis is enabled.
 
 ### Pre-commit Hooks
 
@@ -187,7 +198,19 @@ Husky enforces code quality on every commit:
 3. Lint with ESLint
 4. Build the project
 
-If any check fails, the commit is blocked.
+If any of these checks fails, the commit is blocked and the corresponding
+command's error output is shown in your terminal (for example ESLint errors
+or failing tests). Fix the reported issues and re-run `git commit`.
+
+Additionally, a Husky `commit-msg` hook runs **commitlint** to enforce
+[Conventional Commits](https://www.conventionalcommits.org/) for commit
+messages. Example:
+
+```text
+feat: add Tailwind token mapping
+fix: handle invalid user IDs in updateUser
+chore: configure commitlint for commit messages
+```
 
 ## GitHub Pages Deployment
 
@@ -295,6 +318,17 @@ All design tokens are defined in `src/styles/tokens.css` and mapped to Tailwind 
 </button>
 ```
 
+If a commit is rejected due to an invalid commit message, commitlint prints a
+clear error explaining which rule failed (for example, missing `feat:`/`fix:`
+prefix or subject line that is too long). In that case, amend your commit
+message using:
+
+```bash
+git commit --amend
+```
+
+and update the message until commitlint passes.
+
 ## State Management
 
 ### Server State (TanStack Query)
@@ -342,6 +376,14 @@ cp .env.example .env
 ```
 
 All environment variables must be prefixed with `VITE_` to be exposed to the client.
+
+For local tooling and CI toggles, additional variables are defined in
+`.env.example` (not exposed to the client), including:
+
+- `SONAR_ORGANIZATION`, `SONAR_PROJECT_KEY`, `SONAR_TOKEN` – SonarCloud config
+- `RUN_SONARCLOUD` – enable/disable SonarCloud in CI
+- `SKIP_COMMITLINT` – set to `true` to temporarily skip commit message
+  linting enforced by Husky + commitlint
 
 ## CI/CD Pipeline
 

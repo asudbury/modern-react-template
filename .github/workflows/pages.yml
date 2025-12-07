@@ -21,6 +21,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Log workflow context
+        run: |
+          echo "[Pages][build] Triggered by $GITHUB_EVENT_NAME on ref $GITHUB_REF for $GITHUB_REPOSITORY"
+          echo "[Pages][build] ENABLE_STORYBOOK_BUILD=${{ vars.ENABLE_STORYBOOK_BUILD }}"
+          echo "[Pages][build] ENABLE_JSDOC_BUILD=${{ vars.ENABLE_JSDOC_BUILD }}"
+          echo "[Pages][build] ENABLE_GH_PAGES=${{ vars.ENABLE_GH_PAGES }}"
+
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
@@ -29,34 +36,23 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Export ENABLE_GH_PAGES from repo variables
-        run: |
-          echo "ENABLE_GH_PAGES=${{ vars.ENABLE_GH_PAGES }}" >> $GITHUB_ENV
-
       - name: Build app
         env:
           VITE_BASE_PATH: /modern-react-template/app/
         run: npm run build
 
       - name: Build Storybook (optional)
+        if: ${{ vars.ENABLE_STORYBOOK_BUILD == 'true' }}
         env:
           STORYBOOK_BASE_PATH: /modern-react-template/storybook/
-        run: |
-          echo "ENABLE_STORYBOOK_BUILD=${{ vars.ENABLE_STORYBOOK_BUILD }}" >> $GITHUB_ENV
-          if [ "$ENABLE_STORYBOOK_BUILD" = "true" ]; then
-            npm run build-storybook
-          fi
-
-      - name: Export ENABLE_JSDOC_BUILD from repo variables
-        run: |
-          echo "ENABLE_JSDOC_BUILD=${{ vars.ENABLE_JSDOC_BUILD }}" >> $GITHUB_ENV
+        run: npm run build-storybook
 
       - name: Generate documentation (optional)
-        if: env.ENABLE_JSDOC_BUILD == 'true'
+        if: ${{ vars.ENABLE_JSDOC_BUILD == 'true' }}
         run: npm run docs:html
 
       - name: Build GitHub Pages landing (optional)
-        if: env.ENABLE_GH_PAGES == 'true'
+        if: ${{ vars.ENABLE_GH_PAGES == 'true' }}
         run: npm run build:gh-pages
 
       - name: Create GitHub Pages structure

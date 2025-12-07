@@ -665,6 +665,11 @@ Ensure your `package.json` defines at least the following scripts so tooling and
 - ESLint: `eslint.config.js`
 - CI workflow: `.github/workflows/ci.yml`
 - Playwright tests: `playwright` or `tests/e2e`
+ - GitHub Pages entry points:
+   - Landing page: `https://asudbury.github.io/modern-react-template/`
+   - Demo App: `https://asudbury.github.io/modern-react-template/app`
+   - Storybook: `https://asudbury.github.io/modern-react-template/storybook`
+   - API Docs: `https://asudbury.github.io/modern-react-template/docs`
 
 ## Contact / Questions
 

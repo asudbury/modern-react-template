@@ -2,7 +2,9 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
 // https://vite.dev/config/
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   plugins: [react()],
-  base: process.env.VITE_BASE_PATH || '/',
-});
+  // Use root path in dev for local convenience, and the
+  // GitHub Pages subdirectory in production deployments.
+  base: mode === 'production' ? '/modern-react-template/app/' : '/',
+}));

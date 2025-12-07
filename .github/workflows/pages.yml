@@ -30,9 +30,13 @@ jobs:
         run: npm ci
 
       - name: Build app
+        env:
+          VITE_BASE_PATH: /modern-react-template/app/
         run: npm run build
 
       - name: Build Storybook
+        env:
+          STORYBOOK_BASE_PATH: /modern-react-template/storybook/
         run: npm run build-storybook
 
       - name: Generate documentation

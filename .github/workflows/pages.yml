@@ -38,12 +38,21 @@ jobs:
           VITE_BASE_PATH: /modern-react-template/app/
         run: npm run build
 
-      - name: Build Storybook
+      - name: Build Storybook (optional)
         env:
           STORYBOOK_BASE_PATH: /modern-react-template/storybook/
-        run: npm run build-storybook
+        run: |
+          echo "ENABLE_STORYBOOK_BUILD=${{ vars.ENABLE_STORYBOOK_BUILD }}" >> $GITHUB_ENV
+          if [ "$ENABLE_STORYBOOK_BUILD" = "true" ]; then
+            npm run build-storybook
+          fi
 
-      - name: Generate documentation
+      - name: Export ENABLE_JSDOC_BUILD from repo variables
+        run: |
+          echo "ENABLE_JSDOC_BUILD=${{ vars.ENABLE_JSDOC_BUILD }}" >> $GITHUB_ENV
+
+      - name: Generate documentation (optional)
+        if: env.ENABLE_JSDOC_BUILD == 'true'
         run: npm run docs:html
 
       - name: Build GitHub Pages landing (optional)
@@ -55,10 +64,14 @@ jobs:
           mkdir -p gh-pages
           # Copy the main app
           cp -r dist gh-pages/app
-          # Copy Storybook
-          cp -r storybook-static gh-pages/storybook
-          # Copy documentation
-          cp -r docs-html gh-pages/docs
+          # Copy Storybook (if built)
+          if [ -d storybook-static ]; then
+            cp -r storybook-static gh-pages/storybook
+          fi
+          # Copy documentation (if built)
+          if [ -d docs-html ]; then
+            cp -r docs-html gh-pages/docs
+          fi
           # Copy the landing page
           if [ -f dist/gh-pages-index.html ]; then
             cp dist/gh-pages-index.html gh-pages/index.html

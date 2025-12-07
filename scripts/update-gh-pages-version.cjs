@@ -13,6 +13,61 @@ const rootDir = process.cwd();
 const packageJsonPath = path.join(rootDir, 'package.json');
 const sourceGhPagesIndexPath = path.join(rootDir, 'public', 'gh-pages-index.html');
 
+function getOrdinalSuffix(day) {
+  if (day >= 11 && day <= 13) {
+    return 'th';
+  }
+
+  const lastDigit = day % 10;
+
+  if (lastDigit === 1) {
+    return 'st';
+  }
+
+  if (lastDigit === 2) {
+    return 'nd';
+  }
+
+  if (lastDigit === 3) {
+    return 'rd';
+  }
+
+  return 'th';
+}
+
+function formatBuildDate(date) {
+  const day = date.getDate();
+  const monthIndex = date.getMonth();
+  const year = date.getFullYear();
+
+  const monthNames = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
+
+  const ordinal = getOrdinalSuffix(day);
+
+  return `${day}${ordinal} ${monthNames[monthIndex]} ${year}`;
+}
+
+function formatBuildTime(date) {
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+  const seconds = String(date.getSeconds()).padStart(2, '0');
+
+  return `${hours}:${minutes}:${seconds}`;
+}
+
 function main() {
   const outputPathArg = process.argv[2];
 
@@ -29,14 +84,23 @@ function main() {
   const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
   const version = packageJson.version;
 
+  const now = new Date();
+  const buildDate = formatBuildDate(now);
+  const buildTime = formatBuildTime(now);
+
   const original = fs.readFileSync(sourceGhPagesIndexPath, 'utf8');
 
-  const updated = original.replace(/__APP_VERSION__/g, version);
+  const updated = original
+    .replace(/__APP_VERSION__/g, version)
+    .replace(/__BUILD_DATE__/g, buildDate)
+    .replace(/__BUILD_TIME__/g, buildTime);
 
   if (updated === original) {
-    console.warn('[update-gh-pages-version] No __APP_VERSION__ placeholder found in source gh-pages-index.html');
+    console.warn('[update-gh-pages-version] No placeholders found in source gh-pages-index.html');
   } else {
-    console.log(`[update-gh-pages-version] Injected version ${version} into output file`);
+    console.log(
+      `[update-gh-pages-version] Injected version ${version}, build date ${buildDate}, and build time ${buildTime} into output file`,
+    );
   }
 
   fs.mkdirSync(path.dirname(outputPath), { recursive: true });

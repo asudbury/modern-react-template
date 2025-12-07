@@ -69,7 +69,7 @@ Visit `http://localhost:5173` to see your application.
 
 ### Storybook
 - `npm run storybook` - Start Storybook dev server at http://localhost:6006
-- `npm run build-storybook` - Build static Storybook
+- `npm run build-storybook` - Build static Storybook (CI/Pages builds are optional via `ENABLE_STORYBOOK_BUILD`)
 
 ### Documentation
 - `npm run docs` - Generate both markdown and HTML documentation
@@ -231,6 +231,22 @@ The template automatically deploys three sites to GitHub Pages on every push to 
 3. Push to `main` branch to trigger deployment
 
 **Important:** Deployment only happens from the `main` branch. The workflow automatically configures proper base paths for asset loading.
+
+### GitHub Actions Variables (Optional Builds)
+
+Optional build steps for GitHub Pages are controlled via **repository-level
+Actions variables**, not committed to the repo. Configure them at:
+
+https://github.com/asudbury/modern-react-template/settings/variables/actions
+
+Variables used:
+
+- `ENABLE_GH_PAGES` – generate the versioned landing page (`dist/gh-pages-index.html`)
+- `ENABLE_STORYBOOK_BUILD` – build and publish Storybook
+- `ENABLE_JSDOC_BUILD` – build and publish HTML API docs (`docs-html/`)
+
+Set these to `true` to enable the corresponding steps in CI/Pages; leave them
+unset or `false` (recommended for forks) to skip those builds.
 
 ## Key Conventions
 

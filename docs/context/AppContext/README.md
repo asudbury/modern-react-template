@@ -1,4 +1,4 @@
-[**modern-react-template v0.0.0**](../../README.md)
+[**modern-react-template v0.0.4**](../../README.md)
 
 ***
 
@@ -6,19 +6,10 @@
 
 # context/AppContext
 
-## Interfaces
+## Variables
 
-- [AppState](interfaces/AppState.md)
-- [Notification](interfaces/Notification.md)
-
-## Type Aliases
-
-- [AppAction](type-aliases/AppAction.md)
+- [AppContext](variables/AppContext.md)
 
 ## Functions
 
 - [AppProvider](functions/AppProvider.md)
-- [useAppContext](functions/useAppContext.md)
-- [useNotifications](functions/useNotifications.md)
-- [useSidebar](functions/useSidebar.md)
-- [useTheme](functions/useTheme.md)

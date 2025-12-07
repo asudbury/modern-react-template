@@ -8,7 +8,7 @@
 
 > **createPost**(`data`): `Promise`\<`unknown`\>
 
-Defined in: [src/queries/mutate.ts:157](https://github.com/asudbury/modern-react-template/blob/000be6994f4ac0ab10bd189fe11233a0d8a44ac0/src/queries/mutate.ts#L157)
+Defined in: [src/queries/mutate.ts:157](https://github.com/asudbury/modern-react-template/blob/fa66b8a6e1100d41a1986ade93b6bfe3f02d8e6b/src/queries/mutate.ts#L157)
 
 Example: Create a new post
 

@@ -6,7 +6,7 @@
 
 # Interface: ButtonProps
 
-Defined in: [src/components/Button/Button.tsx:25](https://github.com/asudbury/modern-react-template/blob/000be6994f4ac0ab10bd189fe11233a0d8a44ac0/src/components/Button/Button.tsx#L25)
+Defined in: [src/components/Button/Button.tsx:25](https://github.com/asudbury/modern-react-template/blob/fa66b8a6e1100d41a1986ade93b6bfe3f02d8e6b/src/components/Button/Button.tsx#L25)
 
 Button Component
 
@@ -38,7 +38,7 @@ Features:
 
 > `optional` **fullWidth**: `boolean`
 
-Defined in: [src/components/Button/Button.tsx:28](https://github.com/asudbury/modern-react-template/blob/000be6994f4ac0ab10bd189fe11233a0d8a44ac0/src/components/Button/Button.tsx#L28)
+Defined in: [src/components/Button/Button.tsx:28](https://github.com/asudbury/modern-react-template/blob/fa66b8a6e1100d41a1986ade93b6bfe3f02d8e6b/src/components/Button/Button.tsx#L28)
 
 ***
 
@@ -46,7 +46,7 @@ Defined in: [src/components/Button/Button.tsx:28](https://github.com/asudbury/mo
 
 > `optional` **size**: `"sm"` \| `"md"` \| `"lg"`
 
-Defined in: [src/components/Button/Button.tsx:27](https://github.com/asudbury/modern-react-template/blob/000be6994f4ac0ab10bd189fe11233a0d8a44ac0/src/components/Button/Button.tsx#L27)
+Defined in: [src/components/Button/Button.tsx:27](https://github.com/asudbury/modern-react-template/blob/fa66b8a6e1100d41a1986ade93b6bfe3f02d8e6b/src/components/Button/Button.tsx#L27)
 
 ***
 
@@ -54,4 +54,4 @@ Defined in: [src/components/Button/Button.tsx:27](https://github.com/asudbury/mo
 
 > `optional` **variant**: `"primary"` \| `"secondary"` \| `"accent"` \| `"danger"`
 
-Defined in: [src/components/Button/Button.tsx:26](https://github.com/asudbury/modern-react-template/blob/000be6994f4ac0ab10bd189fe11233a0d8a44ac0/src/components/Button/Button.tsx#L26)
+Defined in: [src/components/Button/Button.tsx:26](https://github.com/asudbury/modern-react-template/blob/fa66b8a6e1100d41a1986ade93b6bfe3f02d8e6b/src/components/Button/Button.tsx#L26)

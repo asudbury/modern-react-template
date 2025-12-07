@@ -6,7 +6,7 @@
 
 # Class: FetchError
 
-Defined in: [src/queries/fetch.ts:54](https://github.com/asudbury/modern-react-template/blob/000be6994f4ac0ab10bd189fe11233a0d8a44ac0/src/queries/fetch.ts#L54)
+Defined in: [src/queries/fetch.ts:54](https://github.com/asudbury/modern-react-template/blob/fa66b8a6e1100d41a1986ade93b6bfe3f02d8e6b/src/queries/fetch.ts#L54)
 
 FetchError Class
 
@@ -35,7 +35,7 @@ try {
 
 > **new FetchError**(`message`, `status?`, `data?`): `FetchError`
 
-Defined in: [src/queries/fetch.ts:58](https://github.com/asudbury/modern-react-template/blob/000be6994f4ac0ab10bd189fe11233a0d8a44ac0/src/queries/fetch.ts#L58)
+Defined in: [src/queries/fetch.ts:58](https://github.com/asudbury/modern-react-template/blob/fa66b8a6e1100d41a1986ade93b6bfe3f02d8e6b/src/queries/fetch.ts#L58)
 
 #### Parameters
 
@@ -65,7 +65,7 @@ Defined in: [src/queries/fetch.ts:58](https://github.com/asudbury/modern-react-t
 
 > `optional` **data**: `unknown`
 
-Defined in: [src/queries/fetch.ts:56](https://github.com/asudbury/modern-react-template/blob/000be6994f4ac0ab10bd189fe11233a0d8a44ac0/src/queries/fetch.ts#L56)
+Defined in: [src/queries/fetch.ts:56](https://github.com/asudbury/modern-react-template/blob/fa66b8a6e1100d41a1986ade93b6bfe3f02d8e6b/src/queries/fetch.ts#L56)
 
 Additional error data from the API (if available)
 
@@ -75,6 +75,6 @@ Additional error data from the API (if available)
 
 > `optional` **status**: `number`
 
-Defined in: [src/queries/fetch.ts:55](https://github.com/asudbury/modern-react-template/blob/000be6994f4ac0ab10bd189fe11233a0d8a44ac0/src/queries/fetch.ts#L55)
+Defined in: [src/queries/fetch.ts:55](https://github.com/asudbury/modern-react-template/blob/fa66b8a6e1100d41a1986ade93b6bfe3f02d8e6b/src/queries/fetch.ts#L55)
 
 HTTP status code (if available)

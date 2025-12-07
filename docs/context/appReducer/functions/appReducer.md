@@ -8,7 +8,7 @@
 
 > **appReducer**(`state`, `action`): [`AppState`](../../appTypes/interfaces/AppState.md)
 
-Defined in: [src/context/appReducer.ts:10](https://github.com/asudbury/modern-react-template/blob/000be6994f4ac0ab10bd189fe11233a0d8a44ac0/src/context/appReducer.ts#L10)
+Defined in: [src/context/appReducer.ts:10](https://github.com/asudbury/modern-react-template/blob/fa66b8a6e1100d41a1986ade93b6bfe3f02d8e6b/src/context/appReducer.ts#L10)
 
 ## Parameters
 

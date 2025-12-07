@@ -1,4 +1,4 @@
-[**modern-react-template v0.0.0**](../../README.md)
+[**modern-react-template v0.0.4**](../../README.md)
 
 ***
 

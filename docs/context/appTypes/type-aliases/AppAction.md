@@ -1,11 +1,11 @@
-[**modern-react-template v0.0.0**](../../../README.md)
+[**modern-react-template v0.0.4**](../../../README.md)
 
 ***
 
-[modern-react-template](../../../modules.md) / [context/AppContext](../README.md) / AppAction
+[modern-react-template](../../../modules.md) / [context/appTypes](../README.md) / AppAction
 
 # Type Alias: AppAction
 
 > **AppAction** = \{ `payload`: `"light"` \| `"dark"`; `type`: `"SET_THEME"`; \} \| \{ `type`: `"TOGGLE_SIDEBAR"`; \} \| \{ `payload`: `Omit`\<[`Notification`](../interfaces/Notification.md), `"id"` \| `"timestamp"`\>; `type`: `"ADD_NOTIFICATION"`; \} \| \{ `payload`: `string`; `type`: `"REMOVE_NOTIFICATION"`; \}
 
-Defined in: [src/context/AppContext.tsx:33](https://github.com/asudbury/modern-react-template/blob/5ca730a1d7a0cbdc691717316e5f7ae69f7342d7/src/context/AppContext.tsx#L33)
+Defined in: [src/context/appTypes.ts:16](https://github.com/asudbury/modern-react-template/blob/000be6994f4ac0ab10bd189fe11233a0d8a44ac0/src/context/appTypes.ts#L16)

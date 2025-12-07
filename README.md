@@ -218,12 +218,12 @@ chore: configure commitlint for commit messages
 
 ## GitHub Pages Deployment
 
-The template automatically deploys three sites to GitHub Pages on every push to `main`:
+The template automatically deploys four entry points to GitHub Pages on every push to `main`:
 
-1. **Main Landing Page** - Links to all resources
-2. **Demo App** - The built application at `/app/`
-3. **Storybook** - Interactive component library at `/storybook/`
-4. **API Documentation** - TypeDoc generated docs at `/docs/`
+1. **Main Landing Page** – `https://asudbury.github.io/modern-react-template/`
+2. **Demo App** – `https://asudbury.github.io/modern-react-template/app`
+3. **Storybook** – `https://asudbury.github.io/modern-react-template/storybook`
+4. **API Documentation** – `https://asudbury.github.io/modern-react-template/docs`
 
 **Setup Requirements:**
 1. Go to repository Settings → Pages

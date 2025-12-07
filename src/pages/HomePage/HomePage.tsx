@@ -1,4 +1,5 @@
 import { useCallback } from 'react';
+import packageJson from '../../../package.json';
 import { Button } from '../../components/Button';
 import { useNotifications } from '../../context/useAppContext';
 
@@ -37,12 +38,12 @@ export function HomePage() {
   }, [addNotification]);
 
   return (
-    <main className="min-h-screen bg-background">
+    <main className="min-h-screen bg-background flex flex-col">
       <a href="#main-content" className="skip-link">
         Skip to main content
       </a>
 
-      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 flex-1 w-full">
         <section id="main-content" aria-labelledby="page-title">
           <h1
             id="page-title"
@@ -135,6 +136,14 @@ export function HomePage() {
           </div>
         </section>
       </div>
+      <footer className="w-full border-t border-border-subtle bg-surface px-4 py-4 text-xs text-text-secondary sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl flex items-center justify-between">
+          <p aria-label={`Template version ${packageJson.version}`}>
+            Template version{' '}
+            <span className="font-mono">{packageJson.version}</span>
+          </p>
+        </div>
+      </footer>
     </main>
   );
 }

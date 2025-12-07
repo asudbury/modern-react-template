@@ -19,7 +19,8 @@
     "build-storybook": "storybook build",
     "docs:md": "typedoc --options typedoc.json",
     "docs:html": "typedoc --options typedoc.html.json",
-    "docs": "npm run docs:md && npm run docs:html"
+    "docs": "npm run docs:md && npm run docs:html",
+    "update:gh-version": "node ./scripts/update-gh-pages-version.cjs"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.90.12",

@@ -29,6 +29,7 @@ A modern, accessibility-first React 19 application built with Vite 7 and TypeScr
 - ⚡ [**Vite 7**](https://vite.dev/) for lightning-fast development
 - 📘 [**TypeScript 5**](https://www.typescriptlang.org/docs/) with strict mode enabled
 - 🎨 [**Tailwind CSS**](https://tailwindcss.com/docs) with design tokens
+- 🧩 [**shadcn/ui**](https://ui.shadcn.com/) components (Card, Badge, Alert, and more)
 - ♿ [**Accessibility-first**](https://www.w3.org/WAI/WCAG22/quickref/) (WCAG 2.2 AA compliant)
 - 🔄 [**TanStack Query**](https://tanstack.com/query/latest) for server state management
 - 🎯 [**React Context + Reducers**](https://react.dev/learn/passing-data-deeply-with-context) for client state
@@ -385,6 +386,99 @@ All design tokens are defined in `src/styles/tokens.css` and mapped to Tailwind 
   Click me
 </button>
 ```
+
+## shadcn/ui Components
+
+This template includes pre-configured shadcn/ui components that follow all repository conventions (accessibility, TypeScript, named exports).
+
+> **Note:** shadcn/ui is optional. See [Removing shadcn/ui](#removing-shadcnui) below if you prefer not to use it.
+
+### Available Components
+
+- **Card** - Display content in card layouts with header, content, and footer sections
+- **Badge** - Show status indicators, categories, or tags with multiple variants
+- **Alert** - Display notifications and callouts with different severity levels
+
+### Using shadcn/ui Components
+
+```tsx
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/shadcn';
+import { Badge } from '@/components/shadcn';
+import { Alert, AlertDescription, AlertTitle } from '@/components/shadcn';
+
+function MyComponent() {
+  return (
+    <div>
+      <Card>
+        <CardHeader>
+          <CardTitle>Welcome</CardTitle>
+          <CardDescription>Get started with shadcn/ui</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <p>Your content here</p>
+          <Badge variant="secondary">New</Badge>
+        </CardContent>
+      </Card>
+
+      <Alert variant="default">
+        <AlertTitle>Information</AlertTitle>
+        <AlertDescription>
+          This is an informational alert.
+        </AlertDescription>
+      </Alert>
+    </div>
+  );
+}
+```
+
+### Adding More Components
+
+To add more shadcn/ui components:
+1. Visit [ui.shadcn.com](https://ui.shadcn.com/)
+2. Copy the component code
+3. Place it in `src/components/shadcn/`
+4. Ensure it uses the `cn()` utility from `@/lib/utils`
+5. Follow repository conventions (named exports, JSDoc, accessibility)
+
+### Removing shadcn/ui
+
+If you don't want to use shadcn/ui components, follow these steps:
+
+1. **Remove shadcn components directory:**
+   ```bash
+   rm -rf src/components/shadcn
+   ```
+
+2. **Remove the utility helper:**
+   ```bash
+   rm -rf src/lib
+   ```
+
+3. **Remove shadcn dependencies:**
+   ```bash
+   npm uninstall class-variance-authority clsx tailwind-merge lucide-react
+   ```
+
+4. **Remove configuration file:**
+   ```bash
+   rm components.json
+   ```
+
+5. **Update HomePage** to remove shadcn component usage:
+   - Remove the import: `import { ... } from '@/components/shadcn';`
+   - Remove the "shadcn/ui Components" section from `src/pages/HomePage/HomePage.tsx`
+
+6. **Update documentation:**
+   - Remove the shadcn/ui entry from the Features list in this README
+   - Remove the shadcn/ui section from this README (lines 390-441)
+
+After removal, rebuild and test your application:
+```bash
+npm run build
+npm run test
+```
+
+See [EXTENSIONS.md](./EXTENSIONS.md) for more details on component libraries and extensions.
 
 If a commit is rejected due to an invalid commit message, commitlint prints a
 clear error explaining which rule failed (for example, missing `feat:`/`fix:`

@@ -72,6 +72,27 @@ Visit `http://localhost:5173` to see your application.
 
 > 🍴 **Forked this repo?** See [QUICKSTART.md](./QUICKSTART.md) for fork-specific setup instructions. All optional features (SonarCloud, GitHub Pages, etc.) are disabled by default and won't interfere with your fork.
 
+> ⚠️ **IMPORTANT: Delete the `samples/` directory before production!** This template includes educational sample components in the `samples/` directory that demonstrate key features. These are for learning purposes only and should be **deleted** before deploying to production. See [samples/README.md](./samples/README.md) for details.
+
+## Sample Components (Delete Before Production!)
+
+This template includes a comprehensive set of sample components to help you learn the patterns and conventions:
+
+📚 **[View Sample Components Documentation](./samples/README.md)**
+
+### Available Samples:
+- **SampleForm** - Form handling with Zod validation and accessibility
+- **SampleDataFetching** - TanStack Query for data fetching and mutations
+- **SampleContextUsage** - React Context + Reducer for client state
+- **SampleAccessibility** - WCAG 2.2 AA compliance features and patterns
+
+**Remember to delete the entire `samples/` directory before deploying to production!**
+
+```bash
+# Delete samples directory
+rm -rf samples/
+```
+
 ## For Forks: What's Enabled by Default?
 
 This template is designed to be **fork-friendly**. Here's what works out of the box:
@@ -146,6 +167,14 @@ modern-react-template/
 ├── docs/                      # Generated markdown docs (TypeDoc)
 ├── playwright/
 │   └── homepage.spec.ts       # E2E tests
+├── samples/                   # ⚠️ Sample components (DELETE before production!)
+│   ├── components/
+│   │   ├── SampleForm.tsx
+│   │   ├── SampleDataFetching.tsx
+│   │   ├── SampleContextUsage.tsx
+│   │   ├── SampleAccessibility.tsx
+│   │   └── index.ts
+│   └── README.md              # Samples documentation
 ├── src/
 │   ├── components/            # Reusable UI components
 │   │   ├── Button/

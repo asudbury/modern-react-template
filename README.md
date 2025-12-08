@@ -29,6 +29,7 @@ A modern, accessibility-first React 19 application built with Vite 7 and TypeScr
 - ⚡ [**Vite 7**](https://vite.dev/) for lightning-fast development
 - 📘 [**TypeScript 5**](https://www.typescriptlang.org/docs/) with strict mode enabled
 - 🎨 [**Tailwind CSS**](https://tailwindcss.com/docs) with design tokens
+- 🧩 [**shadcn/ui**](https://ui.shadcn.com/) components (Card, Badge, Alert, and more)
 - ♿ [**Accessibility-first**](https://www.w3.org/WAI/WCAG22/quickref/) (WCAG 2.2 AA compliant)
 - 🔄 [**TanStack Query**](https://tanstack.com/query/latest) for server state management
 - 🎯 [**React Context + Reducers**](https://react.dev/learn/passing-data-deeply-with-context) for client state
@@ -385,6 +386,59 @@ All design tokens are defined in `src/styles/tokens.css` and mapped to Tailwind 
   Click me
 </button>
 ```
+
+## shadcn/ui Components
+
+This template includes pre-configured shadcn/ui components that follow all repository conventions (accessibility, TypeScript, named exports).
+
+### Available Components
+
+- **Card** - Display content in card layouts with header, content, and footer sections
+- **Badge** - Show status indicators, categories, or tags with multiple variants
+- **Alert** - Display notifications and callouts with different severity levels
+
+### Using shadcn/ui Components
+
+```tsx
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui';
+import { Badge } from '@/components/ui';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui';
+
+function MyComponent() {
+  return (
+    <div>
+      <Card>
+        <CardHeader>
+          <CardTitle>Welcome</CardTitle>
+          <CardDescription>Get started with shadcn/ui</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <p>Your content here</p>
+          <Badge variant="secondary">New</Badge>
+        </CardContent>
+      </Card>
+
+      <Alert variant="default">
+        <AlertTitle>Information</AlertTitle>
+        <AlertDescription>
+          This is an informational alert.
+        </AlertDescription>
+      </Alert>
+    </div>
+  );
+}
+```
+
+### Adding More Components
+
+To add more shadcn/ui components:
+1. Visit [ui.shadcn.com](https://ui.shadcn.com/)
+2. Copy the component code
+3. Place it in `src/components/ui/`
+4. Ensure it uses the `cn()` utility from `@/lib/utils`
+5. Follow repository conventions (named exports, JSDoc, accessibility)
+
+See [EXTENSIONS.md](./EXTENSIONS.md) for more details on component libraries and extensions.
 
 If a commit is rejected due to an invalid commit message, commitlint prints a
 clear error explaining which rule failed (for example, missing `feat:`/`fix:`

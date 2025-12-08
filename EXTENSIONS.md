@@ -272,11 +272,47 @@ export function Modal() {
 npm install @headlessui/react
 ```
 
-#### 3. **Shadcn/ui**
+#### 3. **Shadcn/ui** ✅ Integrated
 
-**Why:** Copy-paste component collection (not a library)
+**Status:** Included in the template
 
-Visit [ui.shadcn.com](https://ui.shadcn.com/) and copy components directly into your project.
+This template now includes shadcn/ui components configured and ready to use. The following components are already available:
+
+- **Card** - Display content in card layouts
+- **Badge** - Show status, categories, or tags
+- **Alert** - Display callouts and notifications
+
+**Configuration:**
+- Path aliases configured (`@/*` → `./src/*`)
+- Component utilities in `src/lib/utils.ts`
+- All components follow repository conventions (accessibility, named exports, TypeScript)
+
+**Adding More Components:**
+
+While network access to ui.shadcn.com may be limited, you can manually add components by:
+1. Copying component code from the shadcn/ui documentation
+2. Placing them in `src/components/ui/`
+3. Ensuring they use the `cn()` utility from `@/lib/utils`
+4. Following the repository's conventions (named exports, JSDoc, accessibility)
+
+**Example Usage:**
+```tsx
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui';
+
+function MyComponent() {
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Card Title</CardTitle>
+        <CardDescription>Card description</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <p>Card content goes here</p>
+      </CardContent>
+    </Card>
+  );
+}
+```
 
 ### Form Libraries
 

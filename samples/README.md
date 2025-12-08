@@ -133,9 +133,38 @@ This directory contains four comprehensive sample components that demonstrate th
 
 The samples are standalone components. To use them in your development environment:
 
+**Option 1: Use the SamplesDemo Page**
+
+A pre-built demo page (`src/pages/SamplesDemo/SamplesDemo.tsx`) is included that showcases all samples with a navigation menu.
+
+To use it, temporarily modify `src/App.tsx`:
+
+```tsx
+import { SamplesDemo } from './pages/SamplesDemo';
+
+export function App() {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <AppProvider>
+        <SamplesDemo />  {/* Replace HomePage with SamplesDemo */}
+      </AppProvider>
+    </QueryClientProvider>
+  );
+}
+```
+
+Then run:
+```bash
+npm run dev
+```
+
+Visit `http://localhost:5173` to see all samples with an interactive menu.
+
+**Option 2: Import Individual Samples**
+
 1. Import the sample component:
 ```tsx
-import { SampleForm } from './samples/components';
+import { SampleForm } from '../../samples/components';
 ```
 
 2. Add it to a page or route:
@@ -293,8 +322,10 @@ test('submits form with valid data', async () => {
 Before deploying your application, make sure to:
 
 - [ ] Delete the entire `samples/` directory
+- [ ] Delete the `src/pages/SamplesDemo/` directory
 - [ ] Remove any sample imports from your code
-- [ ] Remove sample routes from your router
+- [ ] Remove sample routes from your router (if you added any)
+- [ ] Restore `src/App.tsx` to use `HomePage` instead of `SamplesDemo`
 - [ ] Update README to remove references to samples (if you added any)
 - [ ] Run `npm run build` to ensure everything compiles
 - [ ] Run `npm run test` to ensure all tests pass

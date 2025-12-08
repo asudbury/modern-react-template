@@ -86,7 +86,27 @@ This template includes a comprehensive set of sample components to help you lear
 - **SampleContextUsage** - React Context + Reducer for client state
 - **SampleAccessibility** - WCAG 2.2 AA compliance features and patterns
 
-**Remember to delete the entire `samples/` directory before deploying to production!**
+### How to View Samples:
+
+To see the samples in action, temporarily modify `src/App.tsx` to import and use the `SamplesDemo` page:
+
+```tsx
+import { SamplesDemo } from './pages/SamplesDemo';
+
+export function App() {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <AppProvider>
+        <SamplesDemo />  {/* Replace HomePage with SamplesDemo */}
+      </AppProvider>
+    </QueryClientProvider>
+  );
+}
+```
+
+Then run `npm run dev` and visit `http://localhost:5173`.
+
+**Remember to delete the entire `samples/` directory and the `SamplesDemo` page before deploying to production!**
 
 ```bash
 # Delete samples directory

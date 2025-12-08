@@ -22,6 +22,7 @@ Use this file to guide Copilot suggestions and human contributors — prefer sol
 ### Optional Features (Opt-In Only)
 
 The following features are **disabled by default** to make this template fork-friendly:
+
 - **SonarCloud**: Only runs if `RUN_SONARCLOUD=true` in repository variables
 - **GitHub Pages**: Only runs if `ENABLE_GH_PAGES=true` in repository variables
 - **Storybook in CI**: Only builds if `ENABLE_STORYBOOK_BUILD=true` in repository variables
@@ -67,40 +68,46 @@ See [QUICKSTART.md](../QUICKSTART.md) for enabling these features.
 ## Code Style Conventions
 
 ### Event Handlers
+
 - **NEVER** use inline JSX event handlers
 - Always use `useCallback` or named functions defined outside JSX
 - Example:
+
   ```tsx
   // ✅ Good
   const handleClick = useCallback(() => {
     doSomething();
   }, [doSomething]);
-  
+
   return <button onClick={handleClick}>Click me</button>;
-  
+
   // ❌ Bad
   return <button onClick={() => doSomething()}>Click me</button>;
   ```
 
 ### Exports
+
 - Use named exports only - no default exports
 - Example:
+
   ```tsx
   // ✅ Good
   export function MyComponent() { }
   export const Button = forwardRef(...);
-  
+
   // ❌ Bad
   export default function MyComponent() { }
   ```
 
 ### Design Tokens
+
 - Always use Tailwind classes that reference design tokens
 - Example:
+
   ```tsx
   // ✅ Good
   <button className="bg-primary text-white hover:bg-primary-hover">
-  
+
   // ❌ Bad
   <button className="bg-blue-600 text-white hover:bg-blue-700">
   ```
@@ -110,7 +117,8 @@ See [QUICKSTART.md](../QUICKSTART.md) for enabling these features.
 All functions, components, and types should have JSDoc comments following these guidelines:
 
 ### Components
-```tsx
+
+````tsx
 /**
  * ComponentName
  *
@@ -128,10 +136,11 @@ All functions, components, and types should have JSDoc comments following these 
  * </ComponentName>
  * ```
  */
-```
+````
 
 ### Functions
-```tsx
+
+````tsx
 /**
  * Brief description of what the function does
  *
@@ -145,9 +154,10 @@ All functions, components, and types should have JSDoc comments following these 
  * const result = functionName(param);
  * ```
  */
-```
+````
 
 ### Types and Interfaces
+
 ```tsx
 /**
  * Description of the type/interface
@@ -160,6 +170,7 @@ All functions, components, and types should have JSDoc comments following these 
 ## Component Structure
 
 ### Component File Organization
+
 ```
 ComponentName/
 ├── ComponentName.tsx         # Main component implementation
@@ -169,6 +180,7 @@ ComponentName/
 ```
 
 ### Component Template
+
 ```tsx
 import { forwardRef, useCallback } from 'react';
 import type { HTMLAttributes } from 'react';
@@ -204,6 +216,7 @@ ComponentName.displayName = 'ComponentName';
 ## Storybook Guidelines
 
 ### Story File Structure
+
 All UI components must have accompanying Storybook stories:
 
 ```tsx
@@ -237,14 +250,15 @@ export const Primary: Story = {
 ```
 
 ### Story Requirements
+
 - Include all component variants and states
 - Add accessibility considerations in story descriptions
 - Use `tags: ['autodocs']` for automatic documentation
 - Test components in isolation with different props
 - Include interactive examples where applicable
 
-
 ## Accessibility Requirements
+
 ## Accessibility (WCAG 2.2 AA) Rules
 
 These are enforced via linting, unit/E2E tests, and CI. Key checks:
@@ -258,6 +272,7 @@ These are enforced via linting, unit/E2E tests, and CI. Key checks:
 - **Images**: Provide informative `alt` attributes; use `alt=""` for decorative images
 
 ### Component Checklist
+
 - [ ] Keyboard navigable (Tab, Enter, Space, Arrow keys)
 - [ ] Screen reader friendly (proper ARIA labels and roles)
 - [ ] Semantic HTML elements used
@@ -266,6 +281,7 @@ These are enforced via linting, unit/E2E tests, and CI. Key checks:
 - [ ] Error messages are accessible
 
 ### Common ARIA Patterns
+
 - Use `role`, `aria-label`, `aria-labelledby`, `aria-describedby`
 - Use `aria-disabled` in addition to `disabled` attribute
 - Use `aria-live` for dynamic content updates
@@ -274,6 +290,7 @@ These are enforced via linting, unit/E2E tests, and CI. Key checks:
 ### Advanced Accessibility Patterns
 
 **Skip Links for Keyboard Navigation**
+
 ```tsx
 export function SkipLink() {
   return (
@@ -288,29 +305,30 @@ export function SkipLink() {
 ```
 
 **Focus Management for Modals**
+
 ```tsx
 export function Modal({ isOpen, onClose, children }: ModalProps) {
   const modalRef = useRef<HTMLDivElement>(null);
-  
+
   useEffect(() => {
     if (!isOpen) return;
-    
+
     const previousActiveElement = document.activeElement as HTMLElement;
-    
+
     // Focus first focusable element in modal
     const firstFocusable = modalRef.current?.querySelector<HTMLElement>(
       'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
     );
     firstFocusable?.focus();
-    
+
     // Restore focus when modal closes
     return () => {
       previousActiveElement?.focus();
     };
   }, [isOpen]);
-  
+
   if (!isOpen) return null;
-  
+
   return (
     <div
       role="dialog"
@@ -325,6 +343,7 @@ export function Modal({ isOpen, onClose, children }: ModalProps) {
 ```
 
 **Accessible Loading States**
+
 ```tsx
 // Use aria-busy for loading states
 <div aria-busy={isLoading}>
@@ -339,10 +358,11 @@ export function Modal({ isOpen, onClose, children }: ModalProps) {
 ```
 
 **Accessible Form Error Announcements**
+
 ```tsx
 export function FormField({ error, ...props }: FormFieldProps) {
   const errorId = `${props.id}-error`;
-  
+
   return (
     <div>
       <Input
@@ -351,11 +371,7 @@ export function FormField({ error, ...props }: FormFieldProps) {
         aria-describedby={error ? errorId : undefined}
       />
       {error && (
-        <span
-          id={errorId}
-          role="alert"
-          className="text-error"
-        >
+        <span id={errorId} role="alert" className="text-error">
           {error}
         </span>
       )}
@@ -365,29 +381,33 @@ export function FormField({ error, ...props }: FormFieldProps) {
 ```
 
 **Keyboard Navigation Patterns**
+
 ```tsx
 // Arrow key navigation for lists
 export function OptionsList({ options }: OptionsListProps) {
   const [focusedIndex, setFocusedIndex] = useState(0);
-  
-  const handleKeyDown = useCallback((e: KeyboardEvent) => {
-    switch (e.key) {
-      case 'ArrowDown':
-        e.preventDefault();
-        setFocusedIndex(prev => Math.min(prev + 1, options.length - 1));
-        break;
-      case 'ArrowUp':
-        e.preventDefault();
-        setFocusedIndex(prev => Math.max(prev - 1, 0));
-        break;
-      case 'Enter':
-      case ' ':
-        e.preventDefault();
-        handleSelect(options[focusedIndex]);
-        break;
-    }
-  }, [focusedIndex, options]);
-  
+
+  const handleKeyDown = useCallback(
+    (e: KeyboardEvent) => {
+      switch (e.key) {
+        case 'ArrowDown':
+          e.preventDefault();
+          setFocusedIndex((prev) => Math.min(prev + 1, options.length - 1));
+          break;
+        case 'ArrowUp':
+          e.preventDefault();
+          setFocusedIndex((prev) => Math.max(prev - 1, 0));
+          break;
+        case 'Enter':
+        case ' ':
+          e.preventDefault();
+          handleSelect(options[focusedIndex]);
+          break;
+      }
+    },
+    [focusedIndex, options]
+  );
+
   return (
     <ul role="listbox" onKeyDown={handleKeyDown}>
       {options.map((option, index) => (
@@ -410,8 +430,8 @@ export function OptionsList({ options }: OptionsListProps) {
 - **ESLint**: The repo uses `eslint.config.js` configured with `@typescript-eslint`, `jsx-a11y`, and custom rules enforcing the project's conventions
 - **Prettier**: Use `.prettierrc` for formatting. Pre-commit hooks run formatting and linting
 - **Husky + lint-staged**: Commits must pass linters and unit tests as configured in `package.json` scripts
- - **Commitlint**: Commit messages must follow Conventional Commits and are
-   validated by a Husky `commit-msg` hook
+- **Commitlint**: Commit messages must follow Conventional Commits and are
+  validated by a Husky `commit-msg` hook
 
 ### Husky Pre-commit Hook
 
@@ -451,6 +471,7 @@ chore: configure commitlint hook
 ## State Management
 
 ### Server State (TanStack Query)
+
 - Use TanStack Query for all server/API data
 - Always include proper error handling
 - Use Zod schemas for response validation
@@ -463,6 +484,7 @@ const { data, isLoading, error } = useQuery({
 ```
 
 ### Client State (Context + Reducer)
+
 - Use Context + Reducer for client-side state
 - Never mutate state directly - always return new objects
 - Keep state minimal and focused
@@ -495,20 +517,20 @@ function SearchResults() {
   const [isPending, startTransition] = useTransition();
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
-  
+
   const handleSearch = (value: string) => {
     // Urgent: Update input immediately
     setQuery(value);
-    
+
     // Non-urgent: Can be interrupted
     startTransition(() => {
       setResults(performExpensiveSearch(value));
     });
   };
-  
+
   return (
     <>
-      <input value={query} onChange={e => handleSearch(e.target.value)} />
+      <input value={query} onChange={(e) => handleSearch(e.target.value)} />
       {isPending ? <Spinner /> : <ResultsList results={results} />}
     </>
   );
@@ -522,7 +544,7 @@ function SearchResults() {
 export default async function UserProfile({ userId }: Props) {
   // Can directly query database
   const user = await db.user.findUnique({ where: { id: userId } });
-  
+
   return (
     <div>
       <h1>{user.name}</h1>
@@ -533,11 +555,11 @@ export default async function UserProfile({ userId }: Props) {
 }
 
 // Client Component - runs in browser
-'use client';
+('use client');
 
 export function ClientInteractiveButton() {
   const [count, setCount] = useState(0);
-  return <button onClick={() => setCount(c => c + 1)}>{count}</button>;
+  return <button onClick={() => setCount((c) => c + 1)}>{count}</button>;
 }
 ```
 
@@ -552,21 +574,21 @@ function TodoList() {
     todos,
     (state, newTodo) => [...state, { ...newTodo, pending: true }]
   );
-  
+
   const handleAdd = async (todo: Todo) => {
     addOptimisticTodo(todo);
-    
+
     try {
       const saved = await saveTodo(todo);
-      setTodos(prev => [...prev, saved]);
+      setTodos((prev) => [...prev, saved]);
     } catch {
       // Revert on error - happens automatically
     }
   };
-  
+
   return (
     <ul>
-      {optimisticTodos.map(todo => (
+      {optimisticTodos.map((todo) => (
         <li key={todo.id} className={todo.pending ? 'opacity-50' : ''}>
           {todo.text}
         </li>
@@ -584,14 +606,14 @@ import { use } from 'react';
 function UserProfile({ userPromise }: { userPromise: Promise<User> }) {
   // Suspense-enabled resource reading
   const user = use(userPromise);
-  
+
   return <div>{user.name}</div>;
 }
 
 // Wrap with Suspense
 <Suspense fallback={<Spinner />}>
   <UserProfile userPromise={fetchUser(id)} />
-</Suspense>
+</Suspense>;
 ```
 
 ### React 19 Best Practices
@@ -622,6 +644,7 @@ function UserProfile({ userPromise }: { userPromise: Promise<User> }) {
   - Prefer `toEqual` instead of `toBe`
 
 ### E2E Tests
+
 - Use Playwright with Axe for accessibility testing
 - Test critical user flows
 - Always include `await axe(page)` for accessibility checks
@@ -629,33 +652,33 @@ function UserProfile({ userPromise }: { userPromise: Promise<User> }) {
 ### Advanced Testing Patterns
 
 **Testing Custom Hooks**
+
 ```tsx
 import { renderHook, act } from '@testing-library/react';
 
 describe('useCounter', () => {
   it('should increment counter', () => {
     const { result } = renderHook(() => useCounter());
-    
+
     act(() => {
       result.current.increment();
     });
-    
+
     expect(result.current.count).toBe(1);
   });
 });
 ```
 
 **Testing Components with Context**
+
 ```tsx
 function renderWithContext(ui: ReactElement, options = {}) {
   const wrapper = ({ children }: { children: ReactNode }) => (
     <AppProvider>
-      <QueryClientProvider client={queryClient}>
-        {children}
-      </QueryClientProvider>
+      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
     </AppProvider>
   );
-  
+
   return render(ui, { wrapper, ...options });
 }
 
@@ -668,24 +691,27 @@ describe('ComponentWithContext', () => {
 ```
 
 **Testing Async Data Fetching**
+
 ```tsx
 describe('UserList', () => {
   it('should display users after loading', async () => {
     // Mock API response
     server.use(
       rest.get('/api/users', (req, res, ctx) => {
-        return res(ctx.json([
-          { id: '1', name: 'John' },
-          { id: '2', name: 'Jane' },
-        ]));
+        return res(
+          ctx.json([
+            { id: '1', name: 'John' },
+            { id: '2', name: 'Jane' },
+          ])
+        );
       })
     );
-    
+
     render(<UserList />);
-    
+
     // Wait for loading to complete
     expect(screen.getByLabelText('Loading')).toBeInTheDocument();
-    
+
     // Find loaded content
     expect(await screen.findByText('John')).toBeInTheDocument();
     expect(screen.getByText('Jane')).toBeInTheDocument();
@@ -694,21 +720,22 @@ describe('UserList', () => {
 ```
 
 **Testing User Interactions**
+
 ```tsx
 describe('LoginForm', () => {
   it('should submit form with valid data', async () => {
     const handleSubmit = vi.fn();
     const user = userEvent.setup();
-    
+
     render(<LoginForm onSubmit={handleSubmit} />);
-    
+
     // Type in form fields
     await user.type(screen.getByLabelText(/email/i), 'user@example.com');
     await user.type(screen.getByLabelText(/password/i), 'password123');
-    
+
     // Submit form
     await user.click(screen.getByRole('button', { name: /submit/i }));
-    
+
     // Verify submission
     expect(handleSubmit).toHaveBeenCalledWith({
       email: 'user@example.com',
@@ -719,6 +746,7 @@ describe('LoginForm', () => {
 ```
 
 **Testing Accessibility**
+
 ```tsx
 import { axe } from 'jest-axe';
 
@@ -728,19 +756,19 @@ describe('Button accessibility', () => {
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
-  
+
   it('should be keyboard accessible', async () => {
     const handleClick = vi.fn();
     const user = userEvent.setup();
-    
+
     render(<Button onClick={handleClick}>Click me</Button>);
-    
+
     const button = screen.getByRole('button');
     button.focus();
-    
+
     await user.keyboard('{Enter}');
     expect(handleClick).toHaveBeenCalledTimes(1);
-    
+
     await user.keyboard(' ');
     expect(handleClick).toHaveBeenCalledTimes(2);
   });
@@ -748,6 +776,7 @@ describe('Button accessibility', () => {
 ```
 
 **Snapshot Testing (Use Sparingly)**
+
 ```tsx
 // Only for static content that rarely changes
 it('should match snapshot', () => {
@@ -769,15 +798,216 @@ it('should match snapshot', () => {
 ## API and Data Validation
 
 ### Fetch Utilities
+
 - Always use the `fetchData` utility from `src/queries/fetch.ts`
 - Include Zod schema for response validation
 - Handle errors properly with `FetchError`
 
 ### Zod Schemas
+
 - Define schemas in `src/schemas/api.ts`
 - Export both schema and TypeScript type
 - Use UUID validation for IDs
 - Treat all external data as untrusted; validate and map to typed shapes before usage
+
+### Data Fetching Patterns with TanStack Query
+
+#### Basic Query Pattern
+
+```tsx
+import { useQuery } from '@tanstack/react-query';
+import { fetchData } from '@/queries/fetch';
+import { userSchema } from '@/schemas/api';
+
+export function UserProfile({ userId }: { userId: string }) {
+  const { data, isLoading, error, refetch } = useQuery({
+    queryKey: ['user', userId],
+    queryFn: () => fetchData(`/api/users/${userId}`, { schema: userSchema }),
+    staleTime: 5 * 60 * 1000, // 5 minutes
+    gcTime: 10 * 60 * 1000, // 10 minutes (formerly cacheTime)
+  });
+
+  if (isLoading) return <Spinner />;
+  if (error) return <ErrorMessage error={error} />;
+
+  return <div>{data.name}</div>;
+}
+```
+
+#### Mutation Pattern
+
+```tsx
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+
+export function CreateUserForm() {
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: (newUser: UserInput) =>
+      fetchData('/api/users', {
+        method: 'POST',
+        body: JSON.stringify(newUser),
+        schema: userSchema,
+      }),
+    onSuccess: (data) => {
+      // Invalidate and refetch
+      queryClient.invalidateQueries({ queryKey: ['users'] });
+      // Or update cache directly
+      queryClient.setQueryData(['user', data.id], data);
+    },
+    onError: (error) => {
+      console.error('Failed to create user:', error);
+    },
+  });
+
+  const handleSubmit = (formData: UserInput) => {
+    mutation.mutate(formData);
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      {/* Form fields */}
+      <button disabled={mutation.isPending}>
+        {mutation.isPending ? 'Creating...' : 'Create User'}
+      </button>
+      {mutation.isError && <ErrorMessage error={mutation.error} />}
+    </form>
+  );
+}
+```
+
+#### Optimistic Updates Pattern
+
+```tsx
+const mutation = useMutation({
+  mutationFn: updateTodo,
+  onMutate: async (newTodo) => {
+    // Cancel outgoing refetches
+    await queryClient.cancelQueries({ queryKey: ['todos'] });
+
+    // Snapshot previous value
+    const previousTodos = queryClient.getQueryData(['todos']);
+
+    // Optimistically update
+    queryClient.setQueryData(['todos'], (old: Todo[]) => [
+      ...old,
+      { ...newTodo, id: 'temp-id' },
+    ]);
+
+    // Return context with snapshot
+    return { previousTodos };
+  },
+  onError: (err, newTodo, context) => {
+    // Rollback on error
+    queryClient.setQueryData(['todos'], context?.previousTodos);
+  },
+  onSettled: () => {
+    // Refetch after mutation
+    queryClient.invalidateQueries({ queryKey: ['todos'] });
+  },
+});
+```
+
+#### Infinite Query Pattern (Pagination)
+
+```tsx
+export function InfiniteUserList() {
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    useInfiniteQuery({
+      queryKey: ['users'],
+      queryFn: ({ pageParam = 0 }) =>
+        fetchData(`/api/users?page=${pageParam}`, { schema: userListSchema }),
+      getNextPageParam: (lastPage, pages) =>
+        lastPage.hasMore ? pages.length : undefined,
+      initialPageParam: 0,
+    });
+
+  return (
+    <div>
+      {data?.pages.map((page, i) => (
+        <Fragment key={i}>
+          {page.users.map((user) => (
+            <UserCard key={user.id} user={user} />
+          ))}
+        </Fragment>
+      ))}
+
+      {hasNextPage && (
+        <button onClick={() => fetchNextPage()} disabled={isFetchingNextPage}>
+          {isFetchingNextPage ? 'Loading more...' : 'Load More'}
+        </button>
+      )}
+    </div>
+  );
+}
+```
+
+#### Dependent Queries Pattern
+
+```tsx
+export function UserPosts({ userId }: { userId: string }) {
+  // First query
+  const { data: user } = useQuery({
+    queryKey: ['user', userId],
+    queryFn: () => fetchUser(userId),
+  });
+
+  // Second query depends on first
+  const { data: posts } = useQuery({
+    queryKey: ['posts', user?.id],
+    queryFn: () => fetchPosts(user!.id),
+    enabled: !!user, // Only run when user is available
+  });
+
+  return <PostList posts={posts} />;
+}
+```
+
+#### Parallel Queries Pattern
+
+```tsx
+export function Dashboard() {
+  const userQuery = useQuery({
+    queryKey: ['user'],
+    queryFn: fetchUser,
+  });
+
+  const postsQuery = useQuery({
+    queryKey: ['posts'],
+    queryFn: fetchPosts,
+  });
+
+  const statsQuery = useQuery({
+    queryKey: ['stats'],
+    queryFn: fetchStats,
+  });
+
+  // All queries run in parallel
+  const isLoading =
+    userQuery.isLoading || postsQuery.isLoading || statsQuery.isLoading;
+
+  if (isLoading) return <Spinner />;
+
+  return (
+    <div>
+      <UserInfo user={userQuery.data} />
+      <PostsList posts={postsQuery.data} />
+      <Stats data={statsQuery.data} />
+    </div>
+  );
+}
+```
+
+### TanStack Query Best Practices
+
+- **Query Keys**: Use arrays with specific, hierarchical keys: `['users', userId, 'posts']`
+- **Stale Time**: Set appropriate `staleTime` to reduce unnecessary refetches
+- **Cache Time**: Use `gcTime` (formerly `cacheTime`) to control how long inactive data stays in cache
+- **Error Handling**: Always handle errors in UI, don't just log them
+- **Optimistic Updates**: Use for better UX, but always handle rollback
+- **Query Invalidation**: Invalidate related queries after mutations
+- **Prefetching**: Use `queryClient.prefetchQuery()` for anticipated data needs
+- **Suspense**: Can be enabled per-query or globally for Suspense-based loading
 
 ## Testing and CI
 
@@ -801,6 +1031,7 @@ it('should match snapshot', () => {
 This project includes shadcn/ui components located in `src/components/shadcn/`. **Always prefer using these pre-built shadcn components when available** instead of creating custom components from scratch.
 
 Available shadcn/ui components:
+
 - **Card**: `Card`, `CardHeader`, `CardTitle`, `CardDescription`, `CardContent`, `CardFooter`
 - **Badge**: Multiple variants (default, secondary, destructive, outline)
 - **Alert**: `Alert`, `AlertTitle`, `AlertDescription` with variants
@@ -810,6 +1041,7 @@ Available shadcn/ui components:
 - **Separator**: Visual separator (horizontal/vertical)
 
 **When to use shadcn components:**
+
 - Building forms → Use `Input`, `Label`, and `ShadcnButton`
 - Displaying status or categories → Use `Badge`
 - Showing notifications or messages → Use `Alert`
@@ -817,8 +1049,17 @@ Available shadcn/ui components:
 - Adding visual dividers → Use `Separator`
 
 **Example:**
+
 ```tsx
-import { Card, CardContent, CardHeader, CardTitle, Input, Label, ShadcnButton } from '@/components/shadcn';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  Input,
+  Label,
+  ShadcnButton,
+} from '@/components/shadcn';
 
 function MyForm() {
   return (
@@ -886,6 +1127,7 @@ Accessibility-first components:
 6. CSS imports
 
 Example:
+
 ```tsx
 import { useState, useCallback } from 'react';
 import { useQuery } from '@tanstack/react-query';
@@ -900,16 +1142,23 @@ import './styles.css';
 ### React Optimization Hooks
 
 - **useCallback**: Memoize event handlers and callback functions to prevent unnecessary re-renders
+
   ```tsx
-  const handleSubmit = useCallback((data: FormData) => {
-    // Handler logic
-  }, [/* dependencies */]);
+  const handleSubmit = useCallback(
+    (data: FormData) => {
+      // Handler logic
+    },
+    [
+      /* dependencies */
+    ]
+  );
   ```
 
 - **useMemo**: Cache expensive calculations or complex derived state
+
   ```tsx
   const filteredItems = useMemo(() => {
-    return items.filter(item => item.active);
+    return items.filter((item) => item.active);
   }, [items]);
   ```
 
@@ -923,13 +1172,14 @@ import './styles.css';
 ### Performance Best Practices
 
 - Avoid inline object/array creation in JSX - define outside render or use useMemo
+
   ```tsx
   // ❌ Bad - creates new object on every render
-  <Component style={{ padding: 10 }} />
-  
+  <Component style={{ padding: 10 }} />;
+
   // ✅ Good - define outside
   const styles = { padding: 10 };
-  <Component style={styles} />
+  <Component style={styles} />;
   ```
 
 - Keep component renders minimal by splitting large components
@@ -959,17 +1209,19 @@ import './styles.css';
 Custom hooks are powerful for encapsulating reusable logic. Follow these patterns:
 
 ### Hook Naming and Structure
+
 - Always prefix with `use` (e.g., `useTheme`, `useAuth`, `useLocalStorage`)
 - Return objects with clear property names, not arrays (unless order matters like useState)
 - Use TypeScript to define clear return types
 
 ### Example Pattern
-```tsx
+
+````tsx
 /**
  * Custom hook for managing theme state
- * 
+ *
  * @returns Object with current theme and setter function
- * 
+ *
  * @example
  * ```tsx
  * const { theme, setTheme } = useTheme();
@@ -977,19 +1229,20 @@ Custom hooks are powerful for encapsulating reusable logic. Follow these pattern
  */
 export function useTheme() {
   const { state, dispatch } = useAppContext();
-  
+
   const setTheme = useCallback(
     (theme: 'light' | 'dark') => {
       dispatch({ type: 'SET_THEME', payload: theme });
     },
     [dispatch]
   );
-  
+
   return { theme: state.theme, setTheme };
 }
-```
+````
 
 ### Common Custom Hook Patterns
+
 - **Data fetching hooks**: Wrap TanStack Query for specific API endpoints
 - **Context selector hooks**: Provide focused access to context slices (e.g., `useTheme`, `useSidebar`)
 - **DOM manipulation hooks**: Handle window resize, scroll position, intersection observer
@@ -997,6 +1250,7 @@ export function useTheme() {
 - **Local storage hooks**: Sync state with browser storage
 
 ### Hook Composition
+
 - Hooks can call other hooks to build complex functionality
 - Extract common patterns into smaller, composable hooks
 - Always follow Rules of Hooks (call at top level, not in conditionals)
@@ -1009,7 +1263,7 @@ Utility functions should be pure, testable, and well-documented. Keep them in `s
 
 This project uses a `cn` utility function for merging Tailwind CSS classes properly:
 
-```tsx
+````tsx
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
@@ -1031,14 +1285,16 @@ import { twMerge } from 'tailwind-merge';
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
-```
+````
 
 ### When to Use `cn`
+
 - Merging base styles with conditional styles
 - Allowing className prop overrides in components
 - Resolving Tailwind class conflicts (later classes override earlier ones)
 
 ### Example Usage in Components
+
 ```tsx
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant = 'primary', ...props }, ref) => {
@@ -1059,6 +1315,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 ```
 
 ### Utility Function Best Practices
+
 - Keep utilities pure (no side effects)
 - Provide comprehensive JSDoc comments
 - Include usage examples in comments
@@ -1104,7 +1361,7 @@ Select.Options = function SelectOptions({ children }: Props) {
   <Select.Options>
     <Select.Option value="1">Option 1</Select.Option>
   </Select.Options>
-</Select>
+</Select>;
 ```
 
 ### Render Props Pattern
@@ -1128,7 +1385,7 @@ export function DataFetcher<T>({ children }: DataFetcherProps<T>) {
     if (error) return <ErrorMessage />;
     return <DataDisplay data={data} />;
   }}
-</DataFetcher>
+</DataFetcher>;
 ```
 
 ### Higher-Order Components (HOC)
@@ -1137,16 +1394,14 @@ Use HOCs sparingly, prefer hooks for most reusable logic:
 
 ```tsx
 // Use HOC for cross-cutting concerns like authentication
-export function withAuth<P extends object>(
-  Component: ComponentType<P>
-) {
+export function withAuth<P extends object>(Component: ComponentType<P>) {
   return function AuthenticatedComponent(props: P) {
     const { isAuthenticated } = useAuth();
-    
+
     if (!isAuthenticated) {
       return <Redirect to="/login" />;
     }
-    
+
     return <Component {...props} />;
   };
 }
@@ -1215,7 +1470,7 @@ interface ListProps<T> {
 export function List<T>({ items, renderItem, keyExtractor }: ListProps<T>) {
   return (
     <ul>
-      {items.map(item => (
+      {items.map((item) => (
         <li key={keyExtractor(item)}>{renderItem(item)}</li>
       ))}
     </ul>
@@ -1225,9 +1480,9 @@ export function List<T>({ items, renderItem, keyExtractor }: ListProps<T>) {
 // Usage with full type inference
 <List
   items={users}
-  renderItem={user => <UserCard user={user} />}
-  keyExtractor={user => user.id}
-/>
+  renderItem={(user) => <UserCard user={user} />}
+  keyExtractor={(user) => user.id}
+/>;
 ```
 
 ### Utility Types
@@ -1258,7 +1513,7 @@ Use const assertions for literal type inference:
 ```tsx
 // Creates readonly array with literal types
 const STATUSES = ['pending', 'active', 'completed'] as const;
-type Status = typeof STATUSES[number]; // 'pending' | 'active' | 'completed'
+type Status = (typeof STATUSES)[number]; // 'pending' | 'active' | 'completed'
 
 // Const object
 const CONFIG = {
@@ -1274,7 +1529,7 @@ Use template literal types for type-safe string patterns:
 ```tsx
 type ColorVariant = 'primary' | 'secondary' | 'accent';
 type ColorShade = 'light' | 'dark';
-type ColorClass = `${ColorVariant}-${ColorShade}`; 
+type ColorClass = `${ColorVariant}-${ColorShade}`;
 // 'primary-light' | 'primary-dark' | 'secondary-light' | ...
 ```
 
@@ -1306,35 +1561,44 @@ const formSchema = z.object({
 });
 
 export function LoginForm() {
-  const [formData, setFormData] = useState<FormData>({ email: '', password: '' });
-  const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({});
+  const [formData, setFormData] = useState<FormData>({
+    email: '',
+    password: '',
+  });
+  const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>(
+    {}
+  );
 
-  const handleSubmit = useCallback((e: FormEvent) => {
-    e.preventDefault();
-    
-    const result = formSchema.safeParse(formData);
-    if (!result.success) {
-      const newErrors: Partial<Record<keyof FormData, string>> = {};
-      result.error.issues.forEach(issue => {
-        const field = issue.path[0] as keyof FormData;
-        newErrors[field] = issue.message;
-      });
-      setErrors(newErrors);
-      return;
-    }
-    
-    // Submit form
-  }, [formData]);
+  const handleSubmit = useCallback(
+    (e: FormEvent) => {
+      e.preventDefault();
 
-  const handleChange = useCallback((field: keyof FormData) => (
-    e: ChangeEvent<HTMLInputElement>
-  ) => {
-    setFormData(prev => ({ ...prev, [field]: e.target.value }));
-    // Clear error when user starts typing
-    if (errors[field]) {
-      setErrors(prev => ({ ...prev, [field]: undefined }));
-    }
-  }, [errors]);
+      const result = formSchema.safeParse(formData);
+      if (!result.success) {
+        const newErrors: Partial<Record<keyof FormData, string>> = {};
+        result.error.issues.forEach((issue) => {
+          const field = issue.path[0] as keyof FormData;
+          newErrors[field] = issue.message;
+        });
+        setErrors(newErrors);
+        return;
+      }
+
+      // Submit form
+    },
+    [formData]
+  );
+
+  const handleChange = useCallback(
+    (field: keyof FormData) => (e: ChangeEvent<HTMLInputElement>) => {
+      setFormData((prev) => ({ ...prev, [field]: e.target.value }));
+      // Clear error when user starts typing
+      if (errors[field]) {
+        setErrors((prev) => ({ ...prev, [field]: undefined }));
+      }
+    },
+    [errors]
+  );
 
   return (
     <form onSubmit={handleSubmit}>
@@ -1384,9 +1648,7 @@ if (isLoading) {
 }
 
 // Inline loading with disabled state
-<button disabled={isSubmitting}>
-  {isSubmitting ? 'Saving...' : 'Save'}
-</button>
+<button disabled={isSubmitting}>{isSubmitting ? 'Saving...' : 'Save'}</button>;
 ```
 
 ### Error Boundaries
@@ -1431,13 +1693,13 @@ export class ErrorBoundary extends Component<Props, State> {
 
 ```tsx
 // Good error messages
-'Failed to save changes. Please check your connection and try again.'
-'Email address is already in use. Please use a different email.'
+'Failed to save changes. Please check your connection and try again.';
+'Email address is already in use. Please use a different email.';
 
-// Bad error messages  
-'Error'
-'Something went wrong'
-'500 Internal Server Error'
+// Bad error messages
+'Error';
+'Something went wrong';
+'500 Internal Server Error';
 ```
 
 ## Responsive Design Patterns
@@ -1447,14 +1709,18 @@ export class ErrorBoundary extends Component<Props, State> {
 Use Tailwind's mobile-first responsive prefixes:
 
 ```tsx
-<div className="
+<div
+  className="
   grid 
   grid-cols-1     /* Mobile: 1 column */
   md:grid-cols-2  /* Tablet: 2 columns */
   lg:grid-cols-3  /* Desktop: 3 columns */
   gap-4
-">
-  {items.map(item => <Card key={item.id} {...item} />)}
+"
+>
+  {items.map((item) => (
+    <Card key={item.id} {...item} />
+  ))}
 </div>
 ```
 
@@ -1464,10 +1730,12 @@ For component-level responsive design:
 
 ```tsx
 <div className="@container">
-  <div className="
+  <div
+    className="
     flex flex-col
     @md:flex-row    /* Respond to container size, not viewport */
-  ">
+  "
+  >
     <Sidebar />
     <Content />
   </div>
@@ -1498,7 +1766,7 @@ For component-level responsive design:
 ```tsx
 export function MobileNav() {
   const [isOpen, setIsOpen] = useState(false);
-  
+
   return (
     <>
       {/* Hamburger menu for mobile */}
@@ -1511,7 +1779,7 @@ export function MobileNav() {
         <span className="sr-only">Toggle menu</span>
         {isOpen ? <XIcon /> : <MenuIcon />}
       </button>
-      
+
       {/* Navigation */}
       <nav
         id="mobile-menu"
@@ -1530,12 +1798,14 @@ export function MobileNav() {
 ### Responsive Typography
 
 ```tsx
-<h1 className="
+<h1
+  className="
   text-2xl      /* Mobile: 24px */
   md:text-3xl   /* Tablet: 30px */
   lg:text-4xl   /* Desktop: 36px */
   font-bold
-">
+"
+>
   Heading
 </h1>
 ```
@@ -1547,12 +1817,14 @@ export function MobileNav() {
 Use Tailwind's transition utilities for simple hover/focus effects:
 
 ```tsx
-<button className="
+<button
+  className="
   bg-primary 
   transition-colors duration-200 
   hover:bg-primary-hover
   focus:ring-2 focus:ring-primary
-">
+"
+>
   Click me
 </button>
 ```
@@ -1591,6 +1863,7 @@ const prefersReducedMotion = window.matchMedia(
 ### Common Animation Patterns
 
 **Fade In/Out**
+
 ```tsx
 export function FadeIn({ children, show }: FadeInProps) {
   return (
@@ -1607,6 +1880,7 @@ export function FadeIn({ children, show }: FadeInProps) {
 ```
 
 **Slide In/Out**
+
 ```tsx
 export function SlideIn({ children, show }: SlideInProps) {
   return (
@@ -1623,17 +1897,21 @@ export function SlideIn({ children, show }: SlideInProps) {
 ```
 
 **Scale on Hover**
+
 ```tsx
-<button className="
+<button
+  className="
   transform transition-transform 
   hover:scale-105 
   active:scale-95
-">
+"
+>
   Click me
 </button>
 ```
 
 **Loading Spinner**
+
 ```tsx
 export function Spinner() {
   return (
@@ -1716,11 +1994,13 @@ function handleAction(action: Action): void {
 ### Common Debugging Scenarios
 
 **Issue: Component not re-rendering**
+
 - Check if state/props actually changed (use `Object.is` comparison)
 - Verify dependencies in useEffect/useCallback/useMemo
 - Check if parent component is using React.memo incorrectly
 
 **Issue: Stale closure in useEffect**
+
 ```tsx
 // ❌ Bad - stale closure
 useEffect(() => {
@@ -1739,6 +2019,7 @@ useEffect(() => {
 ```
 
 **Issue: Infinite re-render loop**
+
 - Check for setState calls without conditions in render
 - Verify useEffect dependencies aren't changing on every render
 - Look for object/array creation in dependency arrays
@@ -1824,15 +2105,18 @@ src/
 ### Scaling Patterns
 
 **Small apps (< 10 pages)**
+
 - Flat structure in `src/components` is fine
 - Keep all pages in `src/pages`
 
 **Medium apps (10-50 pages)**
+
 - Group components by feature in `src/features`
 - Use barrel exports for clean imports
 - Co-locate hooks and utilities with features
 
 **Large apps (50+ pages)**
+
 - Consider micro-frontend architecture
 - Use workspace/monorepo structure
 - Implement lazy loading for feature modules
@@ -2039,14 +2323,215 @@ Ensure your `package.json` defines at least the following scripts so tooling and
 - ESLint: `eslint.config.js`
 - CI workflow: `.github/workflows/ci.yml`
 - Playwright tests: `playwright` or `tests/e2e`
- - GitHub Pages entry points:
-   - Landing page: `https://asudbury.github.io/modern-react-template/`
-   - Demo App: `https://asudbury.github.io/modern-react-template/app`
-   - Storybook: `https://asudbury.github.io/modern-react-template/storybook`
-   - API Docs: `https://asudbury.github.io/modern-react-template/docs`
+- GitHub Pages entry points:
+  - Landing page: `https://asudbury.github.io/modern-react-template/`
+  - Demo App: `https://asudbury.github.io/modern-react-template/app`
+  - Storybook: `https://asudbury.github.io/modern-react-template/storybook`
+  - API Docs: `https://asudbury.github.io/modern-react-template/docs`
 
 ## Contact / Questions
 
 If unsure how to implement something accessible or typed, open a draft PR and request guidance from maintainers. Prefer small iterative changes and include tests demonstrating the accessibility behavior.
 
 Thank you for following the project's accessibility and code-quality standards.
+
+## Quick Reference Guide
+
+### Common Commands Cheat Sheet
+
+```bash
+# Development
+npm run dev              # Start dev server
+npm run storybook        # Start Storybook
+
+# Testing
+npm run test             # Run unit tests (watch mode)
+npm run test:coverage    # Run tests with coverage
+npm run test:e2e         # Run Playwright E2E tests
+npm run test:ui          # Open Vitest UI
+
+# Code Quality
+npm run lint             # Run ESLint
+npm run lint:fix         # Fix ESLint issues
+npm run prettier         # Format code
+npm run build            # Type check and build
+
+# Documentation
+npm run docs             # Generate all docs
+npm run docs:md          # Generate markdown docs
+npm run docs:html        # Generate HTML docs
+```
+
+### File Templates Quick Reference
+
+**New Component**
+
+```tsx
+// src/components/MyComponent/MyComponent.tsx
+import { forwardRef, useCallback } from 'react';
+import type { HTMLAttributes } from 'react';
+
+export interface MyComponentProps extends HTMLAttributes<HTMLDivElement> {
+  variant?: 'primary' | 'secondary';
+}
+
+export const MyComponent = forwardRef<HTMLDivElement, MyComponentProps>(
+  ({ variant = 'primary', className, ...rest }, ref) => {
+    const handleClick = useCallback(() => {
+      // Handler logic
+    }, []);
+
+    return (
+      <div ref={ref} className={className} {...rest}>
+        {/* Content */}
+      </div>
+    );
+  }
+);
+
+MyComponent.displayName = 'MyComponent';
+```
+
+**New Test File**
+
+```tsx
+// src/components/MyComponent/MyComponent.test.tsx
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { axe } from 'jest-axe';
+import { MyComponent } from './MyComponent';
+
+describe('MyComponent', () => {
+  it('should render correctly', () => {
+    render(<MyComponent>Content</MyComponent>);
+    expect(screen.getByText('Content')).toBeInTheDocument();
+  });
+
+  it('should have no accessibility violations', async () => {
+    const { container } = render(<MyComponent>Content</MyComponent>);
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
+  });
+});
+```
+
+**New Storybook Story**
+
+```tsx
+// src/components/MyComponent/MyComponent.stories.tsx
+import type { Meta, StoryObj } from '@storybook/react';
+import { MyComponent } from './MyComponent';
+
+const meta = {
+  title: 'Components/MyComponent',
+  component: MyComponent,
+  parameters: { layout: 'centered' },
+  tags: ['autodocs'],
+} satisfies Meta<typeof MyComponent>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const Primary: Story = {
+  args: {
+    variant: 'primary',
+    children: 'Example',
+  },
+};
+```
+
+**New Custom Hook**
+
+```tsx
+// src/hooks/useMyHook.ts
+import { useState, useCallback } from 'react';
+
+export function useMyHook(initialValue: string) {
+  const [value, setValue] = useState(initialValue);
+
+  const handleChange = useCallback((newValue: string) => {
+    setValue(newValue);
+  }, []);
+
+  return { value, handleChange };
+}
+```
+
+**New Zod Schema**
+
+```tsx
+// src/schemas/mySchema.ts
+import { z } from 'zod';
+
+export const mySchema = z.object({
+  id: z.string().uuid(),
+  name: z.string().min(1),
+  email: z.string().email(),
+  createdAt: z.string().datetime(),
+});
+
+export type MyType = z.infer<typeof mySchema>;
+```
+
+### Common Patterns Quick Reference
+
+| Pattern           | When to Use                                  | Example                                                                   |
+| ----------------- | -------------------------------------------- | ------------------------------------------------------------------------- |
+| `useCallback`     | Event handlers, callbacks passed to children | `const handleClick = useCallback(() => {...}, [deps])`                    |
+| `useMemo`         | Expensive calculations, derived state        | `const filtered = useMemo(() => data.filter(...), [data])`                |
+| `memo`            | Pure components that render often            | `export const Item = memo(({ data }) => ...)`                             |
+| `forwardRef`      | Components that need to expose DOM refs      | `export const Input = forwardRef<HTMLInputElement, Props>(...)`           |
+| `cn` utility      | Merging Tailwind classes                     | `className={cn('base-class', conditional && 'extra-class')}`              |
+| TanStack Query    | Server data fetching                         | `const { data } = useQuery({ queryKey: ['users'], queryFn: fetchUsers })` |
+| Context + Reducer | Global client state                          | `const { state, dispatch } = useAppContext()`                             |
+| Zod schemas       | Data validation                              | `const result = schema.safeParse(data)`                                   |
+
+### Accessibility Quick Reference
+
+| Element    | ARIA Pattern                              | Example                                                         |
+| ---------- | ----------------------------------------- | --------------------------------------------------------------- |
+| Button     | `role="button"` (if not using `<button>`) | `<div role="button" tabIndex={0} onClick={...}>`                |
+| Modal      | `role="dialog"` + `aria-modal="true"`     | `<div role="dialog" aria-modal="true" aria-labelledby="title">` |
+| Alert      | `role="alert"` or `role="status"`         | `<div role="alert">{errorMessage}</div>`                        |
+| Form Error | `aria-invalid` + `aria-describedby`       | `<input aria-invalid={!!error} aria-describedby="error-id" />`  |
+| Loading    | `aria-busy` or `aria-live="polite"`       | `<div aria-busy={isLoading}>`                                   |
+| Skip Link  | Hidden until focused                      | `<a href="#main" className="sr-only focus:not-sr-only">`        |
+
+### Troubleshooting Quick Reference
+
+| Issue                           | Solution                                                                 |
+| ------------------------------- | ------------------------------------------------------------------------ |
+| Component not re-rendering      | Check if state/props actually changed, verify hook dependencies          |
+| Stale closure in useEffect      | Add all dependencies to dependency array                                 |
+| Infinite loop                   | Check useEffect dependencies, avoid object/array creation in deps        |
+| TypeScript error in JSX         | Ensure component props are properly typed, check for missing imports     |
+| Test failing with act() warning | Wrap state updates in `await waitFor(() => ...)` or use `findBy` queries |
+| Accessibility violation         | Check semantic HTML, ARIA attributes, keyboard navigation                |
+| Build error                     | Run `npm run build` locally, check TypeScript errors                     |
+| Lint errors                     | Run `npm run lint:fix` to auto-fix, review remaining issues              |
+
+### Best Practices Summary
+
+✅ **Do:**
+
+- Use named exports
+- Use design tokens for colors/spacing
+- Use `useCallback` for event handlers
+- Validate external data with Zod
+- Write JSDoc comments
+- Test accessibility with axe
+- Use semantic HTML
+- Handle loading and error states
+- Keep components small and focused
+
+❌ **Don't:**
+
+- Use default exports
+- Use inline JSX event handlers
+- Hardcode colors or spacing values
+- Skip data validation
+- Use `any` type
+- Forget keyboard navigation
+- Use `div` when semantic elements exist
+- Silently swallow errors
+- Create massive components

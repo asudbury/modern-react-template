@@ -13,8 +13,6 @@ import {
   Badge,
   Separator,
 } from '@/components/shadcn';
-import { fetchData } from '../../src/queries/fetch';
-import { mutateData } from '../../src/queries/mutate';
 import { postSchema, type Post } from '../../src/schemas/api';
 import { z } from 'zod';
 

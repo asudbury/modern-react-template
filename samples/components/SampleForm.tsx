@@ -88,9 +88,9 @@ export function SampleForm() {
         if (error instanceof z.ZodError) {
           // Convert Zod errors to form errors
           const formErrors: FormErrors = {};
-          error.errors.forEach((err) => {
-            const field = err.path[0] as keyof FormErrors;
-            formErrors[field] = err.message;
+          error.issues.forEach((issue) => {
+            const field = issue.path[0] as keyof FormErrors;
+            formErrors[field] = issue.message;
           });
           setErrors(formErrors);
         }

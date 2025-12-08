@@ -1,16 +1,27 @@
 # Modern React Template
+
+> **📘 Fork-Friendly Setup:** This template is designed to work out-of-the-box for forks! All advanced features (SonarCloud, GitHub Pages, Storybook CI, JSDoc) are **disabled by default** and only run when you explicitly enable them. See [QUICKSTART.md](./QUICKSTART.md) for minimal setup instructions.
+
 [![SonarQube Cloud](https://sonarcloud.io/images/project_badges/sonarcloud-light.svg)](https://sonarcloud.io/summary/new_code?id=asudbury_modern-react-template)
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=asudbury_modern-react-template&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=asudbury_modern-react-template)
 
 [SonarCloud Dashboard](https://sonarcloud.io/summary/new_code?id=asudbury_modern-react-template)
 
+> ⚠️ **Note for Forks:** The SonarCloud badges above are for the original repository. If you're not using SonarCloud, you can safely remove these badges (lines 3-7).
+
 A modern, accessibility-first React 19 application built with Vite 7 and TypeScript 5. This template enforces strict rules for accessibility (WCAG 2.2 AA), performance, and code quality.
 
-> 📘 **New to this template?** Check out the [SETUP.md](./SETUP.md) guide for detailed instructions on configuring Storybook, SonarCloud, and GitHub Pages.
+## Quick Links
+
+- 🚀 **[Quick Start for Forks](./QUICKSTART.md)** - Get started in 5 minutes
+- ⚙️ **[Feature Configuration](./FEATURES.md)** - Enable/disable optional features
+- 📖 **[Detailed Setup Guide](./SETUP.md)** - Configure optional features (SonarCloud, GitHub Pages, etc.)
+- 🤝 **[Contributing Guide](./CONTRIBUTING.md)** - Development guidelines
 
 ## Features
 
+### Core Features (Always Enabled)
 - ✨ [**React 19**](https://react.dev/) with the latest features
 - ⚡ [**Vite 7**](https://vite.dev/) for lightning-fast development
 - 📘 [**TypeScript 5**](https://www.typescriptlang.org/docs/) with strict mode enabled
@@ -24,10 +35,14 @@ A modern, accessibility-first React 19 application built with Vite 7 and TypeScr
 - 🪝 [**Husky**](https://typicode.github.io/husky/) pre-commit + commit-msg hooks
 - 📝 [**Commitlint**](https://commitlint.js.org/#/) enforcing conventional commit messages
 - 🔐 [**Zod**](https://zod.dev/) validation for all external data
+
+### Optional Features (Opt-In, Disabled by Default)
 - 📚 [**Storybook**](https://storybook.js.org/) for component development and documentation
 - 📖 [**TypeDoc**](https://typedoc.org/) for automated API documentation
 - 🔍 [**SonarCloud**](https://sonarcloud.io/) for continuous code quality analysis
 - 🌐 [**GitHub Pages**](https://docs.github.com/en/pages) deployment for app, Storybook, and docs
+
+> 💡 **Tip:** Optional features won't run unless you explicitly enable them. See [QUICKSTART.md](./QUICKSTART.md) to learn which features to enable for your use case.
 
 ## Quick Start
 
@@ -51,6 +66,32 @@ npm run dev
 ```
 
 Visit `http://localhost:5173` to see your application.
+
+> 🍴 **Forked this repo?** See [QUICKSTART.md](./QUICKSTART.md) for fork-specific setup instructions. All optional features (SonarCloud, GitHub Pages, etc.) are disabled by default and won't interfere with your fork.
+
+## For Forks: What's Enabled by Default?
+
+This template is designed to be **fork-friendly**. Here's what works out of the box:
+
+### ✅ Enabled by Default (No Configuration Needed)
+- React 19 development with Vite
+- TypeScript with strict mode
+- Tailwind CSS with design tokens
+- ESLint + Prettier
+- Husky pre-commit hooks
+- Commitlint for commit messages
+- Unit tests with Vitest
+- E2E tests with Playwright
+- Storybook (local development only)
+- TypeDoc (local generation only)
+
+### ❌ Disabled by Default (Opt-In Only)
+- **SonarCloud Analysis** - Requires `RUN_SONARCLOUD=true` + configuration
+- **GitHub Pages Deployment** - Requires `ENABLE_GH_PAGES=true` + configuration
+- **Storybook in CI** - Requires `ENABLE_STORYBOOK_BUILD=true`
+- **TypeDoc in CI** - Requires `ENABLE_JSDOC_BUILD=true`
+
+**No workflows will fail on your fork!** Disabled features simply won't run. See [QUICKSTART.md](./QUICKSTART.md) to enable features you want.
 
 ## Available Scripts
 

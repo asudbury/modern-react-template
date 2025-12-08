@@ -4,6 +4,17 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      enable_storybook:
+        description: 'Build and deploy Storybook'
+        required: false
+        type: boolean
+        default: false
+      enable_docs:
+        description: 'Build and deploy API documentation'
+        required: false
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -18,6 +29,9 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    # Only run if ENABLE_GH_PAGES is explicitly set to 'true' OR workflow_dispatch is used
+    # For forks: Set this in Settings → Secrets and variables → Actions → Variables
+    if: vars.ENABLE_GH_PAGES == 'true' || github.event_name == 'workflow_dispatch'
     steps:
       - uses: actions/checkout@v4
 
@@ -42,13 +56,13 @@ jobs:
         run: npm run build
 
       - name: Build Storybook (optional)
-        if: ${{ vars.ENABLE_STORYBOOK_BUILD == 'true' }}
+        if: vars.ENABLE_STORYBOOK_BUILD == 'true' || inputs.enable_storybook == true
         env:
           STORYBOOK_BASE_PATH: /modern-react-template/storybook/
         run: npm run build-storybook
 
       - name: Generate documentation (optional)
-        if: ${{ vars.ENABLE_JSDOC_BUILD == 'true' }}
+        if: vars.ENABLE_JSDOC_BUILD == 'true' || inputs.enable_docs == true
         run: npm run docs:html
 
       - name: Build GitHub Pages landing (optional)

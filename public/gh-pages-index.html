@@ -89,6 +89,56 @@
         fill: currentColor;
       }
     </style>
+    <script>
+      // Check if optional features are available and show/hide links accordingly
+      document.addEventListener('DOMContentLoaded', async () => {
+        const features = {
+          storybook: { url: './storybook/', element: null },
+          docs: { url: './docs/', element: null }
+        };
+
+        // Get references to optional feature cards
+        features.storybook.element = document.getElementById('storybook-link');
+        features.docs.element = document.getElementById('docs-link');
+
+        // Check each optional feature
+        for (const [name, feature] of Object.entries(features)) {
+          try {
+            const response = await fetch(feature.url, { method: 'HEAD' });
+            if (!response.ok) {
+              // Feature not available, hide the card
+              if (feature.element) {
+                feature.element.style.display = 'none';
+              }
+            }
+          } catch (error) {
+            // Feature not available, hide the card
+            if (feature.element) {
+              feature.element.style.display = 'none';
+            }
+          }
+        }
+
+        // If no optional features are available, show a message
+        const storybookHidden = features.storybook.element && 
+          features.storybook.element.style.display === 'none';
+        const docsHidden = features.docs.element && 
+          features.docs.element.style.display === 'none';
+        
+        if (storybookHidden && docsHidden) {
+          const linksContainer = document.querySelector('.links');
+          const message = document.createElement('p');
+          message.className = 'optional-features-message';
+          message.style.gridColumn = '1 / -1';
+          message.style.textAlign = 'center';
+          message.style.padding = '1rem';
+          message.style.color = '#666';
+          message.style.fontSize = '0.9rem';
+          message.innerHTML = 'ℹ️ Optional features (Storybook and Documentation) are not enabled. See <a href="https://github.com/asudbury/modern-react-template/blob/main/QUICKSTART.md" style="color: #667eea; text-decoration: underline;">QUICKSTART.md</a> to enable them.';
+          linksContainer.appendChild(message);
+        }
+      });
+    </script>
   </head>
   <body>
     <div class="container">
@@ -103,11 +153,11 @@
           <h2>📱 Demo App</h2>
           <p>View the live application demo</p>
         </a>
-        <a href="./storybook/" class="card">
+        <a href="./storybook/" class="card" id="storybook-link">
           <h2>📚 Storybook</h2>
           <p>Browse component library and stories</p>
         </a>
-        <a href="./docs/" class="card">
+        <a href="./docs/" class="card" id="docs-link">
           <h2>📖 Documentation</h2>
           <p>Explore API documentation (TypeDoc)</p>
         </a>

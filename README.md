@@ -12,6 +12,8 @@
 
 A modern, accessibility-first React 19 application built with Vite 7 and TypeScript 5. This template enforces strict rules for accessibility (WCAG 2.2 AA), performance, and code quality.
 
+![Modern React Template landing page](./docs/_media/modern-react-template-landing.png)
+
 ## Quick Links
 
 - 🚀 **[Quick Start for Forks](./QUICKSTART.md)** - Get started in 5 minutes

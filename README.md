@@ -184,9 +184,10 @@ modern-react-template/
 │   └── preview.ts             # Storybook preview config
 ├── .husky/
 │   └── pre-commit             # Pre-commit hooks
-├── docs/                      # Generated markdown docs (TypeDoc)
+├── docs/                      # Generated markdown docs (TypeDoc samples)
+├── docs-html/                 # Generated HTML docs (TypeDoc samples)
 ├── playwright/
-│   └── homepage.spec.ts       # E2E tests
+│   └── homepage.spec.ts       # E2E + accessibility sample for HomePage
 ├── samples/                   # ⚠️ Sample components (DELETE before production!)
 │   ├── components/
 │   │   ├── SampleForm.tsx
@@ -196,8 +197,8 @@ modern-react-template/
 │   │   └── index.ts
 │   └── README.md              # Samples documentation
 ├── src/
-│   ├── components/            # Reusable UI components
-│   │   ├── Button/
+│   ├── components/            # Reusable UI components and samples
+│   │   ├── Button/            # Sample button component + tests + stories
 │   │   │   ├── Button.tsx
 │   │   │   ├── Button.test.tsx
 │   │   │   ├── Button.stories.tsx
@@ -205,9 +206,9 @@ modern-react-template/
 │   │   └── shadcn/            # shadcn/ui primitives (Card, Badge, Alert, etc.)
 │   ├── context/               # React Context for client state
 │   │   └── AppContext.tsx
-│   ├── pages/                 # Page components
-│   │   └── HomePage/
-│   ├── queries/               # TanStack Query functions
+│   ├── pages/                 # Page components and layout samples
+│   │   └── HomePage/          # Sample home page layout
+│   ├── queries/               # TanStack Query functions (sample fetch/mutate)
 │   │   ├── fetch.ts
 │   │   └── mutate.ts
 │   ├── schemas/               # Zod schemas
@@ -269,6 +270,16 @@ npm run build-storybook
 ```
 
 All UI components should have corresponding `.stories.tsx` files showcasing variants and states.
+
+## Sample Implementations
+
+This template ships with several concrete samples you can use as references:
+
+- **Home page layout**: `src/pages/HomePage/HomePage.tsx` demonstrates accessible page structure, headings, and use of shadcn/ui components.
+- **Reusable component + tests**: `src/components/Button/` includes the button implementation, unit tests, and Storybook stories.
+- **Data fetching utilities**: `src/queries/fetch.ts` and `src/queries/mutate.ts` show how to use TanStack Query with Zod validation.
+- **E2E + accessibility test**: `playwright/homepage.spec.ts` is a full Playwright + axe-core example for the home page.
+- **Generated API docs**: `docs/` and `docs-html/` contain TypeDoc output you can browse as living samples of the project APIs.
 
 ## Code Quality & Security
 

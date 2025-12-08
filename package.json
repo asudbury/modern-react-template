@@ -21,8 +21,8 @@
     "docs:md": "typedoc --options typedoc.json",
     "docs:html": "typedoc --options typedoc.html.json",
     "docs": "npm run docs:md && npm run docs:html",
-    "update:gh-version": "node ./scripts/update-gh-pages-version.cjs dist/gh-pages-index.html",
-    "build:gh-pages": "ENABLE_GH_PAGES=true npm run build && npm run update:gh-version"
+    "update:gh-page-details": "node ./scripts/update-gh-pages-details.cjs dist/gh-pages-index.html",
+    "build:gh-pages": "ENABLE_GH_PAGES=true npm run build && npm run update:gh-page-details"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.90.12",

@@ -279,6 +279,7 @@ SKIP_COMMITLINT=true git commit -m "message"
 
 - Check [SETUP.md](./SETUP.md) for detailed setup instructions
 - Review [CONTRIBUTING.md](./CONTRIBUTING.md) for development guidelines
+- See [EXTENSIONS.md](./EXTENSIONS.md) for adding features like error logging, authentication, and cloud deployments
 - Open an issue if you find problems
 - Read the [Copilot Instructions](.github/copilot-instructions.md) for coding standards
 

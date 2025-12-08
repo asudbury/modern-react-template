@@ -19,6 +19,7 @@ A modern, accessibility-first React 19 application built with Vite 7 and TypeScr
 - 🚀 **[Quick Start for Forks](./QUICKSTART.md)** - Get started in 5 minutes
 - ⚙️ **[Feature Configuration](./FEATURES.md)** - Enable/disable optional features
 - 📖 **[Detailed Setup Guide](./SETUP.md)** - Configure optional features (SonarCloud, GitHub Pages, etc.)
+- 🔌 **[Extension Options](./EXTENSIONS.md)** - Add-ons, integrations, and deployment guides
 - 🤝 **[Contributing Guide](./CONTRIBUTING.md)** - Development guidelines
 
 ## Features
@@ -472,6 +473,18 @@ Husky runs the following checks on every commit:
 4. Build the project
 
 If any check fails, the commit is blocked.
+
+## Extending the Template
+
+This template is designed to be extensible. See [EXTENSIONS.md](./EXTENSIONS.md) for comprehensive guides on:
+
+- 🎨 **TypeDoc Custom Theming** - Customize documentation appearance
+- 📊 **Error Logging Frameworks** - Sentry, LogRocket, Rollbar integration
+- 🔌 **Plug-and-Play Options** - Radix UI, Headless UI, React Hook Form
+- 🏗️ **Infrastructure as Code** - AWS CDK, Terraform, Pulumi guides
+- 🛠️ **Extensibility Scripts** - Component generators and scaffolding tools
+- ☁️ **Cloud Deployments** - AWS, Azure, GCP, Vercel, Netlify guides
+- 💡 **Additional Features** - Authentication, i18n, analytics, monitoring
 
 ## Contributing
 

@@ -1,4 +1,5 @@
-# Modern React Template
+
+# <img src="./public/react-gears.svg" alt="React gears illustration" width="48" style="vertical-align: middle;" /> Modern React Template
 
 > **📘 Fork-Friendly Setup:** This template is designed to work out-of-the-box for forks! All advanced features (SonarCloud, GitHub Pages, Storybook CI, JSDoc) are **disabled by default** and only run when you explicitly enable them. See [QUICKSTART.md](./QUICKSTART.md) for minimal setup instructions.
 
@@ -184,8 +185,8 @@ modern-react-template/
 │   └── preview.ts             # Storybook preview config
 ├── .husky/
 │   └── pre-commit             # Pre-commit hooks
-├── docs/                      # Generated markdown docs (TypeDoc samples)
-├── docs-html/                 # Generated HTML docs (TypeDoc samples)
+├── docs/                      # Generated markdown docs (TypeDoc)
+├── docs-html/                 # Generated HTML docs (TypeDoc)
 ├── playwright/
 │   └── homepage.spec.ts       # E2E + accessibility sample for HomePage
 ├── samples/                   # ⚠️ Sample components (DELETE before production!)

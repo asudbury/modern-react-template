@@ -53,7 +53,7 @@ export function SamplesDemo() {
           Sample Components Demo
         </h1>
 
-        {!activeView ? (
+        {activeView === null ? (
           <Card>
             <CardHeader>
               <CardTitle>Choose a Sample to View</CardTitle>

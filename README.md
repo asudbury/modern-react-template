@@ -25,26 +25,25 @@ A modern, accessibility-first React 19 application built with Vite 7 and TypeScr
 ## Features
 
 ### Core Features (Always Enabled)
-- ✨ [**React 19**](https://react.dev/) with the latest features
-- ⚡ [**Vite 7**](https://vite.dev/) for lightning-fast development
-- 📘 [**TypeScript 5**](https://www.typescriptlang.org/docs/) with strict mode enabled
-- 🎨 [**Tailwind CSS**](https://tailwindcss.com/docs) with design tokens
-- 🧩 [**shadcn/ui**](https://ui.shadcn.com/) components (Card, Badge, Alert, and more)
 - ♿ [**Accessibility-first**](https://www.w3.org/WAI/WCAG22/quickref/) (WCAG 2.2 AA compliant)
-- 🔄 [**TanStack Query**](https://tanstack.com/query/latest) for server state management
-- 🎯 [**React Context + Reducers**](https://react.dev/learn/passing-data-deeply-with-context) for client state
-- 🧪 [**Vitest**](https://vitest.dev/) + [**React Testing Library**](https://testing-library.com/docs/react-testing-library/intro/) for unit tests
-- 🎭 [**Playwright**](https://playwright.dev/) + [**axe-core**](https://www.deque.com/axe/devtools/) for E2E accessibility testing
+- 📝 [**Commitlint**](https://commitlint.js.org/#/) enforcing conventional commit messages
 - 🔒 [**ESLint**](https://eslint.org/) + [**Prettier**](https://prettier.io/) configuration
 - 🪝 [**Husky**](https://typicode.github.io/husky/) pre-commit + commit-msg hooks
-- 📝 [**Commitlint**](https://commitlint.js.org/#/) enforcing conventional commit messages
+- 🎭 [**Playwright**](https://playwright.dev/) + [**axe-core**](https://www.deque.com/axe/devtools/) for E2E accessibility testing
+- 🎯 [**React Context + Reducers**](https://react.dev/learn/passing-data-deeply-with-context) for client state
+- ✨ [**React 19**](https://react.dev/) with the latest features
+- 🧩 [**shadcn/ui**](https://ui.shadcn.com/) components (Card, Badge, Alert, and more)
+- 🔄 [**TanStack Query**](https://tanstack.com/query/latest) for server state management
+- 🎨 [**Tailwind CSS**](https://tailwindcss.com/docs) with design tokens
+- 📘 [**TypeScript 5**](https://www.typescriptlang.org/docs/) with strict mode enabled
+- 🧪 [**Vitest**](https://vitest.dev/) + [**React Testing Library**](https://testing-library.com/docs/react-testing-library/intro/) for unit tests
 - 🔐 [**Zod**](https://zod.dev/) validation for all external data
 
 ### Optional Features (Opt-In, Disabled by Default)
+- 🌐 [**GitHub Pages**](https://docs.github.com/en/pages) deployment for app, Storybook, and docs
+- 🔍 [**SonarCloud**](https://sonarcloud.io/) for continuous code quality analysis
 - 📚 [**Storybook**](https://storybook.js.org/) for component development and documentation
 - 📖 [**TypeDoc**](https://typedoc.org/) for automated API documentation
-- 🔍 [**SonarCloud**](https://sonarcloud.io/) for continuous code quality analysis
-- 🌐 [**GitHub Pages**](https://docs.github.com/en/pages) deployment for app, Storybook, and docs
 
 > 💡 **Tip:** Optional features won't run unless you explicitly enable them. See [QUICKSTART.md](./QUICKSTART.md) to learn which features to enable for your use case.
 
@@ -149,11 +148,12 @@ modern-react-template/
 │   └── homepage.spec.ts       # E2E tests
 ├── src/
 │   ├── components/            # Reusable UI components
-│   │   └── Button/
-│   │       ├── Button.tsx
-│   │       ├── Button.test.tsx
-│   │       ├── Button.stories.tsx
-│   │       └── index.ts
+│   │   ├── Button/
+│   │   │   ├── Button.tsx
+│   │   │   ├── Button.test.tsx
+│   │   │   ├── Button.stories.tsx
+│   │   │   └── index.ts
+│   │   └── shadcn/            # shadcn/ui primitives (Card, Badge, Alert, etc.)
 │   ├── context/               # React Context for client state
 │   │   └── AppContext.tsx
 │   ├── pages/                 # Page components
@@ -398,25 +398,52 @@ This template includes pre-configured shadcn/ui components that follow all repos
 - **Card** - Display content in card layouts with header, content, and footer sections
 - **Badge** - Show status indicators, categories, or tags with multiple variants
 - **Alert** - Display notifications and callouts with different severity levels
+- **Button** - Trigger actions with primary, secondary, or subtle variants
+- **Input** - Accessible text input for forms with proper labeling
+- **Label** - Associate text labels with form controls
+- **Separator** - Provide visual dividers between sections of content
 
 ### Using shadcn/ui Components
 
 ```tsx
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/shadcn';
-import { Badge } from '@/components/shadcn';
-import { Alert, AlertDescription, AlertTitle } from '@/components/shadcn';
+import {
+  Alert,
+  AlertDescription,
+  AlertTitle,
+  Badge,
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+  Input,
+  Label,
+  Separator,
+  ShadcnButton,
+} from '@/components/shadcn';
 
 function MyComponent() {
   return (
-    <div>
+    <div className="space-y-6">
       <Card>
         <CardHeader>
           <CardTitle>Welcome</CardTitle>
           <CardDescription>Get started with shadcn/ui</CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="space-y-4">
           <p>Your content here</p>
           <Badge variant="secondary">New</Badge>
+
+          <Separator />
+
+          <div className="space-y-2">
+            <Label htmlFor="email">Email</Label>
+            <Input id="email" type="email" placeholder="you@example.com" />
+          </div>
+
+          <ShadcnButton type="button" variant="default">
+            Submit
+          </ShadcnButton>
         </CardContent>
       </Card>
 
@@ -602,23 +629,38 @@ MIT
 
 ## Resources
 
+### Core Framework & Styling
+
 - [React 19 Documentation](https://react.dev)
-- [Vite Documentation](https://vite.dev)
-- [TypeScript Documentation](https://www.typescriptlang.org/docs/)
-- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
-- [Accessibility (WCAG 2.2 AA)](https://www.w3.org/WAI/WCAG22/quickref/)
-- [TanStack Query Documentation](https://tanstack.com/query/latest)
 - [React Context](https://react.dev/learn/passing-data-deeply-with-context)
-- [Vitest Documentation](https://vitest.dev)
-- [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
-- [Playwright Documentation](https://playwright.dev)
+- [shadcn/ui](https://ui.shadcn.com/)
+- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
+- [TypeScript Documentation](https://www.typescriptlang.org/docs/)
+- [Vite Documentation](https://vite.dev)
+
+### Data, Validation & Accessibility
+
+- [Accessibility (WCAG 2.2 AA)](https://www.w3.org/WAI/WCAG22/quickref/)
 - [axe-core](https://www.deque.com/axe/devtools/)
-- [ESLint](https://eslint.org/)
-- [Prettier](https://prettier.io/)
-- [Husky](https://typicode.github.io/husky/)
-- [Commitlint](https://commitlint.js.org/#/)
+- [TanStack Query Documentation](https://tanstack.com/query/latest)
 - [Zod](https://zod.dev/)
+
+### Testing
+
+- [Playwright Documentation](https://playwright.dev)
+- [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
+- [Vitest Documentation](https://vitest.dev)
+
+### Linting, Formatting & Git Hooks
+
+- [Commitlint](https://commitlint.js.org/#/)
+- [ESLint](https://eslint.org/)
+- [Husky](https://typicode.github.io/husky/)
+- [Prettier](https://prettier.io/)
+
+### Docs, Analysis & Hosting
+
+- [GitHub Pages](https://docs.github.com/en/pages)
+- [SonarCloud](https://sonarcloud.io/)
 - [Storybook](https://storybook.js.org/)
 - [TypeDoc](https://typedoc.org/)
-- [SonarCloud](https://sonarcloud.io/)
-- [GitHub Pages](https://docs.github.com/en/pages)

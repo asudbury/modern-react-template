@@ -1,0 +1,12 @@
+footer,
+footer .tsd-generator {
+  display: none !important;
+}
+
+.tsd-toolbar-contents {
+  display: none !important;
+}
+
+.page-menu {
+  visibility: hidden !important;
+}

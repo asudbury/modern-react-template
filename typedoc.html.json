@@ -20,5 +20,6 @@
   "name": "Modern React Template Documentation",
   "navigationLinks": {
     "GitHub": "https://github.com/asudbury/modern-react-template"
-  }
+  },
+  "customCss": ["./typedoc-theme/assets/custom.css"]
 }

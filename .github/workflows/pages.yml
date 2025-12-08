@@ -18,6 +18,9 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    # Only run if ENABLE_GH_PAGES is explicitly set to 'true'
+    # For forks: Set this in Settings → Secrets and variables → Actions → Variables
+    if: vars.ENABLE_GH_PAGES == 'true'
     steps:
       - uses: actions/checkout@v4
 

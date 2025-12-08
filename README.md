@@ -15,6 +15,7 @@ A modern, accessibility-first React 19 application built with Vite 7 and TypeScr
 ## Quick Links
 
 - 🚀 **[Quick Start for Forks](./QUICKSTART.md)** - Get started in 5 minutes
+- ⚙️ **[Feature Configuration](./FEATURES.md)** - Enable/disable optional features
 - 📖 **[Detailed Setup Guide](./SETUP.md)** - Configure optional features (SonarCloud, GitHub Pages, etc.)
 - 🤝 **[Contributing Guide](./CONTRIBUTING.md)** - Development guidelines
 

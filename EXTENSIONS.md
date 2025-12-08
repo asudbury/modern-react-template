@@ -272,11 +272,76 @@ export function Modal() {
 npm install @headlessui/react
 ```
 
-#### 3. **Shadcn/ui**
+#### 3. **Shadcn/ui** ✅ Integrated (Optional)
 
-**Why:** Copy-paste component collection (not a library)
+**Status:** Included in the template (can be removed if not needed)
 
-Visit [ui.shadcn.com](https://ui.shadcn.com/) and copy components directly into your project.
+This template now includes shadcn/ui components configured and ready to use. The following components are already available:
+
+- **Card** - Display content in card layouts
+- **Badge** - Show status, categories, or tags
+- **Alert** - Display callouts and notifications
+
+**Configuration:**
+- Path aliases configured (`@/*` → `./src/*`)
+- Component utilities in `src/lib/utils.ts`
+- Components located in `src/components/shadcn/`
+- All components follow repository conventions (accessibility, named exports, TypeScript)
+
+**Adding More Components:**
+
+While network access to ui.shadcn.com may be limited, you can manually add components by:
+1. Copying component code from the shadcn/ui documentation
+2. Placing them in `src/components/shadcn/`
+3. Ensuring they use the `cn()` utility from `@/lib/utils`
+4. Following the repository's conventions (named exports, JSDoc, accessibility)
+
+**Example Usage:**
+```tsx
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/shadcn';
+
+function MyComponent() {
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Card Title</CardTitle>
+        <CardDescription>Card description</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <p>Card content goes here</p>
+      </CardContent>
+    </Card>
+  );
+}
+```
+
+**Removing shadcn/ui (Optional):**
+
+If you prefer not to use shadcn/ui, you can easily remove it:
+
+1. Delete the components directory:
+   ```bash
+   rm -rf src/components/shadcn
+   ```
+
+2. Delete the utility library:
+   ```bash
+   rm -rf src/lib
+   ```
+
+3. Uninstall dependencies:
+   ```bash
+   npm uninstall class-variance-authority clsx tailwind-merge lucide-react
+   ```
+
+4. Remove configuration:
+   ```bash
+   rm components.json
+   ```
+
+5. Update `src/pages/HomePage/HomePage.tsx` to remove shadcn imports and usage
+
+See the README.md for complete removal instructions.
 
 ### Form Libraries
 

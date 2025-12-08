@@ -24,8 +24,8 @@ describe('HomePage', () => {
     const h1 = screen.getByRole('heading', { level: 1 });
     expect(h1).toBeInTheDocument();
 
-    const h2 = screen.getByRole('heading', { level: 2 });
-    expect(h2).toBeInTheDocument();
+    const h2Elements = screen.getAllByRole('heading', { level: 2 });
+    expect(h2Elements.length).toBeGreaterThan(0);
 
     const h3Elements = screen.getAllByRole('heading', { level: 3 });
     expect(h3Elements.length).toBeGreaterThan(0);

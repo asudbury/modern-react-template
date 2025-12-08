@@ -387,7 +387,53 @@ const { data, isLoading, error } = useQuery({
 
 ## Component Guidelines and Examples
 
-API and implementation patterns:
+### Using shadcn/ui Components
+
+This project includes shadcn/ui components located in `src/components/shadcn/`. **Always prefer using these pre-built shadcn components when available** instead of creating custom components from scratch.
+
+Available shadcn/ui components:
+- **Card**: `Card`, `CardHeader`, `CardTitle`, `CardDescription`, `CardContent`, `CardFooter`
+- **Badge**: Multiple variants (default, secondary, destructive, outline)
+- **Alert**: `Alert`, `AlertTitle`, `AlertDescription` with variants
+- **Button**: `ShadcnButton` with 6 variants and multiple sizes
+- **Input**: Accessible text input for forms
+- **Label**: Form label component
+- **Separator**: Visual separator (horizontal/vertical)
+
+**When to use shadcn components:**
+- Building forms → Use `Input`, `Label`, and `ShadcnButton`
+- Displaying status or categories → Use `Badge`
+- Showing notifications or messages → Use `Alert`
+- Creating content cards → Use `Card` and its sub-components
+- Adding visual dividers → Use `Separator`
+
+**Example:**
+```tsx
+import { Card, CardContent, CardHeader, CardTitle, Input, Label, ShadcnButton } from '@/components/shadcn';
+
+function MyForm() {
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Sign Up</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="email">Email</Label>
+            <Input id="email" type="email" placeholder="email@example.com" />
+          </div>
+          <ShadcnButton variant="default">Submit</ShadcnButton>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
+```
+
+All shadcn components follow repository conventions (accessibility, named exports, TypeScript, design tokens).
+
+### API and implementation patterns:
 
 - **Forward refs**: Use `forwardRef` for components that expose DOM nodes
 - **Props**: Accept `className?: string`, `style?: React.CSSProperties`, `data-*` attributes, `ref` when useful, and avoid prop bloat

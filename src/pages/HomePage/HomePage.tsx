@@ -2,6 +2,21 @@ import { useCallback } from 'react';
 import packageJson from '../../../package.json';
 import { Button } from '../../components/Button';
 import { useNotifications } from '../../context/useAppContext';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+  Badge,
+  Alert,
+  AlertDescription,
+  AlertTitle,
+  ShadcnButton,
+  Input,
+  Label,
+  Separator,
+} from '@/components/shadcn';
 
 /**
  * HomePage Component
@@ -65,6 +80,10 @@ export function HomePage() {
             <ul className="list-disc list-inside space-y-2 text-text-secondary">
               <li>WCAG 2.2 AA accessibility compliance</li>
               <li>Tailwind CSS with design tokens</li>
+              <li>
+                shadcn/ui components (Card, Badge, Alert, Button, Input, and
+                more)
+              </li>
               <li>TanStack Query for server state</li>
               <li>Context + Reducers for client state</li>
               <li>Vitest + React Testing Library</li>
@@ -133,6 +152,155 @@ export function HomePage() {
                 management.
               </p>
             </article>
+          </div>
+        </section>
+
+        <section className="mt-16" aria-labelledby="shadcn-title">
+          <h2
+            id="shadcn-title"
+            className="text-2xl font-semibold text-text-primary mb-4"
+          >
+            shadcn/ui Components
+          </h2>
+
+          <p className="text-text-secondary mb-6">
+            This template now includes shadcn/ui components - beautifully
+            designed, accessible components that you can copy and customize.
+          </p>
+
+          <div className="space-y-6">
+            <div>
+              <h3 className="text-lg font-semibold text-text-primary mb-3">
+                Card Component
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Card Title</CardTitle>
+                    <CardDescription>
+                      Card description goes here
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-sm">
+                      This is a shadcn/ui Card component demonstrating the
+                      integration with this template.
+                    </p>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Features</CardTitle>
+                    <CardDescription>Key capabilities</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <ul className="text-sm space-y-2">
+                      <li>✓ Accessible by default</li>
+                      <li>✓ Customizable with Tailwind</li>
+                      <li>✓ TypeScript support</li>
+                    </ul>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Get Started</CardTitle>
+                    <CardDescription>Quick setup</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-sm">
+                      shadcn/ui components are now ready to use in your project.
+                      Start building!
+                    </p>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-semibold text-text-primary mb-3">
+                Badge Component
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                <Badge variant="default">Default</Badge>
+                <Badge variant="secondary">Secondary</Badge>
+                <Badge variant="destructive">Destructive</Badge>
+                <Badge variant="outline">Outline</Badge>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-semibold text-text-primary mb-3">
+                Alert Component
+              </h3>
+              <div className="space-y-4">
+                <Alert variant="default">
+                  <AlertTitle>Information</AlertTitle>
+                  <AlertDescription>
+                    This is an informational alert using shadcn/ui components.
+                  </AlertDescription>
+                </Alert>
+
+                <Alert variant="destructive">
+                  <AlertTitle>Error</AlertTitle>
+                  <AlertDescription>
+                    This is a destructive alert demonstrating error states.
+                  </AlertDescription>
+                </Alert>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-semibold text-text-primary mb-3">
+                Button Component
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                <ShadcnButton variant="default">Default</ShadcnButton>
+                <ShadcnButton variant="secondary">Secondary</ShadcnButton>
+                <ShadcnButton variant="destructive">Destructive</ShadcnButton>
+                <ShadcnButton variant="outline">Outline</ShadcnButton>
+                <ShadcnButton variant="ghost">Ghost</ShadcnButton>
+                <ShadcnButton variant="link">Link</ShadcnButton>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-semibold text-text-primary mb-3">
+                Form Components
+              </h3>
+              <div className="max-w-md space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="name">Name</Label>
+                  <Input id="name" placeholder="Enter your name" />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="email">Email</Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="email@example.com"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-semibold text-text-primary mb-3">
+                Separator Component
+              </h3>
+              <div className="space-y-4">
+                <div>
+                  <p className="text-sm text-text-secondary">
+                    Content above separator
+                  </p>
+                  <Separator className="my-4" />
+                  <p className="text-sm text-text-secondary">
+                    Content below separator
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
       </div>

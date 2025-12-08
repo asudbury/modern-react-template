@@ -12,7 +12,7 @@ import {
   Alert,
   AlertDescription,
   AlertTitle,
-} from '@/components/ui';
+} from '@/components/shadcn';
 
 /**
  * HomePage Component

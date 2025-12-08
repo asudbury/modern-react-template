@@ -272,9 +272,9 @@ export function Modal() {
 npm install @headlessui/react
 ```
 
-#### 3. **Shadcn/ui** ✅ Integrated
+#### 3. **Shadcn/ui** ✅ Integrated (Optional)
 
-**Status:** Included in the template
+**Status:** Included in the template (can be removed if not needed)
 
 This template now includes shadcn/ui components configured and ready to use. The following components are already available:
 
@@ -285,19 +285,20 @@ This template now includes shadcn/ui components configured and ready to use. The
 **Configuration:**
 - Path aliases configured (`@/*` → `./src/*`)
 - Component utilities in `src/lib/utils.ts`
+- Components located in `src/components/shadcn/`
 - All components follow repository conventions (accessibility, named exports, TypeScript)
 
 **Adding More Components:**
 
 While network access to ui.shadcn.com may be limited, you can manually add components by:
 1. Copying component code from the shadcn/ui documentation
-2. Placing them in `src/components/ui/`
+2. Placing them in `src/components/shadcn/`
 3. Ensuring they use the `cn()` utility from `@/lib/utils`
 4. Following the repository's conventions (named exports, JSDoc, accessibility)
 
 **Example Usage:**
 ```tsx
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/shadcn';
 
 function MyComponent() {
   return (
@@ -313,6 +314,34 @@ function MyComponent() {
   );
 }
 ```
+
+**Removing shadcn/ui (Optional):**
+
+If you prefer not to use shadcn/ui, you can easily remove it:
+
+1. Delete the components directory:
+   ```bash
+   rm -rf src/components/shadcn
+   ```
+
+2. Delete the utility library:
+   ```bash
+   rm -rf src/lib
+   ```
+
+3. Uninstall dependencies:
+   ```bash
+   npm uninstall class-variance-authority clsx tailwind-merge lucide-react
+   ```
+
+4. Remove configuration:
+   ```bash
+   rm components.json
+   ```
+
+5. Update `src/pages/HomePage/HomePage.tsx` to remove shadcn imports and usage
+
+See the README.md for complete removal instructions.
 
 ### Form Libraries
 

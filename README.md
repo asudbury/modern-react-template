@@ -391,6 +391,8 @@ All design tokens are defined in `src/styles/tokens.css` and mapped to Tailwind 
 
 This template includes pre-configured shadcn/ui components that follow all repository conventions (accessibility, TypeScript, named exports).
 
+> **Note:** shadcn/ui is optional. See [Removing shadcn/ui](#removing-shadcnui) below if you prefer not to use it.
+
 ### Available Components
 
 - **Card** - Display content in card layouts with header, content, and footer sections
@@ -400,9 +402,9 @@ This template includes pre-configured shadcn/ui components that follow all repos
 ### Using shadcn/ui Components
 
 ```tsx
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui';
-import { Badge } from '@/components/ui';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/shadcn';
+import { Badge } from '@/components/shadcn';
+import { Alert, AlertDescription, AlertTitle } from '@/components/shadcn';
 
 function MyComponent() {
   return (
@@ -434,9 +436,47 @@ function MyComponent() {
 To add more shadcn/ui components:
 1. Visit [ui.shadcn.com](https://ui.shadcn.com/)
 2. Copy the component code
-3. Place it in `src/components/ui/`
+3. Place it in `src/components/shadcn/`
 4. Ensure it uses the `cn()` utility from `@/lib/utils`
 5. Follow repository conventions (named exports, JSDoc, accessibility)
+
+### Removing shadcn/ui
+
+If you don't want to use shadcn/ui components, follow these steps:
+
+1. **Remove shadcn components directory:**
+   ```bash
+   rm -rf src/components/shadcn
+   ```
+
+2. **Remove the utility helper:**
+   ```bash
+   rm -rf src/lib
+   ```
+
+3. **Remove shadcn dependencies:**
+   ```bash
+   npm uninstall class-variance-authority clsx tailwind-merge lucide-react
+   ```
+
+4. **Remove configuration file:**
+   ```bash
+   rm components.json
+   ```
+
+5. **Update HomePage** to remove shadcn component usage:
+   - Remove the import: `import { ... } from '@/components/shadcn';`
+   - Remove the "shadcn/ui Components" section from `src/pages/HomePage/HomePage.tsx`
+
+6. **Update documentation:**
+   - Remove the shadcn/ui entry from the Features list in this README
+   - Remove the shadcn/ui section from this README (lines 390-441)
+
+After removal, rebuild and test your application:
+```bash
+npm run build
+npm run test
+```
 
 See [EXTENSIONS.md](./EXTENSIONS.md) for more details on component libraries and extensions.
 

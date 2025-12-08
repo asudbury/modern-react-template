@@ -4,7 +4,7 @@
  * This file configures the TanStack Router instance with all routes.
  *
  * Features:
- * - File-based routing
+ * - Declarative routing
  * - Type-safe navigation
  * - Lazy loading support
  *

@@ -2,7 +2,7 @@
 
 // Simple script to inject build details into a copy of gh-pages-index.html
 // Usage (for deploy only, not committed):
-//   node ./scripts/update-gh-pages-build-details.cjs path/to/output/gh-pages-index.html
+//   node ./scripts/update-gh-pages-details.cjs path/to/output/gh-pages-index.html
 // It reads public/gh-pages-index.html, replaces __APP_VERSION__, __BUILD_DATE__, and
 // __BUILD_TIME__ with values from package.json and the current date/time, and writes
 // the result to the output path.
@@ -74,7 +74,7 @@ function main() {
 
   if (!outputPathArg) {
     console.error('[update-gh-pages-build-details] Missing output path argument');
-    console.error('Usage: node ./scripts/update-gh-pages-build-details.cjs dist/gh-pages-index.html');
+    console.error('Usage: node ./scripts/update-gh-pages-details.cjs dist/gh-pages-index.html');
     process.exit(1);
   }
 
@@ -97,10 +97,10 @@ function main() {
     .replace(/__BUILD_TIME__/g, buildTime);
 
   if (updated === original) {
-    console.warn('[update-gh-pages-build-details] No placeholders found in source gh-pages-index.html');
+    console.warn('[update-gh-pages-details] No placeholders found in source gh-pages-index.html');
   } else {
     console.log(
-      `[update-gh-pages-build-details] Injected version ${version}, build date ${buildDate}, and build time ${buildTime} into output file`,
+      `[update-gh-pages-details] Injected version ${version}, build date ${buildDate}, and build time ${buildTime} into output file`,
     );
   }
 

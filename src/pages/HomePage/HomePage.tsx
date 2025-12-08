@@ -12,6 +12,10 @@ import {
   Alert,
   AlertDescription,
   AlertTitle,
+  ShadcnButton,
+  Input,
+  Label,
+  Separator,
 } from '@/components/shadcn';
 
 /**
@@ -76,6 +80,10 @@ export function HomePage() {
             <ul className="list-disc list-inside space-y-2 text-text-secondary">
               <li>WCAG 2.2 AA accessibility compliance</li>
               <li>Tailwind CSS with design tokens</li>
+              <li>
+                shadcn/ui components (Card, Badge, Alert, Button, Input, and
+                more)
+              </li>
               <li>TanStack Query for server state</li>
               <li>Context + Reducers for client state</li>
               <li>Vitest + React Testing Library</li>
@@ -240,6 +248,57 @@ export function HomePage() {
                     This is a destructive alert demonstrating error states.
                   </AlertDescription>
                 </Alert>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-semibold text-text-primary mb-3">
+                Button Component
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                <ShadcnButton variant="default">Default</ShadcnButton>
+                <ShadcnButton variant="secondary">Secondary</ShadcnButton>
+                <ShadcnButton variant="destructive">Destructive</ShadcnButton>
+                <ShadcnButton variant="outline">Outline</ShadcnButton>
+                <ShadcnButton variant="ghost">Ghost</ShadcnButton>
+                <ShadcnButton variant="link">Link</ShadcnButton>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-semibold text-text-primary mb-3">
+                Form Components
+              </h3>
+              <div className="max-w-md space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="name">Name</Label>
+                  <Input id="name" placeholder="Enter your name" />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="email">Email</Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="email@example.com"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-semibold text-text-primary mb-3">
+                Separator Component
+              </h3>
+              <div className="space-y-4">
+                <div>
+                  <p className="text-sm text-text-secondary">
+                    Content above separator
+                  </p>
+                  <Separator className="my-4" />
+                  <p className="text-sm text-text-secondary">
+                    Content below separator
+                  </p>
+                </div>
               </div>
             </div>
           </div>

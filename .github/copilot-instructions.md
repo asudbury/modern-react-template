@@ -4,6 +4,8 @@ This file contains project-specific guidelines and conventions for GitHub Copilo
 
 You are contributing to a modern, accessibility-first React 19 application built with Vite 7 and TypeScript 5. This repository enforces strict rules for accessibility (WCAG 2.2 AA), no inline JSX handlers, Tailwind tokenized colors, TanStack React Query 5, Context + Reducers for client state, Vitest + RTL tests, and Playwright + Axe for E2E accessibility checks.
 
+> **Note for Forks:** This template is designed to be fork-friendly. All optional features (SonarCloud, GitHub Pages, Storybook in CI, JSDoc in CI) are **disabled by default** and only run when explicitly enabled via repository variables. See [QUICKSTART.md](../QUICKSTART.md) for setup instructions.
+
 ## Purpose
 
 This document is the authoritative source of conventions, constraints, and expectations for this starter repository. The project uses Vite 7 + React 19 + TypeScript 5 and is built with an accessibility-first approach (WCAG 2.2 AA). The repo includes a tokenized Tailwind design system, TanStack Query for server state, strict linting, and automated accessibility checks (Playwright + axe) in CI.
@@ -14,7 +16,18 @@ Use this file to guide Copilot suggestions and human contributors — prefer sol
 
 - **Storybook**: Component development and documentation in isolation. All components should have corresponding `.stories.tsx` files.
 - **TypeDoc**: Automated API documentation generation from JSDoc comments. Documentation is published to GitHub Pages.
-- **SonarCloud**: Continuous code quality and security analysis integrated into CI/CD pipeline.
+- **SonarCloud**: Continuous code quality and security analysis integrated into CI/CD pipeline (optional, disabled by default for forks).
+- **GitHub Pages**: Deployment for app, Storybook, and documentation (optional, disabled by default for forks).
+
+### Optional Features (Opt-In Only)
+
+The following features are **disabled by default** to make this template fork-friendly:
+- **SonarCloud**: Only runs if `RUN_SONARCLOUD=true` in repository variables
+- **GitHub Pages**: Only runs if `ENABLE_GH_PAGES=true` in repository variables
+- **Storybook in CI**: Only builds if `ENABLE_STORYBOOK_BUILD=true` in repository variables
+- **JSDoc in CI**: Only builds if `ENABLE_JSDOC_BUILD=true` in repository variables
+
+See [QUICKSTART.md](../QUICKSTART.md) for enabling these features.
 
 ## Core Principles
 

@@ -5,6 +5,13 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  workflow_dispatch:
+    inputs:
+      run_sonarcloud:
+        description: 'Run SonarCloud analysis'
+        required: false
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -13,9 +20,9 @@ jobs:
   sonarcloud:
     name: SonarCloud Scan
     runs-on: ubuntu-latest
-    # Only run if RUN_SONARCLOUD is explicitly set to 'true'
+    # Only run if RUN_SONARCLOUD is explicitly set to 'true' OR workflow_dispatch input is true
     # For forks: Set this in Settings → Secrets and variables → Actions → Variables
-    if: vars.RUN_SONARCLOUD == 'true'
+    if: vars.RUN_SONARCLOUD == 'true' || inputs.run_sonarcloud == true
     permissions:
       contents: read
     steps:

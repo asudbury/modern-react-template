@@ -295,6 +295,7 @@ rm typedoc.json typedoc.html.json
 
 - [QUICKSTART.md](./QUICKSTART.md) - Fast setup for forks
 - [SETUP.md](./SETUP.md) - Detailed feature documentation
+- [EXTENSIONS.md](./EXTENSIONS.md) - Add error logging, authentication, IaC, and cloud deployments
 - [README.md](./README.md) - Project overview
 - [CONTRIBUTING.md](./CONTRIBUTING.md) - Development guidelines
 

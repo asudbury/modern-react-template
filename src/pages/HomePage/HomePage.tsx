@@ -306,7 +306,7 @@ export function HomePage() {
       </div>
       <footer className="w-full border-t border-border-subtle bg-surface px-4 py-4 text-xs text-text-secondary sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl flex items-center justify-between">
-          <p aria-label={`Template version ${packageJson.version}`}>
+          <p>
             Template version{' '}
             <span className="font-mono">{packageJson.version}</span>
           </p>

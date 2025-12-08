@@ -86,14 +86,14 @@ describe('Navigation', () => {
 
     // Tab to first link
     await user.tab();
-    
+
     await waitFor(() => {
       expect(homeLink).toHaveFocus();
     });
 
     // Tab to second link
     await user.tab();
-    
+
     await waitFor(() => {
       expect(samplesLink).toHaveFocus();
     });

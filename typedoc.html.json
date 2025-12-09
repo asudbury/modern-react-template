@@ -11,15 +11,14 @@
     "**/test/**",
     "**/__tests__/**"
   ],
-  "excludePrivate": true,
+  "excludePrivate": false,
   "excludeProtected": false,
-  "excludeExternals": true,
+  "excludeExternals": false,
   "includeVersion": true,
   "readme": "README.md",
   "tsconfig": "tsconfig.json",
-  "name": "Modern React Template Documentation",
+  "name": "Modern React Template",
   "navigationLinks": {
     "GitHub": "https://github.com/asudbury/modern-react-template"
-  },
-  "customCss": ["./typedoc-theme/assets/custom.css"]
+  }
 }

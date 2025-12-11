@@ -1,4 +1,3 @@
-
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { vi, describe, it, expect } from 'vitest';
@@ -10,10 +9,7 @@ describe('ErrorFallback', () => {
     const resetErrorBoundary = vi.fn();
 
     render(
-      <ErrorFallback
-        error={error}
-        resetErrorBoundary={resetErrorBoundary}
-      />
+      <ErrorFallback error={error} resetErrorBoundary={resetErrorBoundary} />
     );
 
     // Check header
@@ -34,10 +30,7 @@ describe('ErrorFallback', () => {
     const resetErrorBoundary = vi.fn();
 
     render(
-      <ErrorFallback
-        error={error}
-        resetErrorBoundary={resetErrorBoundary}
-      />
+      <ErrorFallback error={error} resetErrorBoundary={resetErrorBoundary} />
     );
 
     const button = screen.getByRole('button', { name: /try again/i });

@@ -20,7 +20,10 @@ import { ErrorFallback } from './components/ErrorFallback';
 
 createRoot(document.getElementById('root') as HTMLElement).render(
   <StrictMode>
-    <ErrorBoundary FallbackComponent={ErrorFallback} onReset={() => window.location.reload()}>
+    <ErrorBoundary
+      FallbackComponent={ErrorFallback}
+      onReset={() => window.location.reload()}
+    >
       <App />
     </ErrorBoundary>
   </StrictMode>

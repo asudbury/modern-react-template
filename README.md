@@ -28,7 +28,7 @@ A modern, accessibility-first React 19 application built with Vite 7 and TypeScr
 ### Core Features (Always Enabled)
 - ♿ [**Accessibility-first**](https://www.w3.org/WAI/WCAG22/quickref/) (WCAG 2.2 AA compliant)
 - 📝 [**Commitlint**](https://commitlint.js.org/#/) enforcing conventional commit messages
-- 🛡️ [**Global Error Boundary**](https://github.com/bvaughn/react-error-boundary) protecting against crashes
+- 🛡️ [**Global Error Boundary**](https://github.com/bvaughn/react-error-boundary) with custom fallback UI and reload/reset support
 - 🔒 [**ESLint**](https://eslint.org/) + [**Prettier**](https://prettier.io/) configuration
 - 🪝 [**Husky**](https://typicode.github.io/husky/) pre-commit + commit-msg hooks
 - 🎭 [**Playwright**](https://playwright.dev/) + [**axe-core**](https://www.deque.com/axe/devtools/) for E2E accessibility testing
@@ -38,6 +38,34 @@ A modern, accessibility-first React 19 application built with Vite 7 and TypeScr
 - 🔄 [**TanStack Query**](https://tanstack.com/query/latest) for server state management
 - 🧭 [**TanStack Router**](https://tanstack.com/router) for type-safe routing
 - 🎨 [**Tailwind CSS**](https://tailwindcss.com/docs) with design tokens
+# Global Error Handling
+
+This template uses a global error boundary to catch unexpected errors anywhere in the React component tree and display a user-friendly fallback UI instead of a blank screen or crash.
+
+- Implemented using [`react-error-boundary`](https://github.com/bvaughn/react-error-boundary)
+- Configured in [`src/main.tsx`](src/main.tsx) wrapping the entire app
+- Custom fallback UI in [`src/components/ErrorFallback/ErrorFallback.tsx`](src/components/ErrorFallback/ErrorFallback.tsx)
+- Users can reload the app or reset the error boundary from the fallback UI
+
+**How it works:**
+
+```tsx
+import { ErrorBoundary } from 'react-error-boundary';
+import { ErrorFallback } from './components/ErrorFallback';
+
+<ErrorBoundary
+  FallbackComponent={ErrorFallback}
+  onReset={() => window.location.reload()}
+>
+  <App />
+</ErrorBoundary>
+```
+
+**Customizing error handling:**
+- Edit the fallback UI in `ErrorFallback.tsx` to change the error message, add support links, or customize the reload/reset behavior.
+- You can log errors to a service (Sentry, LogRocket, etc.) by adding an `onError` prop to the `ErrorBoundary`.
+
+See also: [Error boundaries in React](https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary)
 - 📘 [**TypeScript 5**](https://www.typescriptlang.org/docs/) with strict mode enabled
 - 🧪 [**Vitest**](https://vitest.dev/) + [**React Testing Library**](https://testing-library.com/docs/react-testing-library/intro/) for unit tests
 - 🔐 [**Zod**](https://zod.dev/) validation for all external data
@@ -249,46 +277,26 @@ modern-react-template/
 │   └── pre-commit             # Pre-commit hooks
 ├── docs/                      # Generated markdown docs (TypeDoc)
 ├── docs-html/                 # Generated HTML docs (TypeDoc)
-├── playwright/
-│   └── homepage.spec.ts       # E2E + accessibility sample for HomePage
+├── playwright/                # UI tests
 ├── samples/                   # ⚠️ Sample components (DELETE before production!)
 │   ├── components/
-│   │   ├── SampleForm.tsx
-│   │   ├── SampleDataFetching.tsx
-│   │   ├── SampleContextUsage.tsx
-│   │   ├── SampleAccessibility.tsx
-│   │   └── index.ts
-│   └── README.md              # Samples documentation
 ├── src/
 │   ├── components/            # Reusable UI components and samples
-│   │   ├── Button/            # Sample button component + tests + stories
-│   │   │   ├── Button.tsx
-│   │   │   ├── Button.test.tsx
-│   │   │   ├── Button.stories.tsx
-│   │   │   └── index.ts
-│   │   ├── Navigation/        # Navigation component with TanStack Router
-│   │   │   ├── Navigation.tsx
-│   │   │   ├── Navigation.test.tsx
-│   │   │   └── index.ts
-│   │   └── shadcn/            # shadcn/ui primitives (Card, Badge, Alert, etc.)
-│   ├── context/               # React Context for client state
-│   │   └── AppContext.tsx
-│   ├── pages/                 # Page components and layout samples
-│   │   ├── HomePage/          # Home page layout
-│   │   └── SamplesDemo/       # Samples demo page
-│   ├── queries/               # TanStack Query functions (sample fetch/mutate)
-│   │   ├── fetch.ts
-│   │   └── mutate.ts
-│   ├── schemas/               # Zod schemas
-│   │   └── api.ts
-│   ├── styles/                # Design tokens and styles
-│   │   └── tokens.css
-│   ├── test/                  # Test setup
-│   │   └── setup.ts
-│   ├── utils/                 # Utility functions
-│   ├── App.tsx                # Root component
-│   ├── main.tsx               # Entry point
-│   ├── router.tsx             # TanStack Router configuration
+│   │   ├── Button/            # Button component (+ tests, stories, index)
+│   │   ├── Navigation/        # Navigation bar
+│   │   ├── ErrorFallback/     # Global error fallback for error boundary
+│   │   └── shadcn/            # shadcn/ui primitives
+│   ├── context/               # React Context and reducers
+│   ├── pages/                 # Route/page components
+│   ├── queries/               # Data fetching/mutations (TanStack Query)
+│   ├── schemas/               # Zod schemas and types
+│   ├── styles/                # Design tokens and Tailwind config
+│   ├── utils/                 # Pure utility functions
+│   ├── lib/                   # Shared libraries (if used)
+│   ├── test/                  # Test setup/mocks
+│   ├── App.tsx                # Root app component
+│   ├── main.tsx               # Entry point (includes error boundary)
+│   ├── router.tsx             # Router config
 │   └── index.css              # Global styles
 ├── .env.example               # Environment variables template
 ├── .gitignore                 # Git ignore rules

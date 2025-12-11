@@ -1,4 +1,3 @@
-
 import { useCallback } from 'react';
 import type { FallbackProps } from 'react-error-boundary';
 import { Button } from '../Button';
@@ -54,10 +53,7 @@ export function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
         </p>
 
         <div className="flex gap-4 justify-center">
-          <Button
-            onClick={handleReload}
-            variant="primary"
-          >
+          <Button onClick={handleReload} variant="primary">
             Try Again
           </Button>
 

@@ -36,6 +36,7 @@ A modern, accessibility-first React 19 application built with Vite 7 and TypeScr
 - ✨ [**React 19**](https://react.dev/) with the latest features
 - 🧩 [**shadcn/ui**](https://ui.shadcn.com/) components (Card, Badge, Alert, and more)
 - 🔄 [**TanStack Query**](https://tanstack.com/query/latest) for server state management
+- 🧭 [**TanStack Router**](https://tanstack.com/router) for type-safe routing
 - 🎨 [**Tailwind CSS**](https://tailwindcss.com/docs) with design tokens
 - 📘 [**TypeScript 5**](https://www.typescriptlang.org/docs/) with strict mode enabled
 - 🧪 [**Vitest**](https://vitest.dev/) + [**React Testing Library**](https://testing-library.com/docs/react-testing-library/intro/) for unit tests
@@ -75,6 +76,66 @@ Visit `http://localhost:5173` to see your application.
 > 🍴 **Forked this repo?** See [QUICKSTART.md](./QUICKSTART.md) for fork-specific setup instructions. All optional features (SonarCloud, GitHub Pages, etc.) are disabled by default and won't interfere with your fork.
 
 > ⚠️ **IMPORTANT: Delete the `samples/` directory before production!** This template includes educational sample components in the `samples/` directory that demonstrate key features. These are for learning purposes only and should be **deleted** before deploying to production. See [samples/README.md](./samples/README.md) for details.
+
+## Routing with TanStack Router
+
+This template uses [TanStack Router](https://tanstack.com/router) for type-safe client-side routing. The router is configured in `src/router.tsx` and integrated into the app via `App.tsx`.
+
+### Navigation
+
+The template includes a `Navigation` component that uses TanStack Router's `Link` component for type-safe navigation:
+
+```tsx
+import { Link } from '@tanstack/react-router';
+
+<Link to="/" activeProps={{ className: 'active' }}>
+  Home
+</Link>
+```
+
+### Available Routes
+
+- `/` - Home page (HomePage component)
+- `/samples` - Samples demo page (SamplesDemo component)
+
+### Adding New Routes
+
+To add a new route, update `src/router.tsx`:
+
+```tsx
+import { createRoute } from '@tanstack/react-router';
+import { YourComponent } from './pages/YourComponent';
+
+const yourRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/your-path',
+  component: YourComponent,
+});
+
+// Add to routeTree
+const routeTree = rootRoute.addChildren([
+  indexRoute, 
+  samplesRoute, 
+  yourRoute
+]);
+```
+
+### Type-Safe Navigation
+
+TanStack Router provides full TypeScript autocomplete and type checking for routes:
+
+```tsx
+import { Link, useNavigate } from '@tanstack/react-router';
+
+// Link component with autocomplete
+<Link to="/samples">Samples</Link>
+
+// Programmatic navigation
+const navigate = useNavigate();
+navigate({ to: '/' });
+```
+
+For more details, see the [TanStack Router documentation](https://tanstack.com/router/latest/docs/framework/react/overview).
 
 ## Sample Components (Delete Before Production!)
 
@@ -205,11 +266,16 @@ modern-react-template/
 │   │   │   ├── Button.test.tsx
 │   │   │   ├── Button.stories.tsx
 │   │   │   └── index.ts
+│   │   ├── Navigation/        # Navigation component with TanStack Router
+│   │   │   ├── Navigation.tsx
+│   │   │   ├── Navigation.test.tsx
+│   │   │   └── index.ts
 │   │   └── shadcn/            # shadcn/ui primitives (Card, Badge, Alert, etc.)
 │   ├── context/               # React Context for client state
 │   │   └── AppContext.tsx
 │   ├── pages/                 # Page components and layout samples
-│   │   └── HomePage/          # Sample home page layout
+│   │   ├── HomePage/          # Home page layout
+│   │   └── SamplesDemo/       # Samples demo page
 │   ├── queries/               # TanStack Query functions (sample fetch/mutate)
 │   │   ├── fetch.ts
 │   │   └── mutate.ts
@@ -222,6 +288,7 @@ modern-react-template/
 │   ├── utils/                 # Utility functions
 │   ├── App.tsx                # Root component
 │   ├── main.tsx               # Entry point
+│   ├── router.tsx             # TanStack Router configuration
 │   └── index.css              # Global styles
 ├── .env.example               # Environment variables template
 ├── .gitignore                 # Git ignore rules

@@ -1,23 +1,25 @@
 /**
  * Root Application Component
  *
- * This component sets up the application's global providers and renders the main page.
+ * This component sets up the application's global providers and renders the router.
  *
  * Provider Hierarchy:
  * 1. QueryClientProvider - Manages server state with TanStack Query
  * 2. AppProvider - Manages client-side state with Context + Reducer
- * 3. HomePage - Main application page
+ * 3. RouterProvider - Manages routing with TanStack Router
  *
  * Configuration:
  * - Query stale time: 5 minutes
  * - Window focus refetching: disabled
+ * - Router preloading: on intent
  *
  * @returns The configured application with all necessary providers
  */
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { RouterProvider } from '@tanstack/react-router';
 import { AppProvider } from './context/AppContext';
-import { HomePage } from './pages/HomePage';
+import { router } from './router';
 
 /**
  * TanStack Query client configuration
@@ -43,7 +45,7 @@ export function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <AppProvider>
-        <HomePage />
+        <RouterProvider router={router} />
       </AppProvider>
     </QueryClientProvider>
   );

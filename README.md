@@ -28,6 +28,7 @@ A modern, accessibility-first React 19 application built with Vite 7 and TypeScr
 ### Core Features (Always Enabled)
 - ♿ [**Accessibility-first**](https://www.w3.org/WAI/WCAG22/quickref/) (WCAG 2.2 AA compliant)
 - 📝 [**Commitlint**](https://commitlint.js.org/#/) enforcing conventional commit messages
+- 🛡️ [**Global Error Boundary**](https://github.com/bvaughn/react-error-boundary) protecting against crashes
 - 🔒 [**ESLint**](https://eslint.org/) + [**Prettier**](https://prettier.io/) configuration
 - 🪝 [**Husky**](https://typicode.github.io/husky/) pre-commit + commit-msg hooks
 - 🎭 [**Playwright**](https://playwright.dev/) + [**axe-core**](https://www.deque.com/axe/devtools/) for E2E accessibility testing

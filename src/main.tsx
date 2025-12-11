@@ -13,11 +13,15 @@
 
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
+import { ErrorBoundary } from 'react-error-boundary';
 import './index.css';
 import { App } from './App';
+import { ErrorFallback } from './components/ErrorFallback';
 
 createRoot(document.getElementById('root') as HTMLElement).render(
   <StrictMode>
-    <App />
+    <ErrorBoundary FallbackComponent={ErrorFallback} onReset={() => window.location.reload()}>
+      <App />
+    </ErrorBoundary>
   </StrictMode>
 );

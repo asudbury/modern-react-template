@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import packageJson from '../../../package.json';
 import { Button } from '../../components/Button';
 import { useNotifications } from '../../context/useAppContext';
@@ -35,8 +35,14 @@ import {
  * - High contrast colors from tokens
  */
 
+// State to trigger an error during render (caught by ErrorBoundary)
 export function HomePage() {
   const { addNotification } = useNotifications();
+  const [shouldCrash, setShouldCrash] = useState(false);
+
+  if (shouldCrash) {
+    throw new Error('This is a simulated crash for testing purposes.');
+  }
 
   const handlePrimaryClick = useCallback(() => {
     addNotification({
@@ -110,6 +116,15 @@ export function HomePage() {
               aria-label="Try secondary button"
             >
               Secondary Action
+            </Button>
+
+            <Button
+              variant="danger"
+              size="md"
+              onClick={() => setShouldCrash(true)}
+              aria-label="Trigger application crash"
+            >
+              Crash App
             </Button>
           </div>
         </section>

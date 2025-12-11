@@ -489,6 +489,59 @@ const { data, isLoading, error } = useQuery({
 - Never mutate state directly - always return new objects
 - Keep state minimal and focused
 
+## Routing with TanStack Router
+
+This project uses [TanStack Router](https://tanstack.com/router) for type-safe, declarative routing.
+
+### Router Configuration
+
+Routes are defined in `src/router.tsx` using `createRoute`:
+
+```tsx
+import { createRouter, createRootRoute, createRoute } from '@tanstack/react-router';
+
+const rootRoute = createRootRoute({
+  component: RootComponent,
+});
+
+const indexRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/',
+  component: HomePage,
+});
+
+const routeTree = rootRoute.addChildren([indexRoute]);
+const router = createRouter({ routeTree });
+```
+
+### Navigation
+
+Use the `Link` component for type-safe navigation:
+
+```tsx
+import { Link } from '@tanstack/react-router';
+
+<Link to="/" activeProps={{ className: 'active' }}>
+  Home
+</Link>
+```
+
+For programmatic navigation, use `useNavigate`:
+
+```tsx
+import { useNavigate } from '@tanstack/react-router';
+
+const navigate = useNavigate();
+navigate({ to: '/samples' });
+```
+
+### Best Practices
+
+- **Type Safety**: The router provides full TypeScript autocomplete for routes
+- **Active Links**: Use `activeProps` to style active links
+- **Preloading**: Router is configured with `defaultPreload: 'intent'` for better UX
+- **Accessibility**: Always include proper ARIA labels on navigation links
+
 ## React 19 Specific Features
 
 ### Automatic Batching
@@ -1019,9 +1072,10 @@ export function Dashboard() {
 ## Required Libraries & Tools
 
 - **TanStack Query**: All data fetching and mutations must use TanStack Query (`@tanstack/react-query`)
+- **TanStack Router**: All routing must use TanStack Router (`@tanstack/react-router`) for type-safe navigation
 - **npm**: Use npm for installing dependencies per this project's convention. Example:
   ```bash
-  npm install @tanstack/react-query
+  npm install @tanstack/react-query @tanstack/react-router
   ```
 
 ## Component Guidelines and Examples

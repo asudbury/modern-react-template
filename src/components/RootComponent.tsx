@@ -1,5 +1,4 @@
 import { Outlet } from '@tanstack/react-router';
-import { Navigation } from '../components/Navigation';
 import type { ReactNode } from 'react';
 
 /**
@@ -12,10 +11,5 @@ import type { ReactNode } from 'react';
  * <RootComponent />
  */
 export function RootComponent(): ReactNode {
-  return (
-    <>
-      <Navigation />
-      <Outlet />
-    </>
-  );
+  return <Outlet />;
 }

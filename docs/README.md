@@ -18,7 +18,6 @@ A modern, accessibility-first React 19 application built with Vite 7 and TypeScr
 - ✨ [**React 19**](https://react.dev/) with the latest features
 - ⚡ [**Vite 7**](https://vite.dev/) for lightning-fast development
 - 📘 [**TypeScript 5**](https://www.typescriptlang.org/docs/) with strict mode enabled
-- 🎨 [**Tailwind CSS**](https://tailwindcss.com/docs) with design tokens
 - ♿ [**Accessibility-first**](https://www.w3.org/WAI/WCAG22/quickref/) (WCAG 2.2 AA compliant)
 - 🔄 [**TanStack Query**](https://tanstack.com/query/latest) for server state management
 - 🎯 [**React Context + Reducers**](https://react.dev/learn/passing-data-deeply-with-context) for client state
@@ -137,9 +136,7 @@ modern-react-template/
 ├── eslint.config.js           # ESLint configuration
 ├── package.json               # Dependencies and scripts
 ├── playwright.config.ts       # Playwright configuration
-├── postcss.config.js          # PostCSS configuration
 ├── sonar-project.properties   # SonarCloud configuration
-├── tailwind.config.ts         # Tailwind configuration
 ├── tsconfig.json              # TypeScript configuration
 ├── typedoc.json               # TypeDoc markdown config
 ├── typedoc.html.json          # TypeDoc HTML config
@@ -219,7 +216,7 @@ Additionally, a Husky `commit-msg` hook runs **commitlint** to enforce
 messages. Example:
 
 ```text
-feat: add Tailwind token mapping
+feat: add new component
 fix: handle invalid user IDs in updateUser
 chore: configure commitlint for commit messages
 ```
@@ -319,32 +316,6 @@ return <button onClick={() => doSomething()}>Click me</button>;
 - **Query by role** - Use accessible queries (`getByRole`, `getByLabelText`)
 - **User events** - Use `userEvent.setup()`, never `fireEvent`
 - **E2E tests** - Use Playwright with Axe accessibility checks
-
-## Design Tokens
-
-All design tokens are defined in `src/styles/tokens.css` and mapped to Tailwind utilities in `tailwind.config.ts`. Always use tokens instead of hardcoded values.
-
-### Color System
-
-- **Primary**: Blue (buttons, links, primary actions)
-- **Secondary**: Violet (secondary actions)
-- **Accent**: Cyan (highlights, special features)
-- **Neutral**: Grayscale (text, backgrounds, borders)
-- **Semantic**: Success (green), Warning (amber), Error (red), Info (blue)
-
-### Example Usage
-
-```tsx
-// ✅ Good: Using design tokens
-<button className="bg-primary text-white hover:bg-primary-hover">
-  Click me
-</button>
-
-// ❌ Bad: Hardcoded colors
-<button className="bg-blue-600 text-white hover:bg-blue-700">
-  Click me
-</button>
-```
 
 If a commit is rejected due to an invalid commit message, commitlint prints a
 clear error explaining which rule failed (for example, missing `feat:`/`fix:`
@@ -459,7 +430,6 @@ MIT
 - [React 19 Documentation](https://react.dev)
 - [Vite Documentation](https://vite.dev)
 - [TypeScript Documentation](https://www.typescriptlang.org/docs/)
-- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
 - [Accessibility (WCAG 2.2 AA)](https://www.w3.org/WAI/WCAG22/quickref/)
 - [TanStack Query Documentation](https://tanstack.com/query/latest)
 - [React Context](https://react.dev/learn/passing-data-deeply-with-context)

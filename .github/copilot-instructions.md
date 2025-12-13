@@ -2,13 +2,13 @@
 
 This file contains project-specific guidelines and conventions for GitHub Copilot to follow when generating code for this repository.
 
-You are contributing to a modern, accessibility-first React 19 application built with Vite 7 and TypeScript 5. This repository enforces strict rules for accessibility (WCAG 2.2 AA), no inline JSX handlers, Tailwind tokenized colors, TanStack React Query 5, Context + Reducers for client state, Vitest + RTL tests, and Playwright + Axe for E2E accessibility checks.
+You are contributing to a modern, accessibility-first React 19 application built with Vite 7 and TypeScript 5. This repository enforces strict rules for accessibility (WCAG 2.2 AA), no inline JSX handlers, design tokens, TanStack React Query 5, Context + Reducers for client state, Vitest + RTL tests, and Playwright + Axe for E2E accessibility checks.
 
-> **Note for Forks:** This template is designed to be fork-friendly. All optional features (SonarCloud, GitHub Pages, Storybook in CI, JSDoc in CI) are **disabled by default** and only run when explicitly enabled via repository variables. See [QUICKSTART.md](../QUICKSTART.md) for setup instructions.
+> **Note for Forks:** This template is designed to be fork-friendly. All optional features (SonarCloud, GitHub Pages, Storybook in CI, JSDoc in CI) are **disabled by default** and only run when explicitly enabled via repository variables. 
 
 ## Purpose
 
-This document is the authoritative source of conventions, constraints, and expectations for this starter repository. The project uses Vite 7 + React 19 + TypeScript 5 and is built with an accessibility-first approach (WCAG 2.2 AA). The repo includes a tokenized Tailwind design system, TanStack Query for server state, strict linting, and automated accessibility checks (Playwright + axe) in CI.
+This document is the authoritative source of conventions, constraints, and expectations for this starter repository. The project uses Vite 7 + React 19 + TypeScript 5 and is built with an accessibility-first approach (WCAG 2.2 AA). The repo includes a tokenized design system, TanStack Query for server state, strict linting, and automated accessibility checks (Playwright + axe) in CI.
 
 Use this file to guide Copilot suggestions and human contributors — prefer solutions that are accessible, well-typed, and maintainable.
 
@@ -41,7 +41,7 @@ See [QUICKSTART.md](../QUICKSTART.md) for enabling these features.
 7. **JSDoc Documentation**: All exported functions, components, and types must have comprehensive JSDoc comments for TypeDoc generation
 8. **Predictable APIs**: Components expose clear controlled/uncontrolled APIs, forward refs, accept `className` and `data-*` props
 9. **No inline JSX functions**: Avoid inline callbacks in JSX (e.g., `onClick={() => ...}`). Use `useCallback` or named functions defined outside of JSX to improve performance and testability
-10. **Tokenized styles**: Use design tokens via `src/styles/tokens.css` and Tailwind utilities. Do not hardcode color or spacing values in components
+10. **Tokenized styles**: Use design tokens via `src/styles/tokens.css`. Do not hardcode color or spacing values in components
 
 ## Repository Conventions
 
@@ -99,18 +99,7 @@ See [QUICKSTART.md](../QUICKSTART.md) for enabling these features.
   export default function MyComponent() { }
   ```
 
-### Design Tokens
 
-- Always use Tailwind classes that reference design tokens
-- Example:
-
-  ```tsx
-  // ✅ Good
-  <button className="bg-primary text-white hover:bg-primary-hover">
-
-  // ❌ Bad
-  <button className="bg-blue-600 text-white hover:bg-blue-700">
-  ```
 
 ## JSDoc Documentation
 
@@ -455,7 +444,7 @@ Add these commands to your `.husky/pre-commit` file to ensure all code is format
 Examples:
 
 ```text
-feat: add Tailwind token mapping
+feat: add custom control
 fix: align AppContext callbacks with useCallback
 chore: configure commitlint hook
 ```
@@ -532,7 +521,7 @@ For programmatic navigation, use `useNavigate`:
 import { useNavigate } from '@tanstack/react-router';
 
 const navigate = useNavigate();
-navigate({ to: '/samples' });
+navigate({ to: '/new-page' });
 ```
 
 ### Best Practices
@@ -1080,63 +1069,6 @@ export function Dashboard() {
 
 ## Component Guidelines and Examples
 
-### Using Shadcn/ui Components
-
-This project includes Shadcn/ui components located in `src/components/shadcn/`. **Always prefer using these pre-built shadcn components when available** instead of creating custom components from scratch.
-
-Available Shadcn/ui components:
-
-- **Card**: `Card`, `CardHeader`, `CardTitle`, `CardDescription`, `CardContent`, `CardFooter`
-- **Badge**: Multiple variants (default, secondary, destructive, outline)
-- **Alert**: `Alert`, `AlertTitle`, `AlertDescription` with variants
-- **Button**: `ShadcnButton` with 6 variants and multiple sizes
-- **Input**: Accessible text input for forms
-- **Label**: Form label component
-- **Separator**: Visual separator (horizontal/vertical)
-
-**When to use shadcn components:**
-
-- Building forms → Use `Input`, `Label`, and `ShadcnButton`
-- Displaying status or categories → Use `Badge`
-- Showing notifications or messages → Use `Alert`
-- Creating content cards → Use `Card` and its sub-components
-- Adding visual dividers → Use `Separator`
-
-**Example:**
-
-```tsx
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  Input,
-  Label,
-  ShadcnButton,
-} from '@/components/shadcn';
-
-function MyForm() {
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Sign Up</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
-            <Input id="email" type="email" placeholder="email@example.com" />
-          </div>
-          <ShadcnButton variant="default">Submit</ShadcnButton>
-        </div>
-      </CardContent>
-    </Card>
-  );
-}
-```
-
-All shadcn components follow repository conventions (accessibility, named exports, TypeScript, design tokens).
-
 ### API and implementation patterns:
 
 - **Forward refs**: Use `forwardRef` for components that expose DOM nodes
@@ -1312,61 +1244,6 @@ export function useTheme() {
 ## Utility Functions
 
 Utility functions should be pure, testable, and well-documented. Keep them in `src/lib/` or `src/utils/`.
-
-### The `cn` Utility (Class Name Merging)
-
-This project uses a `cn` utility function for merging Tailwind CSS classes properly:
-
-````tsx
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-
-/**
- * Utility function to merge Tailwind CSS classes
- *
- * Combines clsx for conditional classes and tailwind-merge
- * to properly handle Tailwind class conflicts.
- *
- * @param inputs - Class values to merge
- * @returns Merged class string
- *
- * @example
- * ```ts
- * cn('px-2 py-1', 'px-4') // Returns 'py-1 px-4'
- * cn('text-red-500', condition && 'text-blue-500')
- * ```
- */
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
-````
-
-### When to Use `cn`
-
-- Merging base styles with conditional styles
-- Allowing className prop overrides in components
-- Resolving Tailwind class conflicts (later classes override earlier ones)
-
-### Example Usage in Components
-
-```tsx
-export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant = 'primary', ...props }, ref) => {
-    return (
-      <button
-        ref={ref}
-        className={cn(
-          'rounded px-4 py-2',
-          variant === 'primary' && 'bg-primary text-white',
-          variant === 'secondary' && 'bg-secondary text-white',
-          className // Allow consumer to override
-        )}
-        {...props}
-      />
-    );
-  }
-);
-```
 
 ### Utility Function Best Practices
 
@@ -1758,25 +1635,7 @@ export class ErrorBoundary extends Component<Props, State> {
 
 ## Responsive Design Patterns
 
-### Tailwind Responsive Breakpoints
 
-Use Tailwind's mobile-first responsive prefixes:
-
-```tsx
-<div
-  className="
-  grid 
-  grid-cols-1     /* Mobile: 1 column */
-  md:grid-cols-2  /* Tablet: 2 columns */
-  lg:grid-cols-3  /* Desktop: 3 columns */
-  gap-4
-"
->
-  {items.map((item) => (
-    <Card key={item.id} {...item} />
-  ))}
-</div>
-```
 
 ### Container Queries (Modern Pattern)
 
@@ -1868,20 +1727,7 @@ export function MobileNav() {
 
 ### CSS Transitions (Preferred for Simple Animations)
 
-Use Tailwind's transition utilities for simple hover/focus effects:
 
-```tsx
-<button
-  className="
-  bg-primary 
-  transition-colors duration-200 
-  hover:bg-primary-hover
-  focus:ring-2 focus:ring-primary
-"
->
-  Click me
-</button>
-```
 
 ### Accessibility Considerations for Animations
 
@@ -2264,7 +2110,7 @@ Keep this file updated as tooling or conventions change. When introducing new es
 - **Don't** use array indices as React keys - use stable unique identifiers (database IDs, UUIDs via `uuid.v4()`, or other stable unique values)
 - **Don't** mix client/server state - campaigns from API go through TanStack Query only
 - **Don't** disable ESLint rules without justification - discuss with maintainers first
-- **Don't** use inline styles or hardcoded colors - always use Tailwind tokens
+- **Don't** use inline styles or hardcoded colors - always use design tokens
 - **Don't** forget to test keyboard navigation and screen reader behavior for new components
 - **Don't** ignore accessibility violations in CI - fix them before merging
 - **Don't** use `any` or `unknown` types - always prefer strict typing with interfaces or `zod` schemas
@@ -2360,8 +2206,8 @@ Ensure your `package.json` defines at least the following scripts so tooling and
 ## Project Setup Checklist (Quick Start)
 
 1. **Scaffold app**: `npm create vite@latest my-app -- --template react-ts`
-2. **Install deps**: `npm install` (React 19, Vite 7, TS 5, Tailwind, TanStack Query, Vitest, RTL, Playwright, axe, Husky, lint-staged, ESLint, Prettier)
-3. **Configure Tailwind**: tokens in `src/styles/tokens.css` and mapping in `tailwind.config.ts`
+2. **Install deps**: `npm install` (React 19, Vite 7, TS 5, TanStack Query, Vitest, RTL, Playwright, axe, Husky, lint-staged, ESLint, Prettier)
+3. **Configure design tokens**: tokens in `src/styles/tokens.css`
 4. **Add env config**: create `.env.example` and document variables in `README.md`
 5. **Add ignores**: `.gitignore` and `.gitleaksignore` in repo root
 6. **Set up Husky**: `npx husky install` and `.husky/pre-commit` running `npm run prettier`, `npm run test`, `npm run lint`, `npm run build`
@@ -2373,7 +2219,7 @@ Ensure your `package.json` defines at least the following scripts so tooling and
 ## Where to Find Key Files
 
 - Tokens: `src/styles/tokens.css`
-- Tailwind mapping: `tailwind.config.ts`
+
 - ESLint: `eslint.config.js`
 - CI workflow: `.github/workflows/ci.yml`
 - Playwright tests: `playwright` or `tests/e2e`
@@ -2535,7 +2381,7 @@ export type MyType = z.infer<typeof mySchema>;
 | `useMemo`         | Expensive calculations, derived state        | `const filtered = useMemo(() => data.filter(...), [data])`                |
 | `memo`            | Pure components that render often            | `export const Item = memo(({ data }) => ...)`                             |
 | `forwardRef`      | Components that need to expose DOM refs      | `export const Input = forwardRef<HTMLInputElement, Props>(...)`           |
-| `cn` utility      | Merging Tailwind classes                     | `className={cn('base-class', conditional && 'extra-class')}`              |
+| `cn` utility      | Merging class names                     | `className={cn('base-class', conditional && 'extra-class')}`              |
 | TanStack Query    | Server data fetching                         | `const { data } = useQuery({ queryKey: ['users'], queryFn: fetchUsers })` |
 | Context + Reducer | Global client state                          | `const { state, dispatch } = useAppContext()`                             |
 | Zod schemas       | Data validation                              | `const result = schema.safeParse(data)`                                   |

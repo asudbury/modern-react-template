@@ -14,7 +14,6 @@ HomePage Component
 
 Example page component demonstrating:
 - Accessible markup (semantic HTML)
-- Use of design tokens via Tailwind
 - No inline event handlers (useCallback)
 - Context usage for client state
 - Keyboard navigation

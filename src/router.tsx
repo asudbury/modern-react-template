@@ -19,19 +19,17 @@ import {
   createRouter,
   createRootRoute,
   createRoute,
-  Outlet,
 } from '@tanstack/react-router';
 import { RootComponent } from './components/RootComponent';
 import { HomePage } from './pages/HomePage';
-import { SamplesDemo } from './pages/SamplesDemo';
-import { NotFoundPage } from './pages/NotFoundPage';
+import { NotFoundPageAdapter } from './pages/NotFoundPage';
 
 /**
  * Root route definition for TanStack Router
  */
 const rootRoute = createRootRoute({
   component: RootComponent,
-  notFoundComponent: NotFoundPage,
+  notFoundComponent: NotFoundPageAdapter,
 });
 
 /**
@@ -44,29 +42,16 @@ const indexRoute = createRoute({
 });
 
 /**
- * Samples route definition
- */
-const samplesRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: '/samples',
-  component: SamplesDemo,
-});
-
-/**
  * Route tree configuration
  * Defines the hierarchy and structure of all routes
  */
 const notFoundRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '*',
-  component: NotFoundPage,
+  component: NotFoundPageAdapter,
 });
 
-const routeTree = rootRoute.addChildren([
-  indexRoute,
-  samplesRoute,
-  notFoundRoute,
-]);
+const routeTree = rootRoute.addChildren([indexRoute, notFoundRoute]);
 
 /**
  * Router instance
@@ -77,7 +62,7 @@ export const router = createRouter({
   defaultPreload: 'intent',
   basepath:
     import.meta.env.MODE === 'production' ? '/modern-react-template/app' : '/',
-  defaultNotFoundComponent: NotFoundPage,
+  defaultNotFoundComponent: NotFoundPageAdapter,
 });
 
 /**

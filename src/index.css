@@ -2,7 +2,7 @@
 @import 'tailwindcss';
 
 /* Tailwind v4 Theme Configuration */
-@theme {
+:root {
   /* Design Tokens - Colors */
   --color-primary: #2563eb;
   --color-primary-hover: #1d4ed8;
@@ -91,20 +91,4 @@ body {
 :focus-visible {
   outline: var(--focus-ring-width) solid var(--focus-ring-color);
   outline-offset: var(--focus-ring-offset);
-}
-
-/* Skip to main content link (for keyboard users) */
-.skip-link {
-  position: absolute;
-  top: -40px;
-  left: 0;
-  background: var(--color-primary);
-  color: white;
-  padding: 8px;
-  text-decoration: none;
-  z-index: 100;
-}
-
-.skip-link:focus {
-  top: 0;
 }

@@ -27,17 +27,20 @@ A modern, accessibility-first React 19 application built with Vite 7 and TypeScr
 
 ### Core Features (Always Enabled)
 - ♿ [**Accessibility-first**](https://www.w3.org/WAI/WCAG22/quickref/) (WCAG 2.2 AA compliant)
+- 🦾 [**Axe-core**](https://github.com/dequelabs/axe-core) automated accessibility checks
 - 📝 [**Commitlint**](https://commitlint.js.org/#/) enforcing conventional commit messages
 - 🛡️ [**Global Error Boundary**](https://github.com/bvaughn/react-error-boundary) with custom fallback UI and reload/reset support
 - 🔒 [**ESLint**](https://eslint.org/) + [**Prettier**](https://prettier.io/) configuration
 - 🪝 [**Husky**](https://typicode.github.io/husky/) pre-commit + commit-msg hooks
-- 🎭 [**Playwright**](https://playwright.dev/) + [**axe-core**](https://www.deque.com/axe/devtools/) for E2E accessibility testing
+- 🎭 [**Playwright**](https://playwright.dev/) for E2E browser testing
 - 🎯 [**React Context + Reducers**](https://react.dev/learn/passing-data-deeply-with-context) for client state
 - ✨ [**React 19**](https://react.dev/) with the latest features
-- 🧩 [**shadcn/ui**](https://ui.shadcn.com/) components (Card, Badge, Alert, and more)
+- 🧩 [**Shadcn/ui**](https://ui.shadcn.com/) components (Card, Badge, Alert, and more)
 - 🔄 [**TanStack Query**](https://tanstack.com/query/latest) for server state management
 - 🧭 [**TanStack Router**](https://tanstack.com/router) for type-safe routing
 - 🎨 [**Tailwind CSS**](https://tailwindcss.com/docs) with design tokens
+- 🧪 [**Vitest + React Testing Library**](https://vitest.dev/) unit testing and accessible queries
+- 🧑‍⚖️ [**Zod**](https://zod.dev/) for data validation
 # Global Error Handling
 
 This template uses a global error boundary to catch unexpected errors anywhere in the React component tree and display a user-friendly fallback UI instead of a blank screen or crash.
@@ -121,10 +124,25 @@ import { Link } from '@tanstack/react-router';
 </Link>
 ```
 
+
 ### Available Routes
 
 - `/` - Home page (HomePage component)
 - `/samples` - Samples demo page (SamplesDemo component)
+- `*` (any unmatched path) – **404 Not Found page** (NotFoundPage component)
+
+#### 404 Not Found Page
+
+This template includes a fully accessible, customizable 404 Not Found page for unmatched routes. The 404 page:
+- Is automatically shown for any route that does not match a defined path
+- Uses semantic HTML, design tokens, and is keyboard/screen reader accessible
+- Provides a clear message and a link to return home
+
+**Customizing the 404 page:**
+- Edit `src/pages/NotFoundPage/NotFoundPage.tsx` to change the message, add illustrations, or update the layout
+- The route is configured in `src/router.tsx` with `path: '*'`
+
+**Demo:** On the home page, click the "Demo 404 Not Found page" link to preview the 404 page in the app.
 
 ### Adding New Routes
 
@@ -352,7 +370,7 @@ All UI components should have corresponding `.stories.tsx` files showcasing vari
 
 This template ships with several concrete samples you can use as references:
 
-- **Home page layout**: `src/pages/HomePage/HomePage.tsx` demonstrates accessible page structure, headings, and use of shadcn/ui components.
+- **Home page layout**: `src/pages/HomePage/HomePage.tsx` demonstrates accessible page structure, headings, and use of Shadcn/ui components.
 - **Reusable component + tests**: `src/components/Button/` includes the button implementation, unit tests, and Storybook stories.
 - **Data fetching utilities**: `src/queries/fetch.ts` and `src/queries/mutate.ts` show how to use TanStack Query with Zod validation.
 - **E2E + accessibility test**: `playwright/homepage.spec.ts` is a full Playwright + axe-core example for the home page.
@@ -524,9 +542,9 @@ All design tokens are defined in `src/styles/tokens.css` and mapped to Tailwind 
 </button>
 ```
 
-## shadcn/ui Components
+## Shadcn/ui Components
 
-This template includes pre-configured shadcn/ui components that follow all repository conventions (accessibility, TypeScript, named exports).
+This template includes pre-configured Shadcn/ui components that follow all repository conventions (accessibility, TypeScript, named exports).
 
 > **Note:** shadcn/ui is optional. See [Removing shadcn/ui](#removing-shadcnui) below if you prefer not to use it.
 
@@ -540,7 +558,7 @@ This template includes pre-configured shadcn/ui components that follow all repos
 - **Label** - Associate text labels with form controls
 - **Separator** - Provide visual dividers between sections of content
 
-### Using shadcn/ui Components
+### Using Shadcn/ui Components
 
 ```tsx
 import {
@@ -606,7 +624,7 @@ To add more shadcn/ui components:
 
 ### Removing shadcn/ui
 
-If you don't want to use shadcn/ui components, follow these steps:
+If you don't want to use Shadcn/ui components, follow these steps:
 
 1. **Remove shadcn components directory:**
    ```bash
@@ -630,7 +648,7 @@ If you don't want to use shadcn/ui components, follow these steps:
 
 5. **Update HomePage** to remove shadcn component usage:
    - Remove the import: `import { ... } from '@/components/shadcn';`
-   - Remove the "shadcn/ui Components" section from `src/pages/HomePage/HomePage.tsx`
+   - Remove the "Shadcn/ui Components" section from `src/pages/HomePage/HomePage.tsx`
 
 6. **Update documentation:**
    - Remove the shadcn/ui entry from the Features list in this README
@@ -778,7 +796,7 @@ MIT
 ### Data, Validation & Accessibility
 
 - [Accessibility (WCAG 2.2 AA)](https://www.w3.org/WAI/WCAG22/quickref/)
-- [axe-core](https://www.deque.com/axe/devtools/)
+- [Axe-core](https://www.deque.com/axe/devtools/)
 - [TanStack Query Documentation](https://tanstack.com/query/latest)
 - [Zod](https://zod.dev/)
 

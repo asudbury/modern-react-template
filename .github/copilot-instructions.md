@@ -1080,11 +1080,11 @@ export function Dashboard() {
 
 ## Component Guidelines and Examples
 
-### Using shadcn/ui Components
+### Using Shadcn/ui Components
 
-This project includes shadcn/ui components located in `src/components/shadcn/`. **Always prefer using these pre-built shadcn components when available** instead of creating custom components from scratch.
+This project includes Shadcn/ui components located in `src/components/shadcn/`. **Always prefer using these pre-built shadcn components when available** instead of creating custom components from scratch.
 
-Available shadcn/ui components:
+Available Shadcn/ui components:
 
 - **Card**: `Card`, `CardHeader`, `CardTitle`, `CardDescription`, `CardContent`, `CardFooter`
 - **Badge**: Multiple variants (default, secondary, destructive, outline)

@@ -276,7 +276,7 @@ npm install @headlessui/react
 
 **Status:** Included in the template (can be removed if not needed)
 
-This template now includes shadcn/ui components configured and ready to use. The following components are already available:
+This template now includes Shadcn/ui components configured and ready to use. The following components are already available:
 
 - **Card** - Display content in card layouts
 - **Badge** - Show status, categories, or tags
@@ -1116,22 +1116,6 @@ jobs:
   "devCommand": "npm run dev",
   "installCommand": "npm ci"
 }
-```
-
-### Netlify
-
-**Best for:** Form handling and edge functions
-
-**netlify.toml:**
-```toml
-[build]
-  command = "npm run build"
-  publish = "dist"
-
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
 ```
 
 ### Comparison Matrix

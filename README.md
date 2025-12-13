@@ -17,11 +17,7 @@ A modern, accessibility-first React 19 application built with Vite 7 and TypeScr
 
 ## Quick Links
 
-- 🚀 **[Quick Start for Forks](./QUICKSTART.md)** - Get started in 5 minutes
 - ⚙️ **[Feature Configuration](./FEATURES.md)** - Enable/disable optional features
-- 📖 **[Detailed Setup Guide](./SETUP.md)** - Configure optional features (SonarCloud, GitHub Pages, etc.)
-- 🔌 **[Extension Options](./EXTENSIONS.md)** - Add-ons, integrations, and deployment guides
-- 🤝 **[Contributing Guide](./CONTRIBUTING.md)** - Development guidelines
 
 ## Features
 
@@ -35,10 +31,8 @@ A modern, accessibility-first React 19 application built with Vite 7 and TypeScr
 - 🎭 [**Playwright**](https://playwright.dev/) for E2E browser testing
 - 🎯 [**React Context + Reducers**](https://react.dev/learn/passing-data-deeply-with-context) for client state
 - ✨ [**React 19**](https://react.dev/) with the latest features
-- 🧩 [**Shadcn/ui**](https://ui.shadcn.com/) components (Card, Badge, Alert, and more)
 - 🔄 [**TanStack Query**](https://tanstack.com/query/latest) for server state management
 - 🧭 [**TanStack Router**](https://tanstack.com/router) for type-safe routing
-- 🎨 [**Tailwind CSS**](https://tailwindcss.com/docs) with design tokens
 - 🧪 [**Vitest + React Testing Library**](https://vitest.dev/) unit testing and accessible queries
 - 🧑‍⚖️ [**Zod**](https://zod.dev/) for data validation
 # Global Error Handling
@@ -106,8 +100,6 @@ Visit `http://localhost:5173` to see your application.
 
 > 🍴 **Forked this repo?** See [QUICKSTART.md](./QUICKSTART.md) for fork-specific setup instructions. All optional features (SonarCloud, GitHub Pages, etc.) are disabled by default and won't interfere with your fork.
 
-> ⚠️ **IMPORTANT: Delete the `samples/` directory before production!** This template includes educational sample components in the `samples/` directory that demonstrate key features. These are for learning purposes only and should be **deleted** before deploying to production. See [samples/README.md](./samples/README.md) for details.
-
 ## Routing with TanStack Router
 
 This template uses [TanStack Router](https://tanstack.com/router) for type-safe client-side routing. The router is configured in `src/router.tsx` and integrated into the app via `App.tsx`.
@@ -127,9 +119,8 @@ import { Link } from '@tanstack/react-router';
 
 ### Available Routes
 
-- `/` - Home page (HomePage component)
-- `/samples` - Samples demo page (SamplesDemo component)
-- `*` (any unmatched path) – **404 Not Found page** (NotFoundPage component)
+ - `/` - Home page (HomePage component)
+ - `*` (any unmatched path) – **404 Not Found page** (NotFoundPage component)
 
 #### 404 Not Found Page
 
@@ -160,8 +151,7 @@ const yourRoute = createRoute({
 
 // Add to routeTree
 const routeTree = rootRoute.addChildren([
-  indexRoute, 
-  samplesRoute, 
+  indexRoute,
   yourRoute
 ]);
 ```
@@ -174,7 +164,6 @@ TanStack Router provides full TypeScript autocomplete and type checking for rout
 import { Link, useNavigate } from '@tanstack/react-router';
 
 // Link component with autocomplete
-<Link to="/samples">Samples</Link>
 
 // Programmatic navigation
 const navigate = useNavigate();
@@ -183,60 +172,20 @@ navigate({ to: '/' });
 
 For more details, see the [TanStack Router documentation](https://tanstack.com/router/latest/docs/framework/react/overview).
 
-## Sample Components (Delete Before Production!)
-
-This template includes a comprehensive set of sample components to help you learn the patterns and conventions:
-
-📚 **[View Sample Components Documentation](./samples/README.md)**
-
-### Available Samples:
-- **SampleForm** - Form handling with Zod validation and accessibility
-- **SampleDataFetching** - TanStack Query for data fetching and mutations
-- **SampleContextUsage** - React Context + Reducer for client state
-- **SampleAccessibility** - WCAG 2.2 AA compliance features and patterns
-
-### How to View Samples:
-
-To see the samples in action, temporarily modify `src/App.tsx` to import and use the `SamplesDemo` page:
-
-```tsx
-import { SamplesDemo } from './pages/SamplesDemo';
-
-export function App() {
-  return (
-    <QueryClientProvider client={queryClient}>
-      <AppProvider>
-        <SamplesDemo />  {/* Replace HomePage with SamplesDemo */}
-      </AppProvider>
-    </QueryClientProvider>
-  );
-}
-```
-
-Then run `npm run dev` and visit `http://localhost:5173`.
-
-**Remember to delete the entire `samples/` directory and the `SamplesDemo` page before deploying to production!**
-
-```bash
-# Delete samples directory
-rm -rf samples/
-```
-
 ## For Forks: What's Enabled by Default?
 
 This template is designed to be **fork-friendly**. Here's what works out of the box:
 
 ### ✅ Enabled by Default (No Configuration Needed)
-- React 19 development with Vite
-- TypeScript with strict mode
-- Tailwind CSS with design tokens
-- ESLint + Prettier
-- Husky pre-commit hooks
-- Commitlint for commit messages
-- Unit tests with Vitest
-- E2E tests with Playwright
-- Storybook (local development only)
-- TypeDoc (local generation only)
+React 19 development with Vite
+TypeScript with strict mode
+ESLint + Prettier
+Husky pre-commit hooks
+Commitlint for commit messages
+Unit tests with Vitest
+E2E tests with Playwright
+Storybook (local development only)
+TypeDoc (local generation only)
 
 ### ❌ Disabled by Default (Opt-In Only)
 - **SonarCloud Analysis** - Requires `RUN_SONARCLOUD=true` + configuration
@@ -296,21 +245,15 @@ modern-react-template/
 ├── docs/                      # Generated markdown docs (TypeDoc)
 ├── docs-html/                 # Generated HTML docs (TypeDoc)
 ├── playwright/                # UI tests
-├── samples/                   # ⚠️ Sample components (DELETE before production!)
-│   ├── components/
 ├── src/
 │   ├── components/            # Reusable UI components and samples
 │   │   ├── Button/            # Button component (+ tests, stories, index)
 │   │   ├── Navigation/        # Navigation bar
 │   │   ├── ErrorFallback/     # Global error fallback for error boundary
-│   │   └── shadcn/            # shadcn/ui primitives
 │   ├── context/               # React Context and reducers
 │   ├── pages/                 # Route/page components
 │   ├── queries/               # Data fetching/mutations (TanStack Query)
 │   ├── schemas/               # Zod schemas and types
-│   ├── styles/                # Design tokens and Tailwind config
-│   ├── utils/                 # Pure utility functions
-│   ├── lib/                   # Shared libraries (if used)
 │   ├── test/                  # Test setup/mocks
 │   ├── App.tsx                # Root app component
 │   ├── main.tsx               # Entry point (includes error boundary)
@@ -323,9 +266,7 @@ modern-react-template/
 ├── eslint.config.js           # ESLint configuration
 ├── package.json               # Dependencies and scripts
 ├── playwright.config.ts       # Playwright configuration
-├── postcss.config.js          # PostCSS configuration
 ├── sonar-project.properties   # SonarCloud configuration
-├── tailwind.config.ts         # Tailwind configuration
 ├── tsconfig.json              # TypeScript configuration
 ├── typedoc.json               # TypeDoc markdown config
 ├── typedoc.html.json          # TypeDoc HTML config
@@ -370,7 +311,7 @@ All UI components should have corresponding `.stories.tsx` files showcasing vari
 
 This template ships with several concrete samples you can use as references:
 
-- **Home page layout**: `src/pages/HomePage/HomePage.tsx` demonstrates accessible page structure, headings, and use of Shadcn/ui components.
+- **Home page layout**: `src/pages/HomePage/HomePage.tsx` demonstrates accessible page structure and headings.
 - **Reusable component + tests**: `src/components/Button/` includes the button implementation, unit tests, and Storybook stories.
 - **Data fetching utilities**: `src/queries/fetch.ts` and `src/queries/mutate.ts` show how to use TanStack Query with Zod validation.
 - **E2E + accessibility test**: `playwright/homepage.spec.ts` is a full Playwright + axe-core example for the home page.
@@ -415,7 +356,7 @@ Additionally, a Husky `commit-msg` hook runs **commitlint** to enforce
 messages. Example:
 
 ```text
-feat: add Tailwind token mapping
+feat: add a new component
 fix: handle invalid user IDs in updateUser
 chore: configure commitlint for commit messages
 ```
@@ -516,151 +457,6 @@ return <button onClick={() => doSomething()}>Click me</button>;
 - **User events** - Use `userEvent.setup()`, never `fireEvent`
 - **E2E tests** - Use Playwright with Axe accessibility checks
 
-## Design Tokens
-
-All design tokens are defined in `src/styles/tokens.css` and mapped to Tailwind utilities in `tailwind.config.ts`. Always use tokens instead of hardcoded values.
-
-### Color System
-
-- **Primary**: Blue (buttons, links, primary actions)
-- **Secondary**: Violet (secondary actions)
-- **Accent**: Cyan (highlights, special features)
-- **Neutral**: Grayscale (text, backgrounds, borders)
-- **Semantic**: Success (green), Warning (amber), Error (red), Info (blue)
-
-### Example Usage
-
-```tsx
-// ✅ Good: Using design tokens
-<button className="bg-primary text-white hover:bg-primary-hover">
-  Click me
-</button>
-
-// ❌ Bad: Hardcoded colors
-<button className="bg-blue-600 text-white hover:bg-blue-700">
-  Click me
-</button>
-```
-
-## Shadcn/ui Components
-
-This template includes pre-configured Shadcn/ui components that follow all repository conventions (accessibility, TypeScript, named exports).
-
-> **Note:** shadcn/ui is optional. See [Removing shadcn/ui](#removing-shadcnui) below if you prefer not to use it.
-
-### Available Components
-
-- **Card** - Display content in card layouts with header, content, and footer sections
-- **Badge** - Show status indicators, categories, or tags with multiple variants
-- **Alert** - Display notifications and callouts with different severity levels
-- **Button** - Trigger actions with primary, secondary, or subtle variants
-- **Input** - Accessible text input for forms with proper labeling
-- **Label** - Associate text labels with form controls
-- **Separator** - Provide visual dividers between sections of content
-
-### Using Shadcn/ui Components
-
-```tsx
-import {
-  Alert,
-  AlertDescription,
-  AlertTitle,
-  Badge,
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-  Input,
-  Label,
-  Separator,
-  ShadcnButton,
-} from '@/components/shadcn';
-
-function MyComponent() {
-  return (
-    <div className="space-y-6">
-      <Card>
-        <CardHeader>
-          <CardTitle>Welcome</CardTitle>
-          <CardDescription>Get started with shadcn/ui</CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <p>Your content here</p>
-          <Badge variant="secondary">New</Badge>
-
-          <Separator />
-
-          <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
-            <Input id="email" type="email" placeholder="you@example.com" />
-          </div>
-
-          <ShadcnButton type="button" variant="default">
-            Submit
-          </ShadcnButton>
-        </CardContent>
-      </Card>
-
-      <Alert variant="default">
-        <AlertTitle>Information</AlertTitle>
-        <AlertDescription>
-          This is an informational alert.
-        </AlertDescription>
-      </Alert>
-    </div>
-  );
-}
-```
-
-### Adding More Components
-
-To add more shadcn/ui components:
-1. Visit [ui.shadcn.com](https://ui.shadcn.com/)
-2. Copy the component code
-3. Place it in `src/components/shadcn/`
-4. Ensure it uses the `cn()` utility from `@/lib/utils`
-5. Follow repository conventions (named exports, JSDoc, accessibility)
-
-### Removing shadcn/ui
-
-If you don't want to use Shadcn/ui components, follow these steps:
-
-1. **Remove shadcn components directory:**
-   ```bash
-   rm -rf src/components/shadcn
-   ```
-
-2. **Remove the utility helper:**
-   ```bash
-   rm -rf src/lib
-   ```
-
-3. **Remove shadcn dependencies:**
-   ```bash
-   npm uninstall class-variance-authority clsx tailwind-merge lucide-react
-   ```
-
-4. **Remove configuration file:**
-   ```bash
-   rm components.json
-   ```
-
-5. **Update HomePage** to remove shadcn component usage:
-   - Remove the import: `import { ... } from '@/components/shadcn';`
-   - Remove the "Shadcn/ui Components" section from `src/pages/HomePage/HomePage.tsx`
-
-6. **Update documentation:**
-   - Remove the shadcn/ui entry from the Features list in this README
-   - Remove the shadcn/ui section from this README (lines 390-441)
-
-After removal, rebuild and test your application:
-```bash
-npm run build
-npm run test
-```
-
-See [EXTENSIONS.md](./EXTENSIONS.md) for more details on component libraries and extensions.
 
 If a commit is rejected due to an invalid commit message, commitlint prints a
 clear error explaining which rule failed (for example, missing `feat:`/`fix:`
@@ -788,8 +584,6 @@ MIT
 
 - [React 19 Documentation](https://react.dev)
 - [React Context](https://react.dev/learn/passing-data-deeply-with-context)
-- [shadcn/ui](https://ui.shadcn.com/)
-- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
 - [TypeScript Documentation](https://www.typescriptlang.org/docs/)
 - [Vite Documentation](https://vite.dev)
 

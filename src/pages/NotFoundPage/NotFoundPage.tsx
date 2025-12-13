@@ -1,14 +1,19 @@
+import { Button } from '@/components/Button';
 import { Link } from '@tanstack/react-router';
-import { ShadcnButton } from '@/components/shadcn';
 import { forwardRef } from 'react';
 import type { HTMLAttributes } from 'react';
+
+// Adapter for TanStack Router's notFoundComponent prop
+export function NotFoundPageAdapter(props: Record<string, never>) {
+  return <NotFoundPage {...props} />;
+}
 
 /**
  * NotFoundPage
  *
  * Accessible 404 Not Found page for unmatched routes.
  * - Keyboard and screen reader accessible
- * - Uses design tokens and Tailwind
+ * - Uses design tokens
  *
  * @example
  * ```tsx
@@ -18,14 +23,17 @@ import type { HTMLAttributes } from 'react';
 export const NotFoundPage = forwardRef<
   HTMLDivElement,
   HTMLAttributes<HTMLDivElement>
->(() => (
-  <div className="flex flex-col items-center justify-center min-h-[60vh] gap-6 text-center">
+>((props, ref) => (
+  <div
+    ref={ref}
+    className="flex flex-col items-center justify-center min-h-[60vh] gap-6 text-center"
+    {...props}
+  >
     <h1 className="text-5xl font-bold">404</h1>
     <p>Sorry, the page you are looking for could not be found.</p>
-    <ShadcnButton asChild variant="secondary" size="lg">
+    <Button variant="secondary" size="lg">
       <Link to="/">Go back home</Link>
-    </ShadcnButton>
+    </Button>
   </div>
 ));
-
 NotFoundPage.displayName = 'NotFoundPage';

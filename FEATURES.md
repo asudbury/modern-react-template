@@ -291,14 +291,6 @@ rm typedoc.json typedoc.html.json
 
 **A:** Check Settings → Secrets and variables → Actions → Variables. Only features with `=true` are enabled.
 
-## 📚 Additional Resources
-
-- [QUICKSTART.md](./QUICKSTART.md) - Fast setup for forks
-- [SETUP.md](./SETUP.md) - Detailed feature documentation
-- [EXTENSIONS.md](./EXTENSIONS.md) - Add error logging, authentication, IaC, and cloud deployments
-- [README.md](./README.md) - Project overview
-- [CONTRIBUTING.md](./CONTRIBUTING.md) - Development guidelines
-
 ## 💡 Pro Tips
 
 1. **Start minimal:** Only enable features you actively use

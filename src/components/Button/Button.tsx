@@ -65,8 +65,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         'bg-secondary text-white hover:bg-secondary-hover active:bg-secondary-active focus-visible:outline-secondary',
       accent:
         'bg-accent text-white hover:bg-accent-hover active:bg-accent-active focus-visible:outline-accent',
-      danger:
-        'bg-error text-white hover:bg-error focus-visible:outline-error',
+      danger: 'bg-error text-white hover:bg-error focus-visible:outline-error',
     };
 
     const sizeStyles = {

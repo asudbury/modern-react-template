@@ -40,7 +40,7 @@
   /* Semantic Colors */
   --color-success: #10b981; /* Green 500 - 4.54:1 contrast on white */
   --color-warning: #f59e0b; /* Amber 500 - 4.50:1 contrast on white */
-  --color-error: #ef4444; /* Red 500 - 4.52:1 contrast on white */
+  --color-error: #b91c1c; /* Red 700 - 5.93:1 contrast on white (WCAG AA) */
   --color-info: #3b82f6; /* Blue 500 - 4.53:1 contrast on white */
 
   /* Surface Colors */
@@ -121,20 +121,4 @@ body {
 :focus-visible {
   outline: var(--focus-ring-width) solid var(--focus-ring-color);
   outline-offset: var(--focus-ring-offset);
-}
-
-/* Skip to main content link (for keyboard users) */
-.skip-link {
-  position: absolute;
-  top: -40px;
-  left: 0;
-  background: var(--color-primary);
-  color: white;
-  padding: 8px;
-  text-decoration: none;
-  z-index: 100;
-}
-
-.skip-link:focus {
-  top: 0;
 }

@@ -21,27 +21,17 @@ import {
   createRoute,
   Outlet,
 } from '@tanstack/react-router';
-import { Navigation } from './components/Navigation';
+import { RootComponent } from './components/RootComponent';
 import { HomePage } from './pages/HomePage';
 import { SamplesDemo } from './pages/SamplesDemo';
-
-/**
- * Root route component that renders the navigation and outlet for child routes
- */
-function RootComponent() {
-  return (
-    <>
-      <Navigation />
-      <Outlet />
-    </>
-  );
-}
+import { NotFoundPage } from './pages/NotFoundPage';
 
 /**
  * Root route definition for TanStack Router
  */
 const rootRoute = createRootRoute({
   component: RootComponent,
+  notFoundComponent: NotFoundPage,
 });
 
 /**
@@ -66,7 +56,17 @@ const samplesRoute = createRoute({
  * Route tree configuration
  * Defines the hierarchy and structure of all routes
  */
-const routeTree = rootRoute.addChildren([indexRoute, samplesRoute]);
+const notFoundRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '*',
+  component: NotFoundPage,
+});
+
+const routeTree = rootRoute.addChildren([
+  indexRoute,
+  samplesRoute,
+  notFoundRoute,
+]);
 
 /**
  * Router instance
@@ -75,6 +75,9 @@ const routeTree = rootRoute.addChildren([indexRoute, samplesRoute]);
 export const router = createRouter({
   routeTree,
   defaultPreload: 'intent',
+  basepath:
+    import.meta.env.MODE === 'production' ? '/modern-react-template/app' : '/',
+  defaultNotFoundComponent: NotFoundPage,
 });
 
 /**

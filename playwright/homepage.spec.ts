@@ -73,7 +73,7 @@ test.describe('HomePage', () => {
     const h2Headings = await page.getByRole('heading', { level: 2 }).all();
     expect(h2Headings.length).toBe(2);
     await expect(h2Headings[0]).toHaveText('Key Features');
-    await expect(h2Headings[1]).toHaveText('shadcn/ui Components');
+    await expect(h2Headings[1]).toHaveText('Shadcn/ui Components');
 
     // Check for h3
     const h3 = page.getByRole('heading', { level: 3 }).first();

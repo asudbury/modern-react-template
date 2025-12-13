@@ -37,13 +37,6 @@ describe('HomePage', () => {
     expect(main).toBeInTheDocument();
   });
 
-  it('includes skip to main content link', () => {
-    renderWithProviders(<HomePage />);
-    const skipLink = screen.getByText(/skip to main content/i);
-    expect(skipLink).toBeInTheDocument();
-    expect(skipLink).toHaveAttribute('href', '#main-content');
-  });
-
   it('renders action buttons with proper labels', () => {
     renderWithProviders(<HomePage />);
 

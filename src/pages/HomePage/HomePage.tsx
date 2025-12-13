@@ -1,8 +1,4 @@
-import { useCallback, useState } from 'react';
 import packageJson from '../../../package.json';
-import { Button } from '../../components/Button';
-import { Link } from '@tanstack/react-router';
-import { useNotifications } from '../../context/useAppContext';
 
 /**
  * HomePage Component
@@ -17,12 +13,9 @@ import { useNotifications } from '../../context/useAppContext';
  * - Proper heading hierarchy
  * - Semantic landmarks (main, section)
  * - Keyboard accessible buttons
- * - High contrast colors from tokens
  */
 
-// State to trigger an error during render (caught by ErrorBoundary)
 export function HomePage() {
-  // Optional features data
   interface Feature {
     label: string;
     url: string;
@@ -152,37 +145,12 @@ export function HomePage() {
       </li>
     );
   }
-  const { addNotification } = useNotifications();
-  const [shouldCrash, setShouldCrash] = useState(false);
-
-  if (shouldCrash) {
-    throw new Error('This is a simulated crash for testing purposes.');
-  }
-
-  const handlePrimaryClick = useCallback(() => {
-    addNotification({
-      message: 'Primary button clicked!',
-      type: 'success',
-    });
-  }, [addNotification]);
-
-  const handleSecondaryClick = useCallback(() => {
-    addNotification({
-      message: 'Secondary button clicked!',
-      type: 'info',
-    });
-  }, [addNotification]);
 
   return (
-    <main className="min-h-screen bg-background flex flex-col">
-      <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8 flex-1 w-full">
+    <main className="p-4">
+      <div>
         <section id="main-content" aria-labelledby="page-title">
-          <h1
-            id="page-title"
-            className="text-3xl font-bold text-text-primary mb-6"
-          >
-            Modern React Template
-          </h1>
+          <h1 id="page-title">Modern React Template v{packageJson.version}</h1>
 
           <p className="text-lg text-text-secondary font-semibold">
             Welcome to your accessibility-first React application built with
@@ -198,11 +166,11 @@ export function HomePage() {
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <article className="bg-surface p-6 rounded-lg shadow-md">
-                <h3 className="text-xl font-semibold text-text-primary mb-2">
+              <article className="card mb-4">
+                <h3 className="text-xl font-bold mb-2 text-black">
                   Accessibility First
                 </h3>
-                <p className="text-text-secondary">
+                <p className="text-gray-600">
                   Every component is keyboard-navigable, screen-reader friendly,
                   and meets WCAG 2.2 AA standards.
                 </p>
@@ -258,14 +226,6 @@ export function HomePage() {
           <div className="mb-8 space-y-4"></div>
         </section>
       </div>
-      <footer className="w-full border-t border-border-subtle bg-surface px-4 py-4 text-xs text-text-secondary sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-7xl flex items-center justify-between">
-          <p>
-            Template version{' '}
-            <span className="font-mono">{packageJson.version}</span>
-          </p>
-        </div>
-      </footer>
     </main>
   );
 }

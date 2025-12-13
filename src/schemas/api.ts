@@ -22,54 +22,6 @@
 import { z } from 'zod';
 
 /**
- * User Schema
- *
- * Validates user data from the API.
- *
- * @property id - Unique identifier in UUID format
- * @property name - User's display name (non-empty)
- * @property email - User's email address (validated format)
- * @property createdAt - ISO 8601 datetime when the user was created
- */
-export const userSchema = z.object({
-  id: z.string().uuid(),
-  name: z.string().min(1),
-  email: z.string().email(),
-  createdAt: z.string().datetime(),
-});
-
-/**
- * User type derived from userSchema
- */
-export type User = z.infer<typeof userSchema>;
-
-/**
- * Post Schema
- *
- * Validates blog post or article data from the API.
- *
- * @property id - Unique identifier in UUID format
- * @property title - Post title (non-empty)
- * @property content - Post content/body text
- * @property authorId - UUID of the post author
- * @property createdAt - ISO 8601 datetime when the post was created
- * @property updatedAt - ISO 8601 datetime when the post was last modified
- */
-export const postSchema = z.object({
-  id: z.string().uuid(),
-  title: z.string().min(1),
-  content: z.string(),
-  authorId: z.string().uuid(),
-  createdAt: z.string().datetime(),
-  updatedAt: z.string().datetime(),
-});
-
-/**
- * Post type derived from postSchema
- */
-export type Post = z.infer<typeof postSchema>;
-
-/**
  * API Error Schema
  *
  * Validates error responses from the API.

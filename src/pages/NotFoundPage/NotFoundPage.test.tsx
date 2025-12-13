@@ -10,5 +10,4 @@ describe('NotFoundPage', () => {
       screen.getByRole('link', { name: /go back home/i })
     ).toBeInTheDocument();
   });
-
 });

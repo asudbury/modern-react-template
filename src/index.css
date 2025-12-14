@@ -424,9 +424,8 @@ body {
   color: var(--color-text);
   border-radius: 0.5rem;
   box-shadow: 0 1px 4px 0 rgb(0 0 0 / 0.04);
-  padding: 1.0rem;
+  padding: 1rem;
 }
-
 
 /* ===================== Grid Utilities ===================== */
 .grid {

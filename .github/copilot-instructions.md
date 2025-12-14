@@ -193,7 +193,6 @@ export const ComponentName = forwardRef<HTMLDivElement, ComponentNameProps>(
   }
 );
 
-ComponentName.displayName = 'ComponentName';
 ```
 ## Accessibility Requirements
 
@@ -394,7 +393,7 @@ Examples:
 
 ```text
 feat: add custom control
-fix: align AppContext callbacks with useCallback
+fix: align theme callbacks with useCallback
 chore: configure commitlint hook
 ```
 
@@ -1163,7 +1162,7 @@ Custom hooks are powerful for encapsulating reusable logic. Follow these pattern
  * ```
  */
 export function useTheme() {
-  const { state, dispatch } = useAppContext();
+  // ...context logic here (removed useAppContext reference)
 
   const setTheme = useCallback(
     (theme: 'light' | 'dark') => {
@@ -2156,7 +2155,7 @@ Ensure your `package.json` defines at least the following scripts so tooling and
 5. **Add ignores**: `.gitignore` and `.gitleaksignore` in repo root
 6. **Set up Husky**: `npx husky install` and `.husky/pre-commit` running `npm run prettier`, `npm run test`, `npm run lint`, `npm run build`
 7. **Wire TanStack Query**: create `src/queries/fetch.ts`, `src/queries/mutate.ts`, and `src/queries/schemas.ts` using `zod`
-8. **Set up Context**: add `src/context/AppContext.tsx` with reducer-based global state
+8. **Set up Context**: add context provider with reducer-based global state (file name and details up to implementation)
 9. **Create example page & component**: `ExampleComponent` and `HomePage` following accessibility and testing standards
 10. **Configure CI**: `.github/workflows/ci.yml` running lint → unit tests → build → Playwright + axe
 
@@ -2231,7 +2230,6 @@ export const MyComponent = forwardRef<HTMLDivElement, MyComponentProps>(
   }
 );
 
-MyComponent.displayName = 'MyComponent';
 ```
 
 **New Test File**
@@ -2300,7 +2298,7 @@ export type MyType = z.infer<typeof mySchema>;
 | `forwardRef`      | Components that need to expose DOM refs      | `export const Input = forwardRef<HTMLInputElement, Props>(...)`           |
 | `cn` utility      | Merging class names                     | `className={cn('base-class', conditional && 'extra-class')}`              |
 | TanStack Query    | Server data fetching                         | `const { data } = useQuery({ queryKey: ['users'], queryFn: fetchUsers })` |
-| Context + Reducer | Global client state                          | `const { state, dispatch } = useAppContext()`                             |
+| Context + Reducer | Global client state                          | `const { state, dispatch } = useContext(AppContext)`                      |
 | Zod schemas       | Data validation                              | `const result = schema.safeParse(data)`                                   |
 
 ### Accessibility Quick Reference

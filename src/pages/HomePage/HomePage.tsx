@@ -219,10 +219,7 @@ export function HomePage() {
             </article>
           </section>
 
-          <section
-            className="mt-8 border-gray-200"
-            aria-labelledby="optional-features-title"
-          >
+          <section className="mt-8" aria-labelledby="optional-features-title">
             <article className="card mb-4">
               <h3>Optional features</h3>
               <ul className="list-none">

@@ -5,8 +5,7 @@
  *
  * Provider Hierarchy:
  * 1. QueryClientProvider - Manages server state with TanStack Query
- * 2. AppProvider - Manages client-side state with Context + Reducer
- * 3. RouterProvider - Manages routing with TanStack Router
+ * 2. RouterProvider - Manages routing with TanStack Router
  *
  * Configuration:
  * - Query stale time: 5 minutes
@@ -18,11 +17,8 @@
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { RouterProvider } from '@tanstack/react-router';
-
-import { AppProvider } from './context/AppContext';
 import { router } from './router';
-import { ThemeToggleButton } from './components/ThemeToggle/ThemeToggleButton';
-
+import { ThemeToggleButton } from './components/ThemeToggleButton';
 /**
  * TanStack Query client configuration
  *
@@ -46,13 +42,11 @@ const queryClient = new QueryClient({
 export function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <AppProvider>
-        {/* Theme toggle button for switching light/dark mode */}
-        <div style={{ position: 'fixed', top: 8, right: 8, zIndex: 1000 }}>
-          <ThemeToggleButton />
-        </div>
-        <RouterProvider router={router} />
-      </AppProvider>
+      {/* Theme toggle button for switching light/dark mode */}
+      <div style={{ position: 'fixed', top: 8, right: 8, zIndex: 1000 }}>
+        <ThemeToggleButton />
+      </div>
+      <RouterProvider router={router} />
     </QueryClientProvider>
   );
 }

@@ -1,4 +1,4 @@
-**modern-react-template v0.0.7**
+**modern-react-template v0.0.9**
 
 ***
 
@@ -16,8 +16,6 @@
 
 A modern, accessibility-first React 19 application built with Vite 7 and TypeScript 5. This template enforces strict rules for accessibility (WCAG 2.2 AA), performance, and code quality.
 
-![Modern React Template landing page](./docs/_media/modern-react-template-landing.png)
-
 ## Quick Links
 
 - ⚙️ **[Feature Configuration](_media/FEATURES.md)** - Enable/disable optional features
@@ -32,7 +30,6 @@ A modern, accessibility-first React 19 application built with Vite 7 and TypeScr
 - 🔒 [**ESLint**](https://eslint.org/) + [**Prettier**](https://prettier.io/) configuration
 - 🪝 [**Husky**](https://typicode.github.io/husky/) pre-commit + commit-msg hooks
 - 🎭 [**Playwright**](https://playwright.dev/) for E2E browser testing
-- 🎯 [**React Context + Reducers**](https://react.dev/learn/passing-data-deeply-with-context) for client state
 - ✨ [**React 19**](https://react.dev/) with the latest features
 - 🔄 [**TanStack Query**](https://tanstack.com/query/latest) for server state management
 - 🧭 [**TanStack Router**](https://tanstack.com/router) for type-safe routing
@@ -242,7 +239,6 @@ modern-react-template/
 │   │   ├── Button/            # Button component (+ tests, stories, index)
 │   │   ├── Navigation/        # Navigation bar
 │   │   ├── ErrorFallback/     # Global error fallback for error boundary
-│   ├── context/               # React Context and reducers
 │   ├── pages/                 # Route/page components
 │   ├── queries/               # Data fetching/mutations (TanStack Query)
 │   ├── schemas/               # Zod schemas and types
@@ -463,24 +459,6 @@ function MyComponent() {
 }
 ```
 
-### Client State (Context + Reducer)
-
-Use Context + Reducer for client-side state:
-
-```tsx
-import { useAppContext } from './context/AppContext';
-
-function MyComponent() {
-  const { state, dispatch } = useAppContext();
-
-  const handleClick = useCallback(() => {
-    dispatch({ type: 'TOGGLE_SIDEBAR' });
-  }, [dispatch]);
-
-  // ...
-}
-```
-
 ## Environment Variables
 
 Create a `.env` file based on `.env.example`:
@@ -557,7 +535,6 @@ MIT
 ### Core Framework & Styling
 
 - [React 19 Documentation](https://react.dev)
-- [React Context](https://react.dev/learn/passing-data-deeply-with-context)
 - [TypeScript Documentation](https://www.typescriptlang.org/docs/)
 - [Vite Documentation](https://vite.dev)
 

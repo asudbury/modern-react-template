@@ -1,8 +1,8 @@
-[**modern-react-template v0.0.7**](README.md)
+[**modern-react-template v0.0.9**](README.md)
 
 ***
 
-# modern-react-template v0.0.7
+# modern-react-template v0.0.9
 
 ## Modules
 
@@ -12,10 +12,8 @@
 - [components/ErrorFallback](components/ErrorFallback/README.md)
 - [components/ErrorFallback/ErrorFallback](components/ErrorFallback/ErrorFallback/README.md)
 - [components/RootComponent](components/RootComponent/README.md)
-- [context/AppContext](context/AppContext/README.md)
-- [context/appReducer](context/appReducer/README.md)
-- [context/appTypes](context/appTypes/README.md)
-- [context/useAppContext](context/useAppContext/README.md)
+- [components/ThemeToggleButton](components/ThemeToggleButton/README.md)
+- [components/ThemeToggleButton/ThemeToggleButton](components/ThemeToggleButton/ThemeToggleButton/README.md)
 - [main](main/README.md)
 - [pages/HomePage](pages/HomePage/README.md)
 - [pages/HomePage/HomePage](pages/HomePage/HomePage/README.md)

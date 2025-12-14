@@ -1,4 +1,4 @@
-[**modern-react-template v0.0.7**](../../../../README.md)
+[**modern-react-template v0.0.9**](../../../../README.md)
 
 ***
 
@@ -8,20 +8,9 @@
 
 > **HomePage**(): `Element`
 
-Defined in: [src/pages/HomePage/HomePage.tsx:18](https://github.com/asudbury/modern-react-template/blob/a50002e6ab1d9c04412145a47cc1999576b975b1/src/pages/HomePage/HomePage.tsx#L18)
+Defined in: [src/pages/HomePage/HomePage.tsx:43](https://github.com/asudbury/modern-react-template/blob/e551150c6d7b992f2996ee9c8cc1f4169b755230/src/pages/HomePage/HomePage.tsx#L43)
 
-HomePage Component
-
-Example page component demonstrating:
-- Accessible markup (semantic HTML)
-- No inline event handlers (useCallback)
-- Context usage for client state
-- Keyboard navigation
-
-WCAG 2.2 AA Compliance:
-- Proper heading hierarchy
-- Semantic landmarks (main, section)
-- Keyboard accessible buttons
+HomePage component for the Modern React Template.
 
 ## Returns
 

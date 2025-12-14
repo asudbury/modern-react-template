@@ -1,7 +1,7 @@
 {
   "name": "modern-react-template",
   "private": true,
-  "version": "0.0.8",
+  "version": "0.0.9",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -21,6 +21,8 @@
     "docs": "npm run docs:md && npm run docs:html",
     "update:gh-page-details": "node ./scripts/update-gh-pages-details.cjs dist/gh-pages-index.html",
     "build:gh-pages": "ENABLE_GH_PAGES=true npm run build && npm run update:gh-page-details"
+    ,
+    "pre": "npm run prettier && npm run test && npm run lint && npm run build"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.90.12",

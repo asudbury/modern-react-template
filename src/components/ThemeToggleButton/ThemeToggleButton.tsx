@@ -1,5 +1,4 @@
 import { useCallback, useSyncExternalStore } from 'react';
-import type { ButtonHTMLAttributes } from 'react';
 
 /**
  * ThemeToggleButton
@@ -10,8 +9,6 @@ import type { ButtonHTMLAttributes } from 'react';
  * @example
  * <ThemeToggleButton />
  */
-export interface ThemeToggleButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {}
-
 function getCurrentThemeDark() {
   return (
     document.documentElement.classList.contains('theme-dark') ||
@@ -19,7 +16,7 @@ function getCurrentThemeDark() {
   );
 }
 
-export function ThemeToggleButton({ ...rest }: ThemeToggleButtonProps) {
+export function ThemeToggleButton() {
   // Sync with external theme changes (e.g., system, other tabs)
   const isDark = useSyncExternalStore((cb) => {
     window.addEventListener('themechange', cb);
@@ -45,11 +42,8 @@ export function ThemeToggleButton({ ...rest }: ThemeToggleButtonProps) {
       aria-pressed={isDark}
       aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
       onClick={handleToggleTheme}
-      {...rest}
     >
       {isDark ? '🌙 Dark' : '☀️ Light'}
     </button>
   );
 }
-
-ThemeToggleButton.displayName = 'ThemeToggleButton';

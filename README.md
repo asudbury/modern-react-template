@@ -1,7 +1,7 @@
 
 # <img src="./public/react-gears.svg" alt="React gears illustration" width="48" style="vertical-align: middle;" /> Modern React Template
 
-> **📘 Fork-Friendly Setup:** This template is designed to work out-of-the-box for forks! All advanced features (SonarCloud, GitHub Pages, Storybook CI, JSDoc) are **disabled by default** and only run when you explicitly enable them. See [QUICKSTART.md](./QUICKSTART.md) for minimal setup instructions.
+> **📘 Fork-Friendly Setup:** This template is designed to work out-of-the-box for forks! All advanced features (SonarCloud, GitHub Pages CI, JSDoc) are **disabled by default** and only run when you explicitly enable them. See [.env.example](./.env.example) for minimal setup instructions.
 
 [![SonarQube Cloud](https://sonarcloud.io/images/project_badges/sonarcloud-light.svg)](https://sonarcloud.io/summary/new_code?id=asudbury_modern-react-template)
 
@@ -68,9 +68,8 @@ See also: [Error boundaries in React](https://react.dev/reference/react/Componen
 - 🔐 [**Zod**](https://zod.dev/) validation for all external data
 
 ### Optional Features (Opt-In, Disabled by Default)
-- 🌐 [**GitHub Pages**](https://docs.github.com/en/pages) deployment for app, Storybook, and docs
+- 🌐 [**GitHub Pages**](https://docs.github.com/en/pages) deployment for app and docs
 - 🔍 [**SonarCloud**](https://sonarcloud.io/) for continuous code quality analysis
-- 📚 [**Storybook**](https://storybook.js.org/) for component development and documentation
 - 📖 [**TypeDoc**](https://typedoc.org/) for automated API documentation
 
 > 💡 **Tip:** Optional features won't run unless you explicitly enable them. See [QUICKSTART.md](./QUICKSTART.md) to learn which features to enable for your use case.
@@ -184,13 +183,11 @@ Husky pre-commit hooks
 Commitlint for commit messages
 Unit tests with Vitest
 E2E tests with Playwright
-Storybook (local development only)
 TypeDoc (local generation only)
 
 ### ❌ Disabled by Default (Opt-In Only)
 - **SonarCloud Analysis** - Requires `RUN_SONARCLOUD=true` + configuration
 - **GitHub Pages Deployment** - Requires `ENABLE_GH_PAGES=true` + configuration
-- **Storybook in CI** - Requires `ENABLE_STORYBOOK_BUILD=true`
 - **TypeDoc in CI** - Requires `ENABLE_JSDOC_BUILD=true`
 
 **No workflows will fail on your fork!** Disabled features simply won't run. See [QUICKSTART.md](./QUICKSTART.md) to enable features you want.
@@ -214,10 +211,6 @@ TypeDoc (local generation only)
 - `npm run test:ui` - Run tests with UI
 - `npm run test:e2e` - Run E2E tests with Playwright
 
-### Storybook
-- `npm run storybook` - Start Storybook dev server at http://localhost:6006
-- `npm run build-storybook` - Build static Storybook (CI/Pages builds are optional via `ENABLE_STORYBOOK_BUILD`)
-
 ### Documentation
 - `npm run docs` - Generate both markdown and HTML documentation
 - `npm run docs:md` - Generate markdown documentation in `docs/`
@@ -237,9 +230,6 @@ modern-react-template/
 │   │   ├── sonarcloud.yml     # SonarCloud analysis
 │   │   └── pages.yml          # GitHub Pages deployment
 │   └── copilot-instructions.md # Copilot coding guidelines
-├── .storybook/
-│   ├── main.ts                # Storybook configuration
-│   └── preview.ts             # Storybook preview config
 ├── .husky/
 │   └── pre-commit             # Pre-commit hooks
 ├── docs/                      # Generated markdown docs (TypeDoc)
@@ -290,29 +280,14 @@ npm run docs:md
 
 HTML documentation is automatically generated and deployed to GitHub Pages:
 - **API Docs**: [https://asudbury.github.io/modern-react-template/docs](https://asudbury.github.io/modern-react-template/docs)
-- **Storybook**: [https://asudbury.github.io/modern-react-template/storybook](https://asudbury.github.io/modern-react-template/storybook)
 - **Demo App**: [https://asudbury.github.io/modern-react-template/app](https://asudbury.github.io/modern-react-template/app)
-
-### Storybook
-
-Storybook provides interactive component documentation and development environment:
-
-```bash
-# Run locally
-npm run storybook
-
-# Build for deployment
-npm run build-storybook
-```
-
-All UI components should have corresponding `.stories.tsx` files showcasing variants and states.
 
 ## Sample Implementations
 
 This template ships with several concrete samples you can use as references:
 
 - **Home page layout**: `src/pages/HomePage/HomePage.tsx` demonstrates accessible page structure and headings.
-- **Reusable component + tests**: `src/components/Button/` includes the button implementation, unit tests, and Storybook stories.
+- **Reusable component + tests**: `src/components/Button/` includes the button implementation and unit tests
 - **Data fetching utilities**: `src/queries/fetch.ts` and `src/queries/mutate.ts` show how to use TanStack Query with Zod validation.
 - **E2E + accessibility test**: `playwright/homepage.spec.ts` is a full Playwright + axe-core example for the home page.
 - **Generated API docs**: `docs/` and `docs-html/` contain TypeDoc output you can browse as living samples of the project APIs.
@@ -367,7 +342,6 @@ The template automatically deploys four entry points to GitHub Pages on every pu
 
 1. **Main Landing Page** – `https://asudbury.github.io/modern-react-template/`
 2. **Demo App** – `https://asudbury.github.io/modern-react-template/app`
-3. **Storybook** – `https://asudbury.github.io/modern-react-template/storybook`
 4. **API Documentation** – `https://asudbury.github.io/modern-react-template/docs`
 
 **Setup Requirements:**
@@ -387,7 +361,6 @@ https://github.com/asudbury/modern-react-template/settings/variables/actions
 Variables used:
 
 - `ENABLE_GH_PAGES` – generate the versioned landing page (`dist/gh-pages-index.html`)
-- `ENABLE_STORYBOOK_BUILD` – build and publish Storybook
 - `ENABLE_JSDOC_BUILD` – build and publish HTML API docs (`docs-html/`)
 
 Set these to `true` to enable the corresponding steps in CI/Pages; leave them
@@ -611,5 +584,4 @@ MIT
 
 - [GitHub Pages](https://docs.github.com/en/pages)
 - [SonarCloud](https://sonarcloud.io/)
-- [Storybook](https://storybook.js.org/)
 - [TypeDoc](https://typedoc.org/)

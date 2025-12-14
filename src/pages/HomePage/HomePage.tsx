@@ -112,12 +112,6 @@ export function HomePage() {
       description: 'for code quality and security analysis',
     },
     {
-      icon: '📚',
-      label: 'Storybook',
-      url: 'https://storybook.js.org/',
-      description: 'for component development and documentation',
-    },
-    {
       icon: '📝',
       label: 'TypeDoc',
       url: 'https://typedoc.org/',

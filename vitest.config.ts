@@ -27,7 +27,6 @@ export default defineConfig({
         'src/test/',
         '**/*.test.{ts,tsx}',
         '**/*.config.{ts,js}',
-        '**/*.stories.{ts,tsx}',
       ],
     },
   },

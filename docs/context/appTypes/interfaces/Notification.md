@@ -1,4 +1,4 @@
-[**modern-react-template v0.0.4**](../../../README.md)
+[**modern-react-template v0.0.7**](../../../README.md)
 
 ***
 
@@ -6,7 +6,7 @@
 
 # Interface: Notification
 
-Defined in: [src/context/appTypes.ts:9](https://github.com/asudbury/modern-react-template/blob/fa66b8a6e1100d41a1986ade93b6bfe3f02d8e6b/src/context/appTypes.ts#L9)
+Defined in: [src/context/appTypes.ts:9](https://github.com/asudbury/modern-react-template/blob/a50002e6ab1d9c04412145a47cc1999576b975b1/src/context/appTypes.ts#L9)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/context/appTypes.ts:9](https://github.com/asudbury/modern-react
 
 > **id**: `string`
 
-Defined in: [src/context/appTypes.ts:10](https://github.com/asudbury/modern-react-template/blob/fa66b8a6e1100d41a1986ade93b6bfe3f02d8e6b/src/context/appTypes.ts#L10)
+Defined in: [src/context/appTypes.ts:10](https://github.com/asudbury/modern-react-template/blob/a50002e6ab1d9c04412145a47cc1999576b975b1/src/context/appTypes.ts#L10)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/context/appTypes.ts:10](https://github.com/asudbury/modern-reac
 
 > **message**: `string`
 
-Defined in: [src/context/appTypes.ts:11](https://github.com/asudbury/modern-react-template/blob/fa66b8a6e1100d41a1986ade93b6bfe3f02d8e6b/src/context/appTypes.ts#L11)
+Defined in: [src/context/appTypes.ts:11](https://github.com/asudbury/modern-react-template/blob/a50002e6ab1d9c04412145a47cc1999576b975b1/src/context/appTypes.ts#L11)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [src/context/appTypes.ts:11](https://github.com/asudbury/modern-reac
 
 > **timestamp**: `number`
 
-Defined in: [src/context/appTypes.ts:13](https://github.com/asudbury/modern-react-template/blob/fa66b8a6e1100d41a1986ade93b6bfe3f02d8e6b/src/context/appTypes.ts#L13)
+Defined in: [src/context/appTypes.ts:13](https://github.com/asudbury/modern-react-template/blob/a50002e6ab1d9c04412145a47cc1999576b975b1/src/context/appTypes.ts#L13)
 
 ***
 
@@ -38,4 +38,4 @@ Defined in: [src/context/appTypes.ts:13](https://github.com/asudbury/modern-reac
 
 > **type**: `"success"` \| `"error"` \| `"warning"` \| `"info"`
 
-Defined in: [src/context/appTypes.ts:12](https://github.com/asudbury/modern-react-template/blob/fa66b8a6e1100d41a1986ade93b6bfe3f02d8e6b/src/context/appTypes.ts#L12)
+Defined in: [src/context/appTypes.ts:12](https://github.com/asudbury/modern-react-template/blob/a50002e6ab1d9c04412145a47cc1999576b975b1/src/context/appTypes.ts#L12)

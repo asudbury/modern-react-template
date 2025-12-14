@@ -4,7 +4,7 @@ This file contains project-specific guidelines and conventions for GitHub Copilo
 
 You are contributing to a modern, accessibility-first React 19 application built with Vite 7 and TypeScript 5. This repository enforces strict rules for accessibility (WCAG 2.2 AA), no inline JSX handlers, design tokens, TanStack React Query 5, Context + Reducers for client state, Vitest + RTL tests, and Playwright + Axe for E2E accessibility checks.
 
-> **Note for Forks:** This template is designed to be fork-friendly. All optional features (SonarCloud, GitHub Pages, Storybook in CI, JSDoc in CI) are **disabled by default** and only run when explicitly enabled via repository variables. 
+> **Note for Forks:** This template is designed to be fork-friendly. All optional features (SonarCloud, GitHub Pages, and JSDoc in CI) are **disabled by default** and only run when explicitly enabled via repository variables. 
 
 ## Purpose
 
@@ -14,10 +14,9 @@ Use this file to guide Copilot suggestions and human contributors — prefer sol
 
 ### Development Tools
 
-- **Storybook**: Component development and documentation in isolation. All components should have corresponding `.stories.tsx` files.
 - **TypeDoc**: Automated API documentation generation from JSDoc comments. Documentation is published to GitHub Pages.
 - **SonarCloud**: Continuous code quality and security analysis integrated into CI/CD pipeline (optional, disabled by default for forks).
-- **GitHub Pages**: Deployment for app, Storybook, and documentation (optional, disabled by default for forks).
+- **GitHub Pages**: Deployment for app and documentation (optional, disabled by default for forks).
 
 ### Optional Features (Opt-In Only)
 
@@ -25,10 +24,7 @@ The following features are **disabled by default** to make this template fork-fr
 
 - **SonarCloud**: Only runs if `RUN_SONARCLOUD=true` in repository variables
 - **GitHub Pages**: Only runs if `ENABLE_GH_PAGES=true` in repository variables
-- **Storybook in CI**: Only builds if `ENABLE_STORYBOOK_BUILD=true` in repository variables
 - **JSDoc in CI**: Only builds if `ENABLE_JSDOC_BUILD=true` in repository variables
-
-See [QUICKSTART.md](../QUICKSTART.md) for enabling these features.
 
 ## Core Principles
 
@@ -37,7 +33,6 @@ See [QUICKSTART.md](../QUICKSTART.md) for enabling these features.
 3. **No Default Exports**: Use named exports only for components and modules
 4. **Design Tokens Only**: Never use hardcoded colors or spacing - always use design tokens from `src/styles/tokens.css`
 5. **Data Validation**: All external data must be validated using Zod schemas
-6. **Storybook Stories**: All UI components must have Storybook stories for documentation and testing
 7. **JSDoc Documentation**: All exported functions, components, and types must have comprehensive JSDoc comments for TypeDoc generation
 8. **Predictable APIs**: Components expose clear controlled/uncontrolled APIs, forward refs, accept `className` and `data-*` props
 9. **No inline JSX functions**: Avoid inline callbacks in JSX (e.g., `onClick={() => ...}`). Use `useCallback` or named functions defined outside of JSX to improve performance and testability
@@ -164,7 +159,6 @@ All functions, components, and types should have JSDoc comments following these 
 ComponentName/
 ├── ComponentName.tsx         # Main component implementation
 ├── ComponentName.test.tsx    # Unit tests
-├── ComponentName.stories.tsx # Storybook stories
 └── index.ts                  # Re-export (named export only)
 ```
 
@@ -201,51 +195,6 @@ export const ComponentName = forwardRef<HTMLDivElement, ComponentNameProps>(
 
 ComponentName.displayName = 'ComponentName';
 ```
-
-## Storybook Guidelines
-
-### Story File Structure
-
-All UI components must have accompanying Storybook stories:
-
-```tsx
-import type { Meta, StoryObj } from '@storybook/react';
-import { ComponentName } from './ComponentName';
-
-const meta = {
-  title: 'Components/ComponentName',
-  component: ComponentName,
-  parameters: {
-    layout: 'centered',
-  },
-  tags: ['autodocs'],
-  argTypes: {
-    variant: {
-      control: 'select',
-      options: ['primary', 'secondary'],
-    },
-  },
-} satisfies Meta<typeof ComponentName>;
-
-export default meta;
-type Story = StoryObj<typeof meta>;
-
-export const Primary: Story = {
-  args: {
-    variant: 'primary',
-    children: 'Example',
-  },
-};
-```
-
-### Story Requirements
-
-- Include all component variants and states
-- Add accessibility considerations in story descriptions
-- Use `tags: ['autodocs']` for automatic documentation
-- Test components in isolation with different props
-- Include interactive examples where applicable
-
 ## Accessibility Requirements
 
 ## Accessibility (WCAG 2.2 AA) Rules
@@ -2043,11 +1992,6 @@ VITE_ANALYTICS_KEY=your-analytics-key-here
 # set to true explicitly in CI or local env when you want to build GH Pages.
 ENABLE_GH_PAGES=false
 
-# Optional: enable Storybook builds in CI and Pages workflows
-# Controlled via GitHub Actions variables (ENABLE_STORYBOOK_BUILD) and this
-# local flag for consistency. Leave false by default for forks.
-ENABLE_STORYBOOK_BUILD=false
-
 # Optional: enable HTML JSDoc (TypeDoc) builds in CI and Pages workflows
 # Controlled via GitHub Actions variables (ENABLE_JSDOC_BUILD) and this
 # local flag for consistency. Leave false by default for forks.
@@ -2226,7 +2170,6 @@ Ensure your `package.json` defines at least the following scripts so tooling and
 - GitHub Pages entry points:
   - Landing page: `https://asudbury.github.io/modern-react-template/`
   - Demo App: `https://asudbury.github.io/modern-react-template/app`
-  - Storybook: `https://asudbury.github.io/modern-react-template/storybook`
   - API Docs: `https://asudbury.github.io/modern-react-template/docs`
 
 ## Contact / Questions
@@ -2242,7 +2185,6 @@ Thank you for following the project's accessibility and code-quality standards.
 ```bash
 # Development
 npm run dev              # Start dev server
-npm run storybook        # Start Storybook
 
 # Testing
 npm run test             # Run unit tests (watch mode)
@@ -2313,31 +2255,6 @@ describe('MyComponent', () => {
     expect(results).toHaveNoViolations();
   });
 });
-```
-
-**New Storybook Story**
-
-```tsx
-// src/components/MyComponent/MyComponent.stories.tsx
-import type { Meta, StoryObj } from '@storybook/react';
-import { MyComponent } from './MyComponent';
-
-const meta = {
-  title: 'Components/MyComponent',
-  component: MyComponent,
-  parameters: { layout: 'centered' },
-  tags: ['autodocs'],
-} satisfies Meta<typeof MyComponent>;
-
-export default meta;
-type Story = StoryObj<typeof meta>;
-
-export const Primary: Story = {
-  args: {
-    variant: 'primary',
-    children: 'Example',
-  },
-};
 ```
 
 **New Custom Hook**

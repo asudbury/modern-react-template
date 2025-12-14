@@ -1,4 +1,4 @@
-[**modern-react-template v0.0.4**](../../../README.md)
+[**modern-react-template v0.0.7**](../../../README.md)
 
 ***
 
@@ -6,7 +6,7 @@
 
 # Interface: AppContextValue
 
-Defined in: [src/context/appTypes.ts:29](https://github.com/asudbury/modern-react-template/blob/fa66b8a6e1100d41a1986ade93b6bfe3f02d8e6b/src/context/appTypes.ts#L29)
+Defined in: [src/context/appTypes.ts:29](https://github.com/asudbury/modern-react-template/blob/a50002e6ab1d9c04412145a47cc1999576b975b1/src/context/appTypes.ts#L29)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/context/appTypes.ts:29](https://github.com/asudbury/modern-reac
 
 > **dispatch**: `Dispatch`\<[`AppAction`](../type-aliases/AppAction.md)\>
 
-Defined in: [src/context/appTypes.ts:31](https://github.com/asudbury/modern-react-template/blob/fa66b8a6e1100d41a1986ade93b6bfe3f02d8e6b/src/context/appTypes.ts#L31)
+Defined in: [src/context/appTypes.ts:31](https://github.com/asudbury/modern-react-template/blob/a50002e6ab1d9c04412145a47cc1999576b975b1/src/context/appTypes.ts#L31)
 
 ***
 
@@ -22,4 +22,4 @@ Defined in: [src/context/appTypes.ts:31](https://github.com/asudbury/modern-reac
 
 > **state**: [`AppState`](AppState.md)
 
-Defined in: [src/context/appTypes.ts:30](https://github.com/asudbury/modern-react-template/blob/fa66b8a6e1100d41a1986ade93b6bfe3f02d8e6b/src/context/appTypes.ts#L30)
+Defined in: [src/context/appTypes.ts:30](https://github.com/asudbury/modern-react-template/blob/a50002e6ab1d9c04412145a47cc1999576b975b1/src/context/appTypes.ts#L30)

@@ -20,6 +20,7 @@ import {
   createRootRoute,
   createRoute,
 } from '@tanstack/react-router';
+
 import { RootComponent } from './components/RootComponent';
 import { HomePage } from './pages/HomePage';
 import { NotFoundPageAdapter } from './pages/NotFoundPage';

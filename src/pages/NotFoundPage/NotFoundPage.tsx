@@ -3,7 +3,6 @@ import { Link } from '@tanstack/react-router';
 import { forwardRef } from 'react';
 import type { HTMLAttributes } from 'react';
 
-
 // Adapter for TanStack Router's notFoundComponent prop
 export function NotFoundPageAdapter(_props: {}) {
   // NotFoundPage does not use any props from the router

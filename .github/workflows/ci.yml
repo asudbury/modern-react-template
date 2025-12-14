@@ -20,7 +20,6 @@ jobs:
       - name: Log workflow context
         run: |
           echo "[CI][lint] Triggered by $GITHUB_EVENT_NAME on ref $GITHUB_REF for $GITHUB_REPOSITORY"
-          echo "[CI][lint] ENABLE_STORYBOOK_BUILD=${{ vars.ENABLE_STORYBOOK_BUILD }}"
           echo "[CI][lint] ENABLE_JSDOC_BUILD=${{ vars.ENABLE_JSDOC_BUILD }}"
           echo "[CI][lint] ENABLE_GH_PAGES=${{ vars.ENABLE_GH_PAGES }}"
       - uses: actions/setup-node@v4
@@ -40,7 +39,6 @@ jobs:
       - name: Log workflow context
         run: |
           echo "[CI][format] Triggered by $GITHUB_EVENT_NAME on ref $GITHUB_REF for $GITHUB_REPOSITORY"
-          echo "[CI][format] ENABLE_STORYBOOK_BUILD=${{ vars.ENABLE_STORYBOOK_BUILD }}"
           echo "[CI][format] ENABLE_JSDOC_BUILD=${{ vars.ENABLE_JSDOC_BUILD }}"
           echo "[CI][format] ENABLE_GH_PAGES=${{ vars.ENABLE_GH_PAGES }}"
       - uses: actions/setup-node@v4
@@ -61,7 +59,6 @@ jobs:
       - name: Log workflow context
         run: |
           echo "[CI][test] Triggered by $GITHUB_EVENT_NAME on ref $GITHUB_REF for $GITHUB_REPOSITORY"
-          echo "[CI][test] ENABLE_STORYBOOK_BUILD=${{ vars.ENABLE_STORYBOOK_BUILD }}"
           echo "[CI][test] ENABLE_JSDOC_BUILD=${{ vars.ENABLE_JSDOC_BUILD }}"
           echo "[CI][test] ENABLE_GH_PAGES=${{ vars.ENABLE_GH_PAGES }}"
       - uses: actions/setup-node@v4
@@ -90,7 +87,6 @@ jobs:
       - name: Log workflow context
         run: |
           echo "[CI][build] Triggered by $GITHUB_EVENT_NAME on ref $GITHUB_REF for $GITHUB_REPOSITORY"
-          echo "[CI][build] ENABLE_STORYBOOK_BUILD=${{ vars.ENABLE_STORYBOOK_BUILD }}"
           echo "[CI][build] ENABLE_JSDOC_BUILD=${{ vars.ENABLE_JSDOC_BUILD }}"
           echo "[CI][build] ENABLE_GH_PAGES=${{ vars.ENABLE_GH_PAGES }}"
       - uses: actions/setup-node@v4
@@ -105,42 +101,10 @@ jobs:
           path: dist/
           retention-days: 1
 
-  storybook:
-    name: Build Storybook
-    runs-on: ubuntu-latest
-    needs: [lint]
-    permissions:
-      contents: read
-    steps:
-      - uses: actions/checkout@v4
-      - name: Log workflow context
-        run: |
-          echo "[CI][storybook] Triggered by $GITHUB_EVENT_NAME on ref $GITHUB_REF for $GITHUB_REPOSITORY"
-          echo "[CI][storybook] ENABLE_STORYBOOK_BUILD=${{ vars.ENABLE_STORYBOOK_BUILD }}"
-          echo "[CI][storybook] ENABLE_JSDOC_BUILD=${{ vars.ENABLE_JSDOC_BUILD }}"
-          echo "[CI][storybook] ENABLE_GH_PAGES=${{ vars.ENABLE_GH_PAGES }}"
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'npm'
-      - run: npm ci
-      - name: Export ENABLE_STORYBOOK_BUILD from repo variables
-        run: |
-          echo "ENABLE_STORYBOOK_BUILD=${{ vars.ENABLE_STORYBOOK_BUILD }}" >> $GITHUB_ENV
-      - name: Build Storybook (optional)
-        if: vars.ENABLE_STORYBOOK_BUILD == 'true'
-        run: npm run build-storybook
-      - uses: actions/upload-artifact@v4
-        if: vars.ENABLE_STORYBOOK_BUILD == 'true'
-        with:
-          name: storybook-static
-          path: storybook-static/
-          retention-days: 1
-
   e2e:
     name: E2E Tests (Playwright + Axe)
     runs-on: ubuntu-latest
-    needs: [build, storybook]
+    needs: [build]
     permissions:
       contents: read
     steps:
@@ -148,7 +112,6 @@ jobs:
       - name: Log workflow context
         run: |
           echo "[CI][e2e] Triggered by $GITHUB_EVENT_NAME on ref $GITHUB_REF for $GITHUB_REPOSITORY"
-          echo "[CI][e2e] ENABLE_STORYBOOK_BUILD=${{ vars.ENABLE_STORYBOOK_BUILD }}"
           echo "[CI][e2e] ENABLE_JSDOC_BUILD=${{ vars.ENABLE_JSDOC_BUILD }}"
           echo "[CI][e2e] ENABLE_GH_PAGES=${{ vars.ENABLE_GH_PAGES }}"
       - uses: actions/setup-node@v4

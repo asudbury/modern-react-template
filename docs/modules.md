@@ -1,15 +1,17 @@
-[**modern-react-template v0.0.4**](README.md)
+[**modern-react-template v0.0.7**](README.md)
 
 ***
 
-# modern-react-template v0.0.4
+# modern-react-template v0.0.7
 
 ## Modules
 
 - [App](App/README.md)
 - [components/Button](components/Button/README.md)
 - [components/Button/Button](components/Button/Button/README.md)
-- [components/Button/Button.stories](components/Button/Button.stories/README.md)
+- [components/ErrorFallback](components/ErrorFallback/README.md)
+- [components/ErrorFallback/ErrorFallback](components/ErrorFallback/ErrorFallback/README.md)
+- [components/RootComponent](components/RootComponent/README.md)
 - [context/AppContext](context/AppContext/README.md)
 - [context/appReducer](context/appReducer/README.md)
 - [context/appTypes](context/appTypes/README.md)
@@ -17,6 +19,9 @@
 - [main](main/README.md)
 - [pages/HomePage](pages/HomePage/README.md)
 - [pages/HomePage/HomePage](pages/HomePage/HomePage/README.md)
+- [pages/NotFoundPage](pages/NotFoundPage/README.md)
+- [pages/NotFoundPage/NotFoundPage](pages/NotFoundPage/NotFoundPage/README.md)
 - [queries/fetch](queries/fetch/README.md)
 - [queries/mutate](queries/mutate/README.md)
+- [router](router/README.md)
 - [schemas/api](schemas/api/README.md)

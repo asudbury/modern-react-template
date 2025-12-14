@@ -5,11 +5,6 @@ on:
     branches: [main]
   workflow_dispatch:
     inputs:
-      enable_storybook:
-        description: 'Build and deploy Storybook'
-        required: false
-        type: boolean
-        default: false
       enable_docs:
         description: 'Build and deploy API documentation'
         required: false
@@ -38,7 +33,6 @@ jobs:
       - name: Log workflow context
         run: |
           echo "[Pages][build] Triggered by $GITHUB_EVENT_NAME on ref $GITHUB_REF for $GITHUB_REPOSITORY"
-          echo "[Pages][build] ENABLE_STORYBOOK_BUILD=${{ vars.ENABLE_STORYBOOK_BUILD }}"
           echo "[Pages][build] ENABLE_JSDOC_BUILD=${{ vars.ENABLE_JSDOC_BUILD }}"
           echo "[Pages][build] ENABLE_GH_PAGES=${{ vars.ENABLE_GH_PAGES }}"
 
@@ -55,12 +49,6 @@ jobs:
           VITE_BASE_PATH: /modern-react-template/app/
         run: npm run build
 
-      - name: Build Storybook (optional)
-        if: vars.ENABLE_STORYBOOK_BUILD == 'true' || inputs.enable_storybook == true
-        env:
-          STORYBOOK_BASE_PATH: /modern-react-template/storybook/
-        run: npm run build-storybook
-
       - name: Generate documentation (optional)
         if: vars.ENABLE_JSDOC_BUILD == 'true' || inputs.enable_docs == true
         run: npm run docs:html
@@ -74,10 +62,6 @@ jobs:
           mkdir -p gh-pages
           # Copy the main app
           cp -r dist gh-pages/app
-          # Copy Storybook (if built)
-          if [ -d storybook-static ]; then
-            cp -r storybook-static gh-pages/storybook
-          fi
           # Copy documentation (if built)
           if [ -d docs-html ]; then
             cp -r docs-html gh-pages/docs

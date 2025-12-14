@@ -94,12 +94,10 @@
       // Check if optional features are available and show/hide links accordingly
       document.addEventListener('DOMContentLoaded', async () => {
         const features = {
-          storybook: { url: './storybook/', element: null },
           docs: { url: './docs/', element: null }
         };
 
         // Get references to optional feature cards
-        features.storybook.element = document.getElementById('storybook-link');
         features.docs.element = document.getElementById('docs-link');
 
         // Check each optional feature
@@ -121,12 +119,10 @@
         }
 
         // If no optional features are available, show a message
-        const storybookHidden = features.storybook.element && 
-          features.storybook.element.style.display === 'none';
         const docsHidden = features.docs.element && 
           features.docs.element.style.display === 'none';
         
-        if (storybookHidden && docsHidden) {
+        if (docsHidden) {
           const linksContainer = document.querySelector('.links');
           const message = document.createElement('p');
           message.className = 'optional-features-message';
@@ -135,7 +131,7 @@
           message.style.padding = '1rem';
           message.style.color = '#666';
           message.style.fontSize = '0.9rem';
-          message.innerHTML = 'ℹ️ Optional features (Storybook and Documentation) are not enabled. See <a href="https://github.com/asudbury/modern-react-template/blob/main/QUICKSTART.md" style="color: #667eea; text-decoration: underline;">QUICKSTART.md</a> to enable them.';
+          message.innerHTML = 'ℹ️ Optional features (Documentation) are not enabled. See <a href="https://github.com/asudbury/modern-react-template/blob/main/QUICKSTART.md" style="color: #667eea; text-decoration: underline;">QUICKSTART.md</a> to enable them.';
           linksContainer.appendChild(message);
         }
       });
@@ -153,10 +149,6 @@
         <a href="./app/" class="card">
           <h2>📱 Demo App</h2>
           <p>View the live application demo</p>
-        </a>
-        <a href="./storybook/" class="card" id="storybook-link">
-          <h2>📚 Storybook</h2>
-          <p>Browse component library and stories</p>
         </a>
         <a href="./docs/" class="card" id="docs-link">
           <h2>📖 Documentation</h2>

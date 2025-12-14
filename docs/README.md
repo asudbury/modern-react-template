@@ -1,36 +1,81 @@
-**modern-react-template v0.0.4**
+**modern-react-template v0.0.7**
 
 ***
 
-# Modern React Template
+# <img src="_media/react-gears.svg" alt="React gears illustration" width="48" style="vertical-align: middle;" /> Modern React Template
+
+> **📘 Fork-Friendly Setup:** This template is designed to work out-of-the-box for forks! All advanced features (SonarCloud, GitHub Pages CI, JSDoc) are **disabled by default** and only run when you explicitly enable them. See [.env.example](_media/.env.example) for minimal setup instructions.
+
 [![SonarQube Cloud](https://sonarcloud.io/images/project_badges/sonarcloud-light.svg)](https://sonarcloud.io/summary/new_code?id=asudbury_modern-react-template)
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=asudbury_modern-react-template&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=asudbury_modern-react-template)
 
 [SonarCloud Dashboard](https://sonarcloud.io/summary/new_code?id=asudbury_modern-react-template)
 
+> ⚠️ **Note for Forks:** The SonarCloud badges above are for the original repository. If you're not using SonarCloud, you can safely remove these badges (lines 3-7).
+
 A modern, accessibility-first React 19 application built with Vite 7 and TypeScript 5. This template enforces strict rules for accessibility (WCAG 2.2 AA), performance, and code quality.
 
-> 📘 **New to this template?** Check out the [SETUP.md](_media/SETUP.md) guide for detailed instructions on configuring Storybook, SonarCloud, and GitHub Pages.
+![Modern React Template landing page](./docs/_media/modern-react-template-landing.png)
+
+## Quick Links
+
+- ⚙️ **[Feature Configuration](_media/FEATURES.md)** - Enable/disable optional features
 
 ## Features
 
-- ✨ [**React 19**](https://react.dev/) with the latest features
-- ⚡ [**Vite 7**](https://vite.dev/) for lightning-fast development
-- 📘 [**TypeScript 5**](https://www.typescriptlang.org/docs/) with strict mode enabled
+### Core Features (Always Enabled)
 - ♿ [**Accessibility-first**](https://www.w3.org/WAI/WCAG22/quickref/) (WCAG 2.2 AA compliant)
-- 🔄 [**TanStack Query**](https://tanstack.com/query/latest) for server state management
-- 🎯 [**React Context + Reducers**](https://react.dev/learn/passing-data-deeply-with-context) for client state
-- 🧪 [**Vitest**](https://vitest.dev/) + [**React Testing Library**](https://testing-library.com/docs/react-testing-library/intro/) for unit tests
-- 🎭 [**Playwright**](https://playwright.dev/) + [**axe-core**](https://www.deque.com/axe/devtools/) for E2E accessibility testing
+- 🦾 [**Axe-core**](https://github.com/dequelabs/axe-core) automated accessibility checks
+- 📝 [**Commitlint**](https://commitlint.js.org/#/) enforcing conventional commit messages
+- 🛡️ [**Global Error Boundary**](https://github.com/bvaughn/react-error-boundary) with custom fallback UI and reload/reset support
 - 🔒 [**ESLint**](https://eslint.org/) + [**Prettier**](https://prettier.io/) configuration
 - 🪝 [**Husky**](https://typicode.github.io/husky/) pre-commit + commit-msg hooks
-- 📝 [**Commitlint**](https://commitlint.js.org/#/) enforcing conventional commit messages
+- 🎭 [**Playwright**](https://playwright.dev/) for E2E browser testing
+- 🎯 [**React Context + Reducers**](https://react.dev/learn/passing-data-deeply-with-context) for client state
+- ✨ [**React 19**](https://react.dev/) with the latest features
+- 🔄 [**TanStack Query**](https://tanstack.com/query/latest) for server state management
+- 🧭 [**TanStack Router**](https://tanstack.com/router) for type-safe routing
+- 🧪 [**Vitest + React Testing Library**](https://vitest.dev/) unit testing and accessible queries
+- 🧑‍⚖️ [**Zod**](https://zod.dev/) for data validation
+# Global Error Handling
+
+This template uses a global error boundary to catch unexpected errors anywhere in the React component tree and display a user-friendly fallback UI instead of a blank screen or crash.
+
+- Implemented using [`react-error-boundary`](https://github.com/bvaughn/react-error-boundary)
+- Configured in [`src/main.tsx`](main/README.md) wrapping the entire app
+- Custom fallback UI in [`src/components/ErrorFallback/ErrorFallback.tsx`](components/ErrorFallback/ErrorFallback/README.md)
+- Users can reload the app or reset the error boundary from the fallback UI
+
+**How it works:**
+
+```tsx
+import { ErrorBoundary } from 'react-error-boundary';
+import { ErrorFallback } from './components/ErrorFallback';
+
+<ErrorBoundary
+  FallbackComponent={ErrorFallback}
+  onReset={() => window.location.reload()}
+>
+  <App />
+</ErrorBoundary>
+```
+
+**Customizing error handling:**
+- Edit the fallback UI in `ErrorFallback.tsx` to change the error message, add support links, or customize the reload/reset behavior.
+- You can log errors to a service (Sentry, LogRocket, etc.) by adding an `onError` prop to the `ErrorBoundary`.
+
+See also: [Error boundaries in React](https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary)
+- 📘 [**TypeScript 5**](https://www.typescriptlang.org/docs/) with strict mode enabled
+- 🧪 [**Vitest**](https://vitest.dev/) + [**React Testing Library**](https://testing-library.com/docs/react-testing-library/intro/) for unit tests
 - 🔐 [**Zod**](https://zod.dev/) validation for all external data
-- 📚 [**Storybook**](https://storybook.js.org/) for component development and documentation
-- 📖 [**TypeDoc**](https://typedoc.org/) for automated API documentation
+
+### Optional Features (Opt-In, Disabled by Default)
+- 🌐 [**GitHub Pages**](https://docs.github.com/en/pages) deployment for app and docs
 - 🔍 [**SonarCloud**](https://sonarcloud.io/) for continuous code quality analysis
-- 🌐 [**GitHub Pages**](https://docs.github.com/en/pages) deployment for app, Storybook, and docs
+- 📖 [**TypeDoc**](https://typedoc.org/) for automated API documentation
+
+> 💡 **Tip:** Optional features won't run unless you explicitly enable them. See [QUICKSTART.md](./QUICKSTART.md) to learn which features to enable for your use case.
 
 ## Quick Start
 
@@ -55,6 +100,100 @@ npm run dev
 
 Visit `http://localhost:5173` to see your application.
 
+> 🍴 **Forked this repo?** See [QUICKSTART.md](./QUICKSTART.md) for fork-specific setup instructions. All optional features (SonarCloud, GitHub Pages, etc.) are disabled by default and won't interfere with your fork.
+
+## Routing with TanStack Router
+
+This template uses [TanStack Router](https://tanstack.com/router) for type-safe client-side routing. The router is configured in `src/router.tsx` and integrated into the app via `App.tsx`.
+
+### Navigation
+
+The template includes a `Navigation` component that uses TanStack Router's `Link` component for type-safe navigation:
+
+```tsx
+import { Link } from '@tanstack/react-router';
+
+<Link to="/" activeProps={{ className: 'active' }}>
+  Home
+</Link>
+```
+
+### Available Routes
+
+ - `/` - Home page (HomePage component)
+ - `*` (any unmatched path) – **404 Not Found page** (NotFoundPage component)
+
+#### 404 Not Found Page
+
+This template includes a fully accessible, customizable 404 Not Found page for unmatched routes. The 404 page:
+- Is automatically shown for any route that does not match a defined path
+- Uses semantic HTML, design tokens, and is keyboard/screen reader accessible
+- Provides a clear message and a link to return home
+
+**Customizing the 404 page:**
+- Edit `src/pages/NotFoundPage/NotFoundPage.tsx` to change the message, add illustrations, or update the layout
+- The route is configured in `src/router.tsx` with `path: '*'`
+
+**Demo:** On the home page, click the "Demo 404 Not Found page" link to preview the 404 page in the app.
+
+### Adding New Routes
+
+To add a new route, update `src/router.tsx`:
+
+```tsx
+import { createRoute } from '@tanstack/react-router';
+import { YourComponent } from './pages/YourComponent';
+
+const yourRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/your-path',
+  component: YourComponent,
+});
+
+// Add to routeTree
+const routeTree = rootRoute.addChildren([
+  indexRoute,
+  yourRoute
+]);
+```
+
+### Type-Safe Navigation
+
+TanStack Router provides full TypeScript autocomplete and type checking for routes:
+
+```tsx
+import { Link, useNavigate } from '@tanstack/react-router';
+
+// Link component with autocomplete
+
+// Programmatic navigation
+const navigate = useNavigate();
+navigate({ to: '/' });
+```
+
+For more details, see the [TanStack Router documentation](https://tanstack.com/router/latest/docs/framework/react/overview).
+
+## For Forks: What's Enabled by Default?
+
+This template is designed to be **fork-friendly**. Here's what works out of the box:
+
+### ✅ Enabled by Default (No Configuration Needed)
+React 19 development with Vite
+TypeScript with strict mode
+ESLint + Prettier
+Husky pre-commit hooks
+Commitlint for commit messages
+Unit tests with Vitest
+E2E tests with Playwright
+TypeDoc (local generation only)
+
+### ❌ Disabled by Default (Opt-In Only)
+- **SonarCloud Analysis** - Requires `RUN_SONARCLOUD=true` + configuration
+- **GitHub Pages Deployment** - Requires `ENABLE_GH_PAGES=true` + configuration
+- **TypeDoc in CI** - Requires `ENABLE_JSDOC_BUILD=true`
+
+**No workflows will fail on your fork!** Disabled features simply won't run. See [QUICKSTART.md](./QUICKSTART.md) to enable features you want.
+
 ## Available Scripts
 
 ### Development
@@ -73,10 +212,6 @@ Visit `http://localhost:5173` to see your application.
 - `npm run test:unit` - Run unit tests
 - `npm run test:ui` - Run tests with UI
 - `npm run test:e2e` - Run E2E tests with Playwright
-
-### Storybook
-- `npm run storybook` - Start Storybook dev server at http://localhost:6006
-- `npm run build-storybook` - Build static Storybook (CI/Pages builds are optional via `ENABLE_STORYBOOK_BUILD`)
 
 ### Documentation
 - `npm run docs` - Generate both markdown and HTML documentation
@@ -97,37 +232,24 @@ modern-react-template/
 │   │   ├── sonarcloud.yml     # SonarCloud analysis
 │   │   └── pages.yml          # GitHub Pages deployment
 │   └── copilot-instructions.md # Copilot coding guidelines
-├── .storybook/
-│   ├── main.ts                # Storybook configuration
-│   └── preview.ts             # Storybook preview config
 ├── .husky/
 │   └── pre-commit             # Pre-commit hooks
 ├── docs/                      # Generated markdown docs (TypeDoc)
-├── playwright/
-│   └── homepage.spec.ts       # E2E tests
+├── docs-html/                 # Generated HTML docs (TypeDoc)
+├── playwright/                # UI tests
 ├── src/
-│   ├── components/            # Reusable UI components
-│   │   └── Button/
-│   │       ├── Button.tsx
-│   │       ├── Button.test.tsx
-│   │       ├── Button.stories.tsx
-│   │       └── index.ts
-│   ├── context/               # React Context for client state
-│   │   └── AppContext.tsx
-│   ├── pages/                 # Page components
-│   │   └── HomePage/
-│   ├── queries/               # TanStack Query functions
-│   │   ├── fetch.ts
-│   │   └── mutate.ts
-│   ├── schemas/               # Zod schemas
-│   │   └── api.ts
-│   ├── styles/                # Design tokens and styles
-│   │   └── tokens.css
-│   ├── test/                  # Test setup
-│   │   └── setup.ts
-│   ├── utils/                 # Utility functions
-│   ├── App.tsx                # Root component
-│   ├── main.tsx               # Entry point
+│   ├── components/            # Reusable UI components and samples
+│   │   ├── Button/            # Button component (+ tests, stories, index)
+│   │   ├── Navigation/        # Navigation bar
+│   │   ├── ErrorFallback/     # Global error fallback for error boundary
+│   ├── context/               # React Context and reducers
+│   ├── pages/                 # Route/page components
+│   ├── queries/               # Data fetching/mutations (TanStack Query)
+│   ├── schemas/               # Zod schemas and types
+│   ├── test/                  # Test setup/mocks
+│   ├── App.tsx                # Root app component
+│   ├── main.tsx               # Entry point (includes error boundary)
+│   ├── router.tsx             # Router config
 │   └── index.css              # Global styles
 ├── .env.example               # Environment variables template
 ├── .gitignore                 # Git ignore rules
@@ -160,22 +282,17 @@ npm run docs:md
 
 HTML documentation is automatically generated and deployed to GitHub Pages:
 - **API Docs**: [https://asudbury.github.io/modern-react-template/docs](https://asudbury.github.io/modern-react-template/docs)
-- **Storybook**: [https://asudbury.github.io/modern-react-template/storybook](https://asudbury.github.io/modern-react-template/storybook)
 - **Demo App**: [https://asudbury.github.io/modern-react-template/app](https://asudbury.github.io/modern-react-template/app)
 
-### Storybook
+## Sample Implementations
 
-Storybook provides interactive component documentation and development environment:
+This template ships with several concrete samples you can use as references:
 
-```bash
-# Run locally
-npm run storybook
-
-# Build for deployment
-npm run build-storybook
-```
-
-All UI components should have corresponding `.stories.tsx` files showcasing variants and states.
+- **Home page layout**: `src/pages/HomePage/HomePage.tsx` demonstrates accessible page structure and headings.
+- **Reusable component + tests**: `src/components/Button/` includes the button implementation and unit tests
+- **Data fetching utilities**: `src/queries/fetch.ts` and `src/queries/mutate.ts` show how to use TanStack Query with Zod validation.
+- **E2E + accessibility test**: `playwright/homepage.spec.ts` is a full Playwright + axe-core example for the home page.
+- **Generated API docs**: `docs/` and `docs-html/` contain TypeDoc output you can browse as living samples of the project APIs.
 
 ## Code Quality & Security
 
@@ -216,7 +333,7 @@ Additionally, a Husky `commit-msg` hook runs **commitlint** to enforce
 messages. Example:
 
 ```text
-feat: add new component
+feat: add a new component
 fix: handle invalid user IDs in updateUser
 chore: configure commitlint for commit messages
 ```
@@ -227,7 +344,6 @@ The template automatically deploys four entry points to GitHub Pages on every pu
 
 1. **Main Landing Page** – `https://asudbury.github.io/modern-react-template/`
 2. **Demo App** – `https://asudbury.github.io/modern-react-template/app`
-3. **Storybook** – `https://asudbury.github.io/modern-react-template/storybook`
 4. **API Documentation** – `https://asudbury.github.io/modern-react-template/docs`
 
 **Setup Requirements:**
@@ -247,7 +363,6 @@ https://github.com/asudbury/modern-react-template/settings/variables/actions
 Variables used:
 
 - `ENABLE_GH_PAGES` – generate the versioned landing page (`dist/gh-pages-index.html`)
-- `ENABLE_STORYBOOK_BUILD` – build and publish Storybook
 - `ENABLE_JSDOC_BUILD` – build and publish HTML API docs (`docs-html/`)
 
 Set these to `true` to enable the corresponding steps in CI/Pages; leave them
@@ -405,6 +520,18 @@ Husky runs the following checks on every commit:
 
 If any check fails, the commit is blocked.
 
+## Extending the Template
+
+This template is designed to be extensible. See [EXTENSIONS.md](./EXTENSIONS.md) for comprehensive guides on:
+
+- 🎨 **TypeDoc Custom Theming** - Customize documentation appearance
+- 📊 **Error Logging Frameworks** - Sentry, LogRocket, Rollbar integration
+- 🔌 **Plug-and-Play Options** - Radix UI, Headless UI, React Hook Form
+- 🏗️ **Infrastructure as Code** - AWS CDK, Terraform, Pulumi guides
+- 🛠️ **Extensibility Scripts** - Component generators and scaffolding tools
+- ☁️ **Cloud Deployments** - AWS, Azure, GCP, Vercel, Netlify guides
+- 💡 **Additional Features** - Authentication, i18n, analytics, monitoring
+
 ## Contributing
 
 1. Follow the coding conventions outlined in this README
@@ -427,22 +554,35 @@ MIT
 
 ## Resources
 
+### Core Framework & Styling
+
 - [React 19 Documentation](https://react.dev)
-- [Vite Documentation](https://vite.dev)
-- [TypeScript Documentation](https://www.typescriptlang.org/docs/)
-- [Accessibility (WCAG 2.2 AA)](https://www.w3.org/WAI/WCAG22/quickref/)
-- [TanStack Query Documentation](https://tanstack.com/query/latest)
 - [React Context](https://react.dev/learn/passing-data-deeply-with-context)
-- [Vitest Documentation](https://vitest.dev)
-- [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
-- [Playwright Documentation](https://playwright.dev)
-- [axe-core](https://www.deque.com/axe/devtools/)
-- [ESLint](https://eslint.org/)
-- [Prettier](https://prettier.io/)
-- [Husky](https://typicode.github.io/husky/)
-- [Commitlint](https://commitlint.js.org/#/)
+- [TypeScript Documentation](https://www.typescriptlang.org/docs/)
+- [Vite Documentation](https://vite.dev)
+
+### Data, Validation & Accessibility
+
+- [Accessibility (WCAG 2.2 AA)](https://www.w3.org/WAI/WCAG22/quickref/)
+- [Axe-core](https://www.deque.com/axe/devtools/)
+- [TanStack Query Documentation](https://tanstack.com/query/latest)
 - [Zod](https://zod.dev/)
-- [Storybook](https://storybook.js.org/)
-- [TypeDoc](https://typedoc.org/)
-- [SonarCloud](https://sonarcloud.io/)
+
+### Testing
+
+- [Playwright Documentation](https://playwright.dev)
+- [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
+- [Vitest Documentation](https://vitest.dev)
+
+### Linting, Formatting & Git Hooks
+
+- [Commitlint](https://commitlint.js.org/#/)
+- [ESLint](https://eslint.org/)
+- [Husky](https://typicode.github.io/husky/)
+- [Prettier](https://prettier.io/)
+
+### Docs, Analysis & Hosting
+
 - [GitHub Pages](https://docs.github.com/en/pages)
+- [SonarCloud](https://sonarcloud.io/)
+- [TypeDoc](https://typedoc.org/)

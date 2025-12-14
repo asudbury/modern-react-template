@@ -39,10 +39,6 @@ test-results/
 *.sw?
 *.swp
 
-# Storybook
-*storybook.log
-storybook-static
-
 # Documentation builds (generated, will be published via GitHub Pages)
 docs-html
 

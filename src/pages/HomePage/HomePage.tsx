@@ -1,28 +1,46 @@
 import packageJson from '../../../package.json';
+import type { ReactNode } from 'react';
+import { useCallback } from 'react';
 
 /**
- * HomePage Component
+ * HomePage
  *
- * Example page component demonstrating:
- * - Accessible markup (semantic HTML)
- * - No inline event handlers (useCallback)
- * - Context usage for client state
- * - Keyboard navigation
+ * Accessible, tokenized landing page for the Modern React Template.
  *
- * WCAG 2.2 AA Compliance:
- * - Proper heading hierarchy
- * - Semantic landmarks (main, section)
- * - Keyboard accessible buttons
+ * Features:
+ * - Semantic HTML and proper heading hierarchy
+ * - No inline event handlers (uses useCallback)
+ * - Accessible lists and keyboard navigation
+ * - Strict TypeScript types
+ *
+ * @example
+ * ```tsx
+ * <HomePage />
+ * ```
  */
+export interface Feature {
+  /**
+   * Display label for the feature
+   */
+  label: string;
+  /**
+   * URL for more information
+   */
+  url: string;
+  /**
+   * Short description of the feature
+   */
+  description: string;
+  /**
+   * Optional icon (emoji or SVG)
+   */
+  icon?: ReactNode;
+}
 
+/**
+ * HomePage component for the Modern React Template.
+ */
 export function HomePage() {
-  interface Feature {
-    label: string;
-    url: string;
-    description: string;
-    icon?: string;
-  }
-
   const coreFeatures: Feature[] = [
     {
       icon: '♿',
@@ -119,72 +137,72 @@ export function HomePage() {
     },
   ];
 
-  function renderFeatureItem(feature: Feature, idx: number) {
-    // For core features: show icon (if present) outside the hyperlink, hyperlink only the label
-    // For optional features: no icon, hyperlink the whole label
-    return (
-      <li key={feature.label + idx} className="flex items-start gap-2">
+  /**
+   * Render a feature list item.
+   *
+   * @param feature - Feature to render
+   * @param idx - Index in the list
+   * @returns List item node
+   */
+  const renderFeatureItem = useCallback(
+    (feature: Feature, idx: number) => (
+      <li key={feature.label + idx} className="gap-2 mb-2">
         {feature.icon && <span aria-hidden="true">{feature.icon}</span>}
         <span>
-          <a
-            href={feature.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-primary underline hover:text-primary-hover focus:text-primary-hover transition-colors"
-          >
+          <a href={feature.url} target="_blank" rel="noopener noreferrer">
             {feature.label}
           </a>
           {feature.description && <span> {feature.description}</span>}
         </span>
       </li>
-    );
-  }
+    ),
+    []
+  );
 
   return (
-    <main className="p-4">
-      <div>
-        <section id="main-content" aria-labelledby="page-title">
-          <h1 id="page-title">Modern React Template v{packageJson.version}</h1>
-
-          <p className="text-lg text-text-secondary font-semibold">
+    <main
+      className="bg-surface text-text-primary min-h-screen"
+      id="main-content"
+    >
+      <div className="container">
+        <section aria-labelledby="page-title">
+          <h1 className="text-primary">
+            Modern React Template v{packageJson.version}
+          </h1>
+          <p>
             Welcome to your accessibility-first React application built with
             Vite and TypeScript.
           </p>
 
           <section className="mt-16" aria-labelledby="features-title">
-            <h2
-              id="features-title"
-              className="text-2xl font-semibold text-text-primary mb-4"
-            >
-              Key Features
-            </h2>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <article className="card mb-4">
-                <h3 className="text-xl font-bold mb-2 text-black">
-                  Accessibility First
-                </h3>
-                <p className="text-gray-600">
+            <h2 className="text-secondary">Key Features</h2>
+            <div className="grid grid-cols-1 gap-4">
+              <article
+                className="card mb-4"
+                aria-labelledby="accessibility-title"
+              >
+                <h3>Accessibility First</h3>
+                <p>
                   Every component is keyboard-navigable, screen-reader friendly,
                   and meets WCAG 2.2 AA standards.
                 </p>
               </article>
-
-              <article className="bg-surface p-6 rounded-lg shadow-md">
-                <h3 className="text-xl font-semibold text-text-primary mb-2">
-                  Type Safety
-                </h3>
-                <p className="text-text-secondary">
+              <article
+                className="card mb-4"
+                aria-labelledby="type-safety-title"
+              >
+                <h3>Type Safety</h3>
+                <p>
                   Strict TypeScript configuration with Zod validation for all
                   external data.
                 </p>
               </article>
-
-              <article className="bg-surface p-6 rounded-lg shadow-md">
-                <h3 className="text-xl font-semibold text-text-primary mb-2">
-                  Performance
-                </h3>
-                <p className="text-text-secondary">
+              <article
+                className="card mb-4"
+                aria-labelledby="performance-title"
+              >
+                <h3>Performance</h3>
+                <p>
                   No inline handlers, optimized rendering, and efficient state
                   management.
                 </p>
@@ -192,32 +210,26 @@ export function HomePage() {
             </div>
           </section>
 
-          <section className="mt-8" aria-labelledby="features-title">
-            <div className="grid grid-cols-1 md:grid-cols-12 lg:grid-cols-1 gap-6">
-              <article className="bg-surface p-6 rounded-lg shadow-md">
-                <h3 className="text-xl font-semibold text-text-primary mb-4">
-                  Core features
-                </h3>
-                <ul className="list-disc list-inside space-y-2 text-text-secondary">
-                  {coreFeatures.map(renderFeatureItem)}
-                </ul>
-              </article>
-            </div>
+          <section className="mt-8" aria-labelledby="core-features-title">
+            <article className="card mb-4">
+              <h3>Core features</h3>
+              <ul className="list-none">
+                {coreFeatures.map(renderFeatureItem)}
+              </ul>
+            </article>
           </section>
 
-          <section className="mt-8" aria-labelledby="features-title">
-            <div className="grid grid-cols-1 md:grid-cols-12 lg:grid-cols-1">
-              <article className="bg-surface p-6 rounded-lg shadow-md">
-                <h3 className="text-xl font-semibold text-text-primary mb-4">
-                  Optional feature
-                </h3>
-                <ul className="list-disc list-inside space-y-2 text-text-secondary">
-                  {optionalFeatures.map(renderFeatureItem)}
-                </ul>
-              </article>
-            </div>
+          <section
+            className="mt-8 border-gray-200"
+            aria-labelledby="optional-features-title"
+          >
+            <article className="card mb-4">
+              <h3>Optional features</h3>
+              <ul className="list-none">
+                {optionalFeatures.map(renderFeatureItem)}
+              </ul>
+            </article>
           </section>
-          <div className="mb-8 space-y-4"></div>
         </section>
       </div>
     </main>

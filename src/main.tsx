@@ -16,7 +16,7 @@ import { createRoot } from 'react-dom/client';
 import { ErrorBoundary } from 'react-error-boundary';
 import './index.css';
 import { App } from './App';
-import { ErrorFallback } from './components/ErrorFallback';
+import { ErrorFallback } from './components/ErrorFallback/ErrorFallback';
 
 createRoot(document.getElementById('root') as HTMLElement).render(
   <StrictMode>

@@ -18,8 +18,10 @@
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { RouterProvider } from '@tanstack/react-router';
+
 import { AppProvider } from './context/AppContext';
 import { router } from './router';
+import { ThemeToggleButton } from './components/ThemeToggle/ThemeToggleButton';
 
 /**
  * TanStack Query client configuration
@@ -45,6 +47,10 @@ export function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <AppProvider>
+        {/* Theme toggle button for switching light/dark mode */}
+        <div style={{ position: 'fixed', top: 8, right: 8, zIndex: 1000 }}>
+          <ThemeToggleButton />
+        </div>
         <RouterProvider router={router} />
       </AppProvider>
     </QueryClientProvider>

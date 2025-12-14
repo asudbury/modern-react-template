@@ -181,7 +181,7 @@ export function HomePage() {
                 className="card mb-4"
                 aria-labelledby="accessibility-title"
               >
-                <h3>Accessibility First</h3>
+                <h3 id="accessibility-title">Accessibility First</h3>
                 <p>
                   Every component is keyboard-navigable, screen-reader friendly,
                   and meets WCAG 2.2 AA standards.
@@ -191,7 +191,7 @@ export function HomePage() {
                 className="card mb-4"
                 aria-labelledby="type-safety-title"
               >
-                <h3>Type Safety</h3>
+                <h3 id="type-safety-title">Type Safety</h3>
                 <p>
                   Strict TypeScript configuration with Zod validation for all
                   external data.
@@ -201,7 +201,7 @@ export function HomePage() {
                 className="card mb-4"
                 aria-labelledby="performance-title"
               >
-                <h3>Performance</h3>
+                <h3 id="performance-title">Performance</h3>
                 <p>
                   No inline handlers, optimized rendering, and efficient state
                   management.
@@ -212,7 +212,7 @@ export function HomePage() {
 
           <section className="mt-8" aria-labelledby="core-features-title">
             <article className="card mb-4">
-              <h3>Core features</h3>
+              <h3 id="core-features-title">Core features</h3>
               <ul className="list-none">
                 {coreFeatures.map(renderFeatureItem)}
               </ul>
@@ -221,7 +221,7 @@ export function HomePage() {
 
           <section className="mt-8" aria-labelledby="optional-features-title">
             <article className="card mb-4">
-              <h3>Optional features</h3>
+              <h3 id="optional-features-title">Optional features</h3>
               <ul className="list-none">
                 {optionalFeatures.map(renderFeatureItem)}
               </ul>

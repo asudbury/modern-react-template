@@ -96,14 +96,6 @@ function main() {
     .replace(/__BUILD_DATE__/g, buildDate)
     .replace(/__BUILD_TIME__/g, buildTime);
 
-  if (updated === original) {
-    console.warn('[update-gh-pages-details] No placeholders found in source gh-pages-index.html');
-  } else {
-    console.log(
-      `[update-gh-pages-details] Injected version ${version}, build date ${buildDate}, and build time ${buildTime} into output file`,
-    );
-  }
-
   fs.mkdirSync(path.dirname(outputPath), { recursive: true });
   fs.writeFileSync(outputPath, updated, 'utf8');
 }

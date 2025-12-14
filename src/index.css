@@ -1,3 +1,84 @@
+/* ===============================
+   Theme Utility Classes (Token-based)
+   =============================== */
+@layer utilities {
+  .text-primary {
+    color: var(--color-primary);
+  }
+  .text-primary-foreground {
+    color: var(--color-primary-foreground);
+  }
+  .text-secondary {
+    color: var(--color-secondary);
+  }
+  .text-secondary-foreground {
+    color: var(--color-secondary-foreground);
+  }
+  .text-surface {
+    color: var(--color-surface);
+  }
+  .text-text-primary {
+    color: var(--color-text);
+  }
+  .text-text-secondary {
+    color: var(--color-surface);
+  }
+  .bg-surface {
+    background-color: var(--color-surface);
+  }
+  .bg-primary {
+    background-color: var(--color-primary);
+  }
+  .bg-secondary {
+    background-color: var(--color-secondary);
+  }
+}
+/* ===============================
+   Design Tokens & Theme Layers
+   =============================== */
+
+@layer tokens {
+  :root {
+    /* Primary and secondary color tokens */
+    --color-primary: #2563eb;
+    --color-primary-foreground: #fff;
+    --color-secondary: #f59e42;
+    --color-secondary-foreground: #222;
+    /* Background and text */
+    --color-background: #fff;
+    --color-surface: #f3f4f6;
+    --color-text: #222;
+    /* Add more tokens as needed */
+  }
+}
+
+@layer theme {
+  .theme-dark {
+    --color-primary: #60a5fa;
+    --color-primary-foreground: #18181b;
+    --color-secondary: #fbbf24;
+    --color-secondary-foreground: #18181b;
+    --color-background: #18181b;
+    --color-surface: #27272a;
+    --color-text: #f3f4f6;
+    /* Add more dark theme overrides as needed */
+  }
+}
+
+/* ===============================
+   Example Usage
+   =============================== */
+@layer components {
+  .button-primary {
+    background: var(--color-primary);
+    color: var(--color-primary-foreground);
+  }
+  .button-secondary {
+    background: var(--color-secondary);
+    color: var(--color-secondary-foreground);
+  }
+}
+
 body {
   margin: 0;
   font-family:
@@ -7,8 +88,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.5;
 }
-
-/* a starter css based and inspired by tailwindcss */
 
 /* ===================== Layout & Container ===================== */
 .container {
@@ -341,11 +420,13 @@ body {
 
 /* ===================== Card Utilities ===================== */
 .card {
-  background-color: #ffffff;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: var(--color-background);
+  color: var(--color-text);
   border-radius: 0.5rem;
-  padding: 1.5rem;
+  box-shadow: 0 1px 4px 0 rgb(0 0 0 / 0.04);
+  padding: 1.0rem;
 }
+
 
 /* ===================== Grid Utilities ===================== */
 .grid {

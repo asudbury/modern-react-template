@@ -1,4 +1,4 @@
-import { Button } from '@/components/Button';
+import { Button } from '@/components/Button/Button';
 import { Link } from '@tanstack/react-router';
 import { forwardRef } from 'react';
 import type { HTMLAttributes } from 'react';
@@ -25,14 +25,10 @@ export const NotFoundPage = forwardRef<
   HTMLDivElement,
   HTMLAttributes<HTMLDivElement>
 >((props, ref) => (
-  <div
-    ref={ref}
-    className="flex flex-col items-center justify-center min-h-[60vh] gap-6 text-center"
-    {...props}
-  >
-    <h1 className="text-5xl font-bold">404</h1>
+  <div ref={ref} {...props}>
+    <h1>404</h1>
     <p>Sorry, the page you are looking for could not be found.</p>
-    <Button variant="secondary" size="lg">
+    <Button>
       <Link to="/">Go back home</Link>
     </Button>
   </div>

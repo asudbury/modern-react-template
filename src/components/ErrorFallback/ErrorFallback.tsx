@@ -21,9 +21,9 @@ export function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
   }, [resetErrorBoundary]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
-      <div className="max-w-7xl w-full bg-white rounded-lg shadow-lg p-12 space-y-8 text-center min-h-[50vh] flex flex-col justify-center items-center">
-        <div className="mx-auto w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-4">
+    <div>
+      <div>
+        <div>
           <svg
             className="w-8 h-8 text-red-600"
             fill="none"
@@ -40,27 +40,20 @@ export function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
           </svg>
         </div>
 
-        <h1 className="text-2xl font-bold text-gray-900">
-          Something went wrong
-        </h1>
+        <h1>Something went wrong</h1>
 
-        <div className="text-left bg-gray-100 rounded p-4 overflow-auto max-h-48 text-sm font-mono text-red-700 break-words">
-          {error.message}
-        </div>
+        <div>{error.message}</div>
 
-        <p className="text-gray-600">
+        <p>
           We apologize for the inconvenience. Please try reloading the page.
         </p>
 
-        <div className="flex gap-4 justify-center">
+        <div>
           <Button onClick={handleReload} variant="primary">
             Try Again
           </Button>
 
-          <Button
-            onClick={() => (window.location.href = '/')}
-            variant="secondary"
-          >
+          <Button onClick={() => (window.location.href = '/')}>
             Go to Home page
           </Button>
         </div>

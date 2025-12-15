@@ -12,7 +12,10 @@ import { Button } from '../Button';
  * @param {Error} props.error - The error that was thrown
  * @param {Function} props.resetErrorBoundary - Function to reset the error boundary
  */
-export function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
+export function ErrorFallback({
+  error,
+  resetErrorBoundary,
+}: Readonly<FallbackProps>) {
   const handleReload = useCallback(() => {
     // Try to reset the boundary first
     resetErrorBoundary();
@@ -53,7 +56,7 @@ export function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
             Try Again
           </Button>
 
-          <Button onClick={() => (window.location.href = '/')}>
+          <Button onClick={() => (globalThis.location.href = '/')}>
             Go to Home page
           </Button>
         </div>

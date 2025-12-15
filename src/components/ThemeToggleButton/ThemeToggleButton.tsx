@@ -19,8 +19,8 @@ function getCurrentThemeDark() {
 export function ThemeToggleButton() {
   // Sync with external theme changes (e.g., system, other tabs)
   const isDark = useSyncExternalStore((cb) => {
-    window.addEventListener('themechange', cb);
-    return () => window.removeEventListener('themechange', cb);
+    globalThis.addEventListener('themechange', cb);
+    return () => globalThis.removeEventListener('themechange', cb);
   }, getCurrentThemeDark);
 
   const handleToggleTheme = useCallback(() => {
@@ -33,7 +33,7 @@ export function ThemeToggleButton() {
     root.classList.toggle('theme-dark', next);
     body.classList.toggle('theme-dark', next);
     // Dispatch a custom event for cross-tab/theme sync
-    window.dispatchEvent(new Event('themechange'));
+    globalThis.dispatchEvent(new Event('themechange'));
   }, []);
 
   return (

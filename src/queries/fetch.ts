@@ -27,7 +27,7 @@
  */
 
 import { z } from 'zod';
-import type { ZodType  } from 'zod';
+import type { ZodType } from 'zod';
 
 /**
  * FetchError Class

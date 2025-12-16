@@ -14,7 +14,7 @@ import { useCallback } from 'react';
  */
 export interface Feature {
   label: string;
-  url: string;
+  url?: string;
   description: string;
   icon?: ReactNode;
 }
@@ -75,6 +75,18 @@ const coreFeatures = makeFeatures([
     description: ' for code formatting',
   },
   {
+    icon: '✨',
+    label: 'React 19',
+    url: 'https://react.dev/',
+    description: 'with the latest features',
+  },
+  {
+    icon: '🎨',
+    label: 'Tailwind-like CSS',
+    url: 'https://tailwindcss.com/',
+    description: 'utility classes in index.css',
+  },
+  {
     icon: '🔄',
     label: 'TanStack Query',
     url: 'https://tanstack.com/query/latest',
@@ -87,6 +99,11 @@ const coreFeatures = makeFeatures([
     description: 'for type-safe routing',
   },
   {
+    icon: '🌗',
+    label: 'Theming',
+    description: 'with light/dark mode and design tokens',
+  },
+  {
     icon: '🧪',
     label: 'Vitest + React Testing Library',
     url: 'https://vitest.dev/',
@@ -97,6 +114,11 @@ const coreFeatures = makeFeatures([
     label: 'Zod',
     url: 'https://zod.dev/',
     description: 'data validation',
+  },
+  {
+    icon: '🚫',
+    label: '404 Not Found Page',
+    description: 'accessible, customizable fallback for unmatched routes',
   },
 ]);
 

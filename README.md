@@ -13,10 +13,6 @@
 
 A modern, accessibility-first React 19 application built with Vite 7 and TypeScript 5. This template enforces strict rules for accessibility (WCAG 2.2 AA), performance, and code quality.
 
-## Quick Links
-
-- ⚙️ **[Feature Configuration](./FEATURES.md)** - Enable/disable optional features
-
 ## Features
 
 ### Core Features (Always Enabled)
@@ -24,15 +20,27 @@ A modern, accessibility-first React 19 application built with Vite 7 and TypeScr
 - 🦾 [**Axe-core**](https://github.com/dequelabs/axe-core) automated accessibility checks
 - 📝 [**Commitlint**](https://commitlint.js.org/#/) enforcing conventional commit messages
 - 🛡️ [**Global Error Boundary**](https://github.com/bvaughn/react-error-boundary) with custom fallback UI and reload/reset support
-- 🔒 [**ESLint**](https://eslint.org/) + [**Prettier**](https://prettier.io/) configuration
+- 🔒 [**ESLint**](https://eslint.org/) static analysis
 - 🪝 [**Husky**](https://typicode.github.io/husky/) pre-commit + commit-msg hooks
 - 🎭 [**Playwright**](https://playwright.dev/) for E2E browser testing
+- 💅 [**Prettier**](https://prettier.io/) code formatting
 - ✨ [**React 19**](https://react.dev/) with the latest features
+- 🎨 [**Tailwind-like CSS**](https://tailwindcss.com/) utility classes in [index.css](src/index.css)
 - 🔄 [**TanStack Query**](https://tanstack.com/query/latest) for server state management
 - 🧭 [**TanStack Router**](https://tanstack.com/router) for type-safe routing
+- 🌗 [**Theming**](#theming) with light/dark mode and design tokens
 - 🧪 [**Vitest + React Testing Library**](https://vitest.dev/) unit testing and accessible queries
 - 🧑‍⚖️ [**Zod**](https://zod.dev/) for data validation
-# Global Error Handling
+- 🚫 [**404 Not Found Page**](#404-not-found-page) accessible, customizable fallback for unmatched routes
+
+### Optional Core Features (Disabled by default)
+
+- 🌐 [**GitHub Pages**](https://docs.github.com/en/pages) deployment for app and docs
+- 🔍 [**SonarCloud**](https://sonarcloud.io/) for continuous code quality analysis
+- 📖 [**TypeDoc**](https://typedoc.org/) for automated API documentation
+- ⚙️ **[Feature Configuration](./FEATURES.md)** - Enable/disable optional features
+
+## Global Error Handling
 
 This template uses a global error boundary to catch unexpected errors anywhere in the React component tree and display a user-friendly fallback UI instead of a blank screen or crash.
 
@@ -73,18 +81,7 @@ See also: [Error boundaries in React](https://react.dev/reference/react/Componen
 
 ## Quick Start
 
-### Prerequisites
-
-- Node.js 20 or higher
-- npm (comes with Node.js)
-
-### Installation
-
 ```bash
-# Clone the repository
-git clone <your-repo-url>
-cd modern-react-template
-
 # Install dependencies
 npm install
 
@@ -111,7 +108,6 @@ import { Link } from '@tanstack/react-router';
   Home
 </Link>
 ```
-
 
 ### Available Routes
 
@@ -361,6 +357,25 @@ Variables used:
 
 Set these to `true` to enable the corresponding steps in CI/Pages; leave them
 unset or `false` (recommended for forks) to skip those builds.
+
+## Theming
+
+This template supports accessible theming with light and dark modes, powered by design tokens and utility classes in `src/index.css`.
+
+### Features
+- Light and dark mode support out of the box
+- Uses CSS custom properties (design tokens) for colors, spacing, and typography
+- Theme toggle button included (see `ThemeToggleButton` component)
+- All components use tokenized styles for full theme compatibility
+
+### How to Use
+- The app automatically detects system theme preference and applies it
+- Users can toggle theme manually using the theme toggle button in the UI
+- To customize themes, edit `src/index.css`
+
+For more, see the `ThemeToggleButton` for reference.
+
+---
 
 ## Key Conventions
 

@@ -22,7 +22,7 @@ createRoot(document.getElementById('root') as HTMLElement).render(
   <StrictMode>
     <ErrorBoundary
       FallbackComponent={ErrorFallback}
-      onReset={() => window.location.reload()}
+      onReset={() => globalThis.location.reload()}
     >
       <App />
     </ErrorBoundary>

@@ -49,7 +49,7 @@ import { ErrorFallback } from './components/ErrorFallback';
 
 <ErrorBoundary
   FallbackComponent={ErrorFallback}
-  onReset={() => window.location.reload()}
+  onReset={() => globalThis.location.reload()}
 >
   <App />
 </ErrorBoundary>

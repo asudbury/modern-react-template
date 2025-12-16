@@ -7,12 +7,6 @@
  * - Declarative routing
  * - Type-safe navigation
  * - Lazy loading support
- *
- * @example
- * ```tsx
- * import { router } from './router';
- * // Use router in your app
- * ```
  */
 
 import {
@@ -23,7 +17,7 @@ import {
 
 import { RootComponent } from './components/RootComponent';
 import { HomePage } from './pages/HomePage';
-import { NotFoundPageAdapter } from './pages/NotFoundPage';
+import { NotFoundPageAdapter } from './pages/NotFoundPage/NotFoundPageAdapter';
 
 /**
  * Root route definition for TanStack Router

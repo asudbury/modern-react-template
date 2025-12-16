@@ -3,6 +3,128 @@ import type { ReactNode } from 'react';
 import { useCallback } from 'react';
 
 /**
+ * Feature
+ *
+ * Represents a feature displayed on the HomePage.
+ *
+ * @property label - Display label for the feature
+ * @property url - URL for more information
+ * @property description - Short description of the feature
+ * @property icon - Optional icon (emoji or SVG)
+ */
+export interface Feature {
+  label: string;
+  url: string;
+  description: string;
+  icon?: ReactNode;
+}
+function makeFeatures(features: Feature[]): Feature[] {
+  return features;
+}
+
+/**
+ * List of core features for the HomePage.
+ */
+const coreFeatures = makeFeatures([
+  {
+    icon: '♿',
+    label: 'Accessibility-first',
+    url: 'https://www.w3.org/WAI/WCAG22/quickref/',
+    description: ' (WCAG 2.2 AA compliant)',
+  },
+  {
+    icon: '🦾',
+    label: 'Axe-core accessibility checks',
+    url: 'https://github.com/dequelabs/axe-core',
+    description: 'Automated accessibility assertions',
+  },
+  {
+    icon: '📝',
+    label: 'Commitlint',
+    url: 'https://www.conventionalcommits.org/',
+    description: 'enforcing conventional commit messages',
+  },
+  {
+    icon: '🛡️',
+    label: 'Global Error Boundary',
+    url: 'https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary',
+    description: 'with custom fallback UI and reload/reset support',
+  },
+  {
+    icon: '🔒',
+    label: 'ESLint',
+    url: 'https://eslint.org/',
+    description: ' for linting and code quality',
+  },
+  {
+    icon: '🪝',
+    label: 'Husky',
+    url: 'https://typicode.github.io/husky/',
+    description: ' pre-commit + commit-msg hooks',
+  },
+  {
+    icon: '🎭',
+    label: 'Playwright for E2E testing',
+    url: 'https://playwright.dev/',
+    description: 'End-to-end browser tests',
+  },
+  {
+    icon: '🎨',
+    label: 'Prettier',
+    url: 'https://prettier.io/',
+    description: ' for code formatting',
+  },
+  {
+    icon: '🔄',
+    label: 'TanStack Query',
+    url: 'https://tanstack.com/query/latest',
+    description: 'for server state management',
+  },
+  {
+    icon: '🧭',
+    label: 'TanStack Router',
+    url: 'https://tanstack.com/router/latest',
+    description: 'for type-safe routing',
+  },
+  {
+    icon: '🧪',
+    label: 'Vitest + React Testing Library',
+    url: 'https://vitest.dev/',
+    description: 'unit testing and accessible queries',
+  },
+  {
+    icon: '🧑‍⚖️',
+    label: 'Zod',
+    url: 'https://zod.dev/',
+    description: 'data validation',
+  },
+]);
+
+/**
+ * List of optional features for the HomePage.
+ */
+const optionalFeatures = makeFeatures([
+  {
+    icon: '🐙',
+    label: 'GitHub Pages',
+    url: 'https://docs.github.com/en/pages',
+    description: 'deployment',
+  },
+  {
+    icon: '☁️',
+    label: 'SonarCloud',
+    url: 'https://sonarcloud.io/',
+    description: 'for code quality and security analysis',
+  },
+  {
+    icon: '📝',
+    label: 'TypeDoc',
+    url: 'https://typedoc.org/',
+    description: 'for automated API documentation',
+  },
+]);
+
+/**
  * HomePage
  *
  * Accessible, tokenized landing page for the Modern React Template.
@@ -13,55 +135,7 @@ import { useCallback } from 'react';
  * - Accessible lists and keyboard navigation
  * - Strict TypeScript types
  */
-export interface Feature {
-  /**
-   * Display label for the feature
-   */
-  label: string;
-  /**
-   * URL for more information
-   */
-  url: string;
-  /**
-   * Short description of the feature
-   */
-  description: string;
-  /**
-   * Optional icon (emoji or SVG)
-   */
-  icon?: ReactNode;
-}
-
-/**
- * HomePage component for the Modern React Template.
- */
-
-
-function makeFeatures(features: Array<Feature>): Feature[] {
-  return features;
-}
-
-  const coreFeatures = makeFeatures([
-    { icon: '♿', label: 'Accessibility-first', url: 'https://www.w3.org/WAI/WCAG22/quickref/', description: ' (WCAG 2.2 AA compliant)' },
-    { icon: '🦾', label: 'Axe-core accessibility checks', url: 'https://github.com/dequelabs/axe-core', description: 'Automated accessibility assertions' },
-    { icon: '📝', label: 'Commitlint', url: 'https://www.conventionalcommits.org/', description: 'enforcing conventional commit messages' },
-    { icon: '🛡️', label: 'Global Error Boundary', url: 'https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary', description: 'with custom fallback UI and reload/reset support' },
-    { icon: '🔒', label: 'ESLint', url: 'https://eslint.org/', description: ' for linting and code quality' },
-    { icon: '🪝', label: 'Husky', url: 'https://typicode.github.io/husky/', description: ' pre-commit + commit-msg hooks' },
-    { icon: '🎭', label: 'Playwright for E2E testing', url: 'https://playwright.dev/', description: 'End-to-end browser tests' },
-    { icon: '🎨', label: 'Prettier', url: 'https://prettier.io/', description: ' for code formatting' },
-    { icon: '🔄', label: 'TanStack Query', url: 'https://tanstack.com/query/latest', description: 'for server state management' },
-    { icon: '🧭', label: 'TanStack Router', url: 'https://tanstack.com/router/latest', description: 'for type-safe routing' },
-    { icon: '🧪', label: 'Vitest + React Testing Library', url: 'https://vitest.dev/', description: 'unit testing and accessible queries' },
-    { icon: '🧑‍⚖️', label: 'Zod', url: 'https://zod.dev/', description: 'data validation' },
-  ]);
-
-  const optionalFeatures = makeFeatures([
-    { icon: '🐙', label: 'GitHub Pages', url: 'https://docs.github.com/en/pages', description: 'deployment' },
-    { icon: '☁️', label: 'SonarCloud', url: 'https://sonarcloud.io/', description: 'for code quality and security analysis' },
-    { icon: '📝', label: 'TypeDoc', url: 'https://typedoc.org/', description: 'for automated API documentation' },
-  ]);
-
+export function HomePage() {
   /**
    * Render a feature list item.
    *
@@ -157,3 +231,5 @@ function makeFeatures(features: Array<Feature>): Feature[] {
     </main>
   );
 }
+
+export default HomePage;

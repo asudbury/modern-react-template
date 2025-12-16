@@ -32,10 +32,10 @@ import { z } from 'zod';
  * @property createdAt - ISO 8601 datetime when the user was created
  */
 export const userSchema = z.object({
-  id: z.string().uuid(),
+  id: z.uuid(),
   name: z.string().min(1),
-  email: z.string().email(),
-  createdAt: z.string().datetime(),
+  email: z.email(),
+  createdAt: z.iso.datetime(),
 });
 
 /**
@@ -56,12 +56,12 @@ export type User = z.infer<typeof userSchema>;
  * @property updatedAt - ISO 8601 datetime when the post was last modified
  */
 export const postSchema = z.object({
-  id: z.string().uuid(),
+  id: z.uuid(),
   title: z.string().min(1),
   content: z.string(),
-  authorId: z.string().uuid(),
-  createdAt: z.string().datetime(),
-  updatedAt: z.string().datetime(),
+  authorId: z.uuid(),
+  createdAt: z.iso.datetime(),
+  updatedAt: z.iso.datetime(),
 });
 
 /**

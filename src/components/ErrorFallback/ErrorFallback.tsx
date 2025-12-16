@@ -20,7 +20,7 @@ export function ErrorFallback({
     // Try to reset the boundary first
     resetErrorBoundary();
     // If that fails or if we want a hard reload, we could use:
-    // window.location.reload();
+    // globalThis.location.reload();
   }, [resetErrorBoundary]);
 
   return (

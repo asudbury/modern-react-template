@@ -31,10 +31,8 @@
     background-color: var(--color-secondary);
   }
 }
-/* ===============================
-   Design Tokens & Theme Layers
-   =============================== */
 
+/* ===================== Design Tokens & Theme Layers ===================== */
 @layer tokens {
   :root {
     /* Primary and secondary color tokens */

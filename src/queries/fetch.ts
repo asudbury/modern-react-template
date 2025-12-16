@@ -27,7 +27,7 @@
  */
 
 import { z } from 'zod';
-import type { ZodSchema } from 'zod';
+import type { ZodType  } from 'zod';
 
 /**
  * FetchError Class
@@ -69,7 +69,7 @@ export class FetchError extends Error {
  * @property schema - Optional Zod schema for response validation
  */
 interface FetchOptions extends RequestInit {
-  schema?: ZodSchema;
+  schema?: ZodType;
 }
 
 /**

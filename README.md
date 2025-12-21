@@ -1,17 +1,31 @@
 
 # <img src="./public/react-gears.svg" alt="React gears illustration" width="48" style="vertical-align: middle;" /> Modern React Template
 
-> **📘 Fork-Friendly Setup:** This template is designed to work out-of-the-box for forks! All advanced features (SonarCloud, GitHub Pages CI, JSDoc) are **disabled by default** and only run when you explicitly enable them. See [.env.example](./.env.example) for minimal setup instructions.
+A modern, accessibility-first React 19 application built with Vite 7 and TypeScript 5. This template enforces strict rules for accessibility (WCAG 2.2 AA), performance, and code quality.
+
 
 [![SonarQube Cloud](https://sonarcloud.io/images/project_badges/sonarcloud-light.svg)](https://sonarcloud.io/summary/new_code?id=asudbury_modern-react-template)
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=asudbury_modern-react-template&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=asudbury_modern-react-template)
 
-[SonarCloud Dashboard](https://sonarcloud.io/summary/new_code?id=asudbury_modern-react-template-lite)
+
+> **📘 Fork-Friendly Setup:** This template is designed to work out-of-the-box for forks! All advanced features (SonarCloud, GitHub Pages CI, JSDoc) are **disabled by default** and only run when you explicitly enable them. See [.env.example](./.env.example) for minimal setup instructions.
+## 📚 DeepWiki Project Knowledge Base
+
+> **Explore the full documentation, architecture, and deep technical notes for this project on DeepWiki:**
+>
+> [<img src="./public/react-gears.svg" alt="React gears" width="32" style="vertical-align: middle;" /> **Modern React Template on DeepWiki**](https://deepwiki.com/asudbury/modern-react-template/)
+>
+> - Comprehensive guides, diagrams, and design decisions
+> - Contributor onboarding and advanced usage tips
+> - Maintainer notes, troubleshooting, and best practices
+>
+> **This is the canonical knowledge base for the project. If you're contributing, maintaining, or deploying, start here!**
+
+## SonarCloud
+[SonarCloud Dashboard](https://sonarcloud.io/summary/new_code?id=asudbury_modern-react-template)
 
 > ⚠️ **Note for Forks:** The SonarCloud badges above are for the original repository. If you're not using SonarCloud, you can safely remove these badges (lines 3-7).
-
-A modern, accessibility-first React 19 application built with Vite 7 and TypeScript 5. This template enforces strict rules for accessibility (WCAG 2.2 AA), performance, and code quality.
 
 ### Lite version
 There is a lite version available here [modern-react-template-lite](https://github.com/asudbury/modern-react-template-lite)

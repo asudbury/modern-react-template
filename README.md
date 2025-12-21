@@ -10,11 +10,12 @@ A modern, accessibility-first React 19 application built with Vite 7 and TypeScr
 
 
 > **📘 Fork-Friendly Setup:** This template is designed to work out-of-the-box for forks! All advanced features (SonarCloud, GitHub Pages CI, JSDoc) are **disabled by default** and only run when you explicitly enable them. See [.env.example](./.env.example) for minimal setup instructions.
+
 ## 📚 DeepWiki Project Knowledge Base
 
 > **Explore the full documentation, architecture, and deep technical notes for this project on DeepWiki:**
 >
-> [<img src="./public/react-gears.svg" alt="React gears" width="32" style="vertical-align: middle;" /> **Modern React Template on DeepWiki**](https://deepwiki.com/asudbury/modern-react-template/)
+> [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/asudbury/modern-react-template)
 >
 > - Comprehensive guides, diagrams, and design decisions
 > - Contributor onboarding and advanced usage tips

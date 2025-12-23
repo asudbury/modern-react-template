@@ -606,11 +606,13 @@ MIT
 - [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
 - [Vitest Documentation](https://vitest.dev)
 
+
 ### Linting, Formatting & Git Hooks
 
 - [Commitlint](https://commitlint.js.org/#/)
 - [ESLint](https://eslint.org/)
 - [Husky](https://typicode.github.io/husky/)
+- [Knip](https://knip.dev/) 
 - [Prettier](https://prettier.io/)
 
 ### Docs, Analysis & Hosting

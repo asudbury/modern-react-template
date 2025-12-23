@@ -40,6 +40,7 @@ There is a lite version available here [modern-react-template-lite](https://gith
 - 🛡️ [**Global Error Boundary**](https://github.com/bvaughn/react-error-boundary) with custom fallback UI and reload/reset support
 - 🔒 [**ESLint**](https://eslint.org/) static analysis
 - 🪝 [**Husky**](https://typicode.github.io/husky/) pre-commit + commit-msg hooks
+- 🧹 [**Knip**](https://knip.dev/) unused code & dependency analysis (non-blocking, see CI)
 - 🎭 [**Playwright**](https://playwright.dev/) for E2E browser testing
 - 💅 [**Prettier**](https://prettier.io/) code formatting
 - ✨ [**React 19**](https://react.dev/) with the latest features
@@ -210,11 +211,31 @@ TypeDoc (local generation only)
 - `npm run build` - Build for production (no GitHub Pages side effects)
 - `npm run preview` - Preview production build
 
+
 ### Code Quality
 - `npm run lint` - Run ESLint
 - `npm run lint:fix` - Fix ESLint issues
 - `npm run prettier` - Format code with Prettier
- - Conventional commits enforced via commitlint on `git commit`
+- `npm run knip` - Analyze for unused files, exports, and dependencies (see below)
+- Conventional commits enforced via commitlint on `git commit`
+
+#### Unused Code & Dependency Analysis (Knip)
+
+This template uses [Knip](https://knip.dev/) to detect unused files, exports, and dependencies:
+
+- Run `npm run knip` locally to see a report of unused code and dependencies
+- Knip runs automatically in CI (see the "Knip (Unused Code Analysis)" job)
+- **Knip is non-blocking:** CI and deployments will never fail due to Knip findings; the report is uploaded as an artifact for maintainers to review
+- Use Knip to keep your codebase clean and remove dead code as needed
+
+**Example:**
+
+```bash
+npm run knip
+# or in CI, download the knip-report artifact for details
+```
+
+See [knip.toml](./knip.toml) for configuration details.
 
 ### Testing
 - `npm run test` - Run unit tests in watch mode
@@ -234,6 +255,7 @@ TypeDoc (local generation only)
 ## Project Structure
 
 ```
+
 modern-react-template/
 ├── .github/
 │   ├── workflows/
@@ -245,6 +267,7 @@ modern-react-template/
 │   └── pre-commit             # Pre-commit hooks
 ├── docs/                      # Generated markdown docs (TypeDoc)
 ├── docs-html/                 # Generated HTML docs (TypeDoc)
+├── knip.toml                  # Knip configuration (unused code analysis)
 ├── playwright/                # UI tests
 ├── src/
 │   ├── components/            # Reusable UI components and samples

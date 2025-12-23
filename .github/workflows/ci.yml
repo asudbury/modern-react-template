@@ -128,3 +128,29 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 7
+
+  knip:
+    name: Knip (Code Analysis)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    if: always()
+    steps:
+      - uses: actions/checkout@v4
+      - name: Log workflow context
+        run: |
+          echo "[CI][knip] Triggered by $GITHUB_EVENT_NAME on ref $GITHUB_REF for $GITHUB_REPOSITORY"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci
+      - name: Run Knip (non-blocking)
+        run: npm run knip || true
+      - name: Upload Knip report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: knip-report
+          path: .
+          retention-days: 7

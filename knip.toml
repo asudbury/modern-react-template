@@ -1,0 +1,47 @@
+# Knip configuration for modern-react-template
+# See https://knip.dev/docs/configuration for all options
+
+$schema = "https://unpkg.com/knip@latest/schema.json"
+
+[project]
+# Ignore generated docs and build outputs
+ignore = [
+  "docs-html/**",
+  "playwright-report/**",
+  "public/gh-pages-index.html",
+  "dist/**",
+]
+
+[entry]
+# Main entry points
+files = [
+  "src/main.tsx",
+  "src/App.tsx",
+  "src/router.tsx",
+]
+
+[ignore]
+# Ignore test and story files
+patterns = [
+  "**/*.test.tsx",
+  "**/*.test.ts",
+  "**/*.spec.tsx",
+  "**/*.spec.ts",
+  "**/*.stories.tsx",
+  "**/*.stories.ts",
+]
+
+[typescript]
+# Use tsconfig.json for project references
+project = "tsconfig.json"
+
+[report]
+# Show unused exports, dependencies, files
+unusedExports = true
+unusedDependencies = true
+unusedFiles = true
+
+[plugins]
+# Enable React and Vite plugins
+vite = true
+react = true

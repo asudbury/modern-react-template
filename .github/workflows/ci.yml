@@ -146,7 +146,7 @@ jobs:
           cache: 'npm'
       - run: npm ci
       - name: Run Knip (non-blocking)
-        run: npm run knip || true
+        run: npm run knip
       - name: Upload Knip report
         if: always()
         uses: actions/upload-artifact@v4

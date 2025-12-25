@@ -8,7 +8,7 @@ status=$?
 if [ $status -ne 0 ]; then
 	echo ""
 	echo "❌ Commit blocked by Husky pre-commit hook."
-	echo "   One of: prettier, tests, lint, build, or docs failed."
+	echo "   One of: prettier, tests, lint, or build failed."
 	echo "   Scroll up to see the exact errors (e.g. ESLint output),"
 	echo "   fix them, then run: git commit again."
 	exit $status

@@ -87,9 +87,6 @@ import { ErrorFallback } from './components/ErrorFallback';
 - You can log errors to a service (Sentry, LogRocket, etc.) by adding an `onError` prop to the `ErrorBoundary`.
 
 See also: [Error boundaries in React](https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary)
-- 📘 [**TypeScript 5**](https://www.typescriptlang.org/docs/) with strict mode enabled
-- 🧪 [**Vitest**](https://vitest.dev/) + [**React Testing Library**](https://testing-library.com/docs/react-testing-library/intro/) for unit tests
-- 🔐 [**Zod**](https://zod.dev/) validation for all external data
 
 ### Optional Features (Opt-In, Disabled by Default)
 - 🌐 [**GitHub Pages**](https://docs.github.com/en/pages) deployment for app and docs
@@ -249,7 +246,7 @@ See [knip.toml](./knip.toml) for configuration details.
 - `npm run docs:html` - Generate HTML documentation in `docs-html/`
 
 ### GitHub Pages (Optional)
-- `npm run update:gh-version` - Inject `package.json` version into a copy of `public/gh-pages-index.html` and write it to `dist/gh-pages-index.html` (used for GitHub Pages landing page)
+- `npm run update:gh-page-details` - Inject `package.json` version into a copy of `public/gh-pages-index.html` and write it to `dist/gh-pages-index.html` (used for GitHub Pages landing page)
 - `npm run build:gh-pages` - Build the app and, when `ENABLE_GH_PAGES=true`, generate GitHub Pages artifacts (including `dist/gh-pages-index.html`)
 
 ## Project Structure

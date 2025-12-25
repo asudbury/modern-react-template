@@ -97,6 +97,10 @@ See also: [Error boundaries in React](https://react.dev/reference/react/Componen
 
 ## Quick Start
 
+**Prerequisites:**
+- Node.js 20 or higher
+- npm (comes with Node.js)
+
 ```bash
 # Install dependencies
 npm install
@@ -237,6 +241,7 @@ See [knip.toml](./knip.toml) for configuration details.
 ### Testing
 - `npm run test` - Run unit tests in watch mode
 - `npm run test:unit` - Run unit tests
+- `npm run test:coverage` - Run unit tests with coverage report
 - `npm run test:ui` - Run tests with UI
 - `npm run test:e2e` - Run E2E tests with Playwright
 

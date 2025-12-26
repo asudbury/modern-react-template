@@ -1,4 +1,5 @@
 
+
 # <img src="./public/react-gears.svg" alt="React gears illustration" width="48" style="vertical-align: middle;" /> Modern React Template
 
 A modern, accessibility-first React 19 application built with Vite 7 and TypeScript 5. This template enforces strict rules for accessibility (WCAG 2.2 AA), performance, and code quality.
@@ -8,6 +9,8 @@ A modern, accessibility-first React 19 application built with Vite 7 and TypeScr
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=asudbury_modern-react-template&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=asudbury_modern-react-template)
 
+
+[![CodeQL](https://github.com/asudbury/modern-react-template/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/asudbury/modern-react-template/actions/workflows/codeql-analysis.yml)
 
 > **📘 Fork-Friendly Setup:** This template is designed to work out-of-the-box for forks! All advanced features (SonarCloud, GitHub Pages CI, JSDoc) are **disabled by default** and only run when you explicitly enable them. See [.env.example](./.env.example) for minimal setup instructions.
 
@@ -37,6 +40,7 @@ A modern, accessibility-first React 19 application built with Vite 7 and TypeScr
 ### Core Features (Always Enabled)
 - ♿ [**Accessibility-first**](https://www.w3.org/WAI/WCAG22/quickref/) (WCAG 2.2 AA compliant)
 - 🦾 [**Axe-core**](https://github.com/dequelabs/axe-core) automated accessibility checks
+ - 🔍 [**CodeQL**](https://codeql.github.com/) GitHub Code Scanning (static analysis)
 - 📝 [**Commitlint**](https://commitlint.js.org/#/) enforcing conventional commit messages
 - 🛡️ [**Global Error Boundary**](https://github.com/bvaughn/react-error-boundary) with custom fallback UI and reload/reset support
 - 🔒 [**ESLint**](https://eslint.org/) static analysis
@@ -53,10 +57,12 @@ A modern, accessibility-first React 19 application built with Vite 7 and TypeScr
 - 🧑‍⚖️ [**Zod**](https://zod.dev/) for data validation
 - 🚫 [**404 Not Found Page**](#404-not-found-page) accessible, customizable fallback for unmatched routes
 
+
 ### Optional Core Features (Disabled by default)
 
 - 🌐 [**GitHub Pages**](https://docs.github.com/en/pages) deployment for app and docs
 - 🔍 [**SonarCloud**](https://sonarcloud.io/) for continuous code quality analysis
+- 🛡️ [**CodeQL**](https://codeql.github.com/docs/) for advanced code scanning and security analysis
 - 📖 [**TypeDoc**](https://typedoc.org/) for automated API documentation
 - ⚙️ **[Feature Configuration](./FEATURES.md)** - Enable/disable optional features
 
@@ -619,8 +625,10 @@ MIT
 - [Knip](https://knip.dev/) 
 - [Prettier](https://prettier.io/)
 
+
 ### Docs, Analysis & Hosting
 
 - [GitHub Pages](https://docs.github.com/en/pages)
 - [SonarCloud](https://sonarcloud.io/)
+- [CodeQL](https://codeql.github.com/docs/)
 - [TypeDoc](https://typedoc.org/)

@@ -39,6 +39,7 @@ There is a lite version available here [modern-react-template-lite](https://gith
 - 📝 [**Commitlint**](https://commitlint.js.org/#/) enforcing conventional commit messages
 - 🛡️ [**Global Error Boundary**](https://github.com/bvaughn/react-error-boundary) with custom fallback UI and reload/reset support
 - 🔒 [**ESLint**](https://eslint.org/) static analysis
+- 🔐 [**Gitleaks**](https://github.com/gitleaks/gitleaks) secret scanning to prevent credential leaks
 - 🪝 [**Husky**](https://typicode.github.io/husky/) pre-commit + commit-msg hooks
 - 🧹 [**Knip**](https://knip.dev/) unused code & dependency analysis (non-blocking, see CI)
 - 🎭 [**Playwright**](https://playwright.dev/) for E2E browser testing
@@ -217,6 +218,7 @@ TypeDoc (local generation only)
 - `npm run lint` - Run ESLint
 - `npm run lint:fix` - Fix ESLint issues
 - `npm run prettier` - Format code with Prettier
+- `npm run gitleaks` - Scan for secrets with Gitleaks
 - `npm run knip` - Analyze for unused files, exports, and dependencies (see below)
 - Conventional commits enforced via commitlint on `git commit`
 
@@ -286,6 +288,7 @@ modern-react-template/
 │   └── index.css              # Global styles
 ├── .env.example               # Environment variables template
 ├── .gitignore                 # Git ignore rules
+├── .gitleaks.toml             # Gitleaks configuration for secret scanning
 ├── .gitleaksignore            # Secret scanning ignore rules
 ├── .prettierrc                # Prettier configuration
 ├── eslint.config.js           # ESLint configuration
@@ -349,13 +352,76 @@ The `sonar-project.properties` file reads `SONAR_ORGANIZATION` and `SONAR_PROJEC
 
 View your project's quality metrics on the SonarCloud dashboard when analysis is enabled.
 
+### Secret Scanning with Gitleaks
+
+This template uses [Gitleaks](https://github.com/gitleaks/gitleaks) to automatically scan for secrets, API keys, passwords, and other sensitive credentials in your codebase. Secret scanning runs both in pre-commit hooks and CI to prevent accidental credential leaks.
+
+**How it works:**
+
+1. **Pre-commit scanning**: Gitleaks scans your staged changes before each commit
+2. **CI scanning**: Every push and pull request triggers a full repository scan
+3. **Configuration**: Customize scanning rules in `.gitleaks.toml`
+4. **Allowlist**: Add false positives to `.gitleaksignore`
+
+**Running secret scanning locally:**
+
+```bash
+# Scan the entire repository
+npm run gitleaks
+
+# Scan specific files (requires gitleaks installed)
+gitleaks detect --source . --verbose
+```
+
+**Installing Gitleaks:**
+
+For pre-commit hooks to work properly, install Gitleaks on your system:
+
+```bash
+# macOS
+brew install gitleaks
+
+# Linux
+wget https://github.com/gitleaks/gitleaks/releases/download/v8.21.2/gitleaks_8.21.2_linux_x64.tar.gz
+tar -xzf gitleaks_8.21.2_linux_x64.tar.gz
+sudo mv gitleaks /usr/local/bin/
+
+# Windows (using Scoop)
+scoop install gitleaks
+
+# Or download from: https://github.com/gitleaks/gitleaks/releases
+```
+
+**Handling false positives:**
+
+If Gitleaks flags a false positive, you can:
+
+1. Add the specific pattern to `.gitleaksignore`
+2. Use inline comments: `# gitleaks:allow`
+3. Update `.gitleaks.toml` to allowlist specific patterns
+
+**Example `.gitleaksignore` entry:**
+
+```
+# Ignore example API keys in documentation
+src/docs/api-examples.ts:12
+```
+
+**Important:** Never commit real secrets. If Gitleaks detects a secret:
+1. Remove the secret from your code
+2. Rotate/invalidate the exposed credential immediately
+3. Use environment variables or secret management tools instead
+
+For more information, see the [Gitleaks documentation](https://github.com/gitleaks/gitleaks).
+
 ### Pre-commit Hooks
 
-Husky enforces code quality on every commit:
+Husky enforces code quality and security on every commit:
 1. Format code with Prettier
 2. Run unit tests
 3. Lint with ESLint
 4. Build the project
+5. Scan for secrets with Gitleaks
 
 If any of these checks fails, the commit is blocked and the corresponding
 command's error output is shown in your terminal (for example ESLint errors
@@ -539,10 +605,12 @@ For local tooling and CI toggles, additional variables are defined in
 The CI pipeline runs on every push and pull request:
 
 1. **Lint** - ESLint checks
-2. **Format** - Prettier checks
-3. **Test** - Unit tests with Vitest
-4. **Build** - Production build
-5. **E2E** - Playwright tests with Axe accessibility scans
+2. **Secret Scan** - Gitleaks secret detection
+3. **Format** - Prettier checks
+4. **Test** - Unit tests with Vitest
+5. **Build** - Production build
+6. **E2E** - Playwright tests with Axe accessibility scans
+7. **Knip** - Unused code analysis (non-blocking)
 
 ## Pre-commit Hooks
 
@@ -552,6 +620,7 @@ Husky runs the following checks on every commit:
 2. Run unit tests
 3. Lint with ESLint
 4. Build the project
+5. Scan for secrets with Gitleaks
 
 If any check fails, the commit is blocked.
 

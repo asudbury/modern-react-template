@@ -1,0 +1,50 @@
+# Gitleaks Configuration
+# https://github.com/gitleaks/gitleaks
+
+title = "Modern React Template - Gitleaks Configuration"
+
+[extend]
+# Use the default Gitleaks configuration as a base
+useDefault = true
+
+[allowlist]
+description = "Allowlist for known false positives"
+paths = [
+  # Ignore test files and mocks
+  '''.*test\.(ts|tsx|js|jsx)$''',
+  '''.*mock\.(ts|tsx|js|jsx)$''',
+  '''.*\.spec\.(ts|tsx|js|jsx)$''',
+  
+  # Ignore configuration and documentation files
+  '''.gitleaksignore$''',
+  '''.gitleaks.toml$''',
+  '''README\.md$''',
+  '''QUICKSTART\.md$''',
+  '''FEATURES\.md$''',
+  '''AGENTS\.md$''',
+  
+  # Ignore lock files and dependencies
+  '''package-lock\.json$''',
+  '''node_modules/.*''',
+  
+  # Ignore build output and generated files
+  '''dist/.*''',
+  '''docs/.*''',
+  '''docs-html/.*''',
+  '''coverage/.*''',
+  '''playwright-report/.*''',
+]
+
+# Allowlist specific patterns that are safe
+regexes = [
+  # Example API keys that are clearly for documentation/examples
+  '''example-api-key''',
+  '''your-api-key-here''',
+  '''INSERT_YOUR_KEY_HERE''',
+  '''REPLACE_WITH_YOUR_KEY''',
+  
+  # Common placeholder patterns
+  '''xxx+''',
+  '''test-token''',
+  '''dummy-secret''',
+]

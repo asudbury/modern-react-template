@@ -23,7 +23,9 @@
     "build:gh-pages": "ENABLE_GH_PAGES=true npm run build && npm run update:gh-page-details",
     "pre": "npm run prettier && npm run test && npm run lint && npm run build && npm run test:e2e",
     "knip": "knip",
-    "knip:ci": "knip --ci"
+    "knip:ci": "knip --ci",
+    "gitleaks": "gitleaks detect --source . --verbose",
+    "gitleaks:ci": "gitleaks detect --source . --verbose --no-color"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.90.12",

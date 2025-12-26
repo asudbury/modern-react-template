@@ -1785,8 +1785,60 @@ export function Spinner() {
 
 ## Security
 
+### Secret Scanning
+
+This repository uses [Gitleaks](https://github.com/gitleaks/gitleaks) for automated secret scanning to prevent credential leaks:
+
+- **Pre-commit scanning**: All staged changes are scanned before commit
+- **CI scanning**: Full repository scan runs on every push and PR
+- **Configuration**: Rules defined in `.gitleaks.toml`
+- **False positives**: Add to `.gitleaksignore` or use inline `# gitleaks:allow` comments
+
+**Best practices:**
+- Never commit secrets, API keys, passwords, or tokens to the repository
+- Use environment variables (`.env` files) for sensitive configuration
+- Use secret management tools (AWS Secrets Manager, Azure Key Vault, etc.) for production
+- If a secret is accidentally committed, immediately rotate/invalidate it
+- Use placeholder values in documentation and examples (e.g., `your-api-key-here`)
+
+**Running secret scanning:**
+```bash
+# Local scan
+npm run gitleaks
+
+# CI scan (runs automatically in GitHub Actions)
+npm run gitleaks:ci
+```
+
+**Handling false positives:**
+
+If Gitleaks incorrectly flags a value as a secret:
+
+1. **Inline allowlist** - Add comment on the same line:
+   ```typescript
+   const exampleKey = "example-api-key-12345"; // gitleaks:allow
+   ```
+
+2. **File-specific allowlist** - Add to `.gitleaksignore`:
+   ```
+   # Documentation examples
+   src/docs/api-examples.ts:42
+   ```
+
+3. **Pattern allowlist** - Update `.gitleaks.toml`:
+   ```toml
+   [[rules]]
+   description = "Allow test fixtures"
+   regex = '''test-api-key-.*'''
+   ```
+
+### General Security Guidelines
+
 - Do not commit secrets. Use environment variables and SOPS/secret managers for protected values
 - Avoid `dangerouslySetInnerHTML` unless content is sanitized
+- Validate all external data with Zod schemas
+- Keep dependencies up to date with `npm audit` and security patches
+- Follow principle of least privilege for API keys and credentials
 
 ## Debugging Best Practices
 
@@ -2130,7 +2182,10 @@ Ensure your `package.json` defines at least the following scripts so tooling and
 
 ### Security Audits
 
-- Run `npm audit` or similar regularly and fix vulnerabilities promptly
+- Run `npm audit` regularly and fix vulnerabilities promptly
+- Use `npm run gitleaks` to scan for secrets before committing
+- Review Gitleaks reports in CI for any detected secrets
+- Never commit secrets; immediately rotate any accidentally exposed credentials
 
 ## Git & Workflow Conventions (Optional but Recommended)
 

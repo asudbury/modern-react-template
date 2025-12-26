@@ -10,7 +10,7 @@ A modern, accessibility-first React 19 application built with Vite 7 and TypeScr
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=asudbury_modern-react-template&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=asudbury_modern-react-template)
 
 
-[![CodeQL](https://github.com/asudbury/modern-react-template/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/asudbury/modern-react-template/actions/workflows/codeql-analysis.yml)
+[![CodeQL](https://github.com/asudbury/modern-react-template/actions/workflows/codeql.yml/badge.svg)](https://github.com/asudbury/modern-react-template/actions/workflows/codeql.yml)
 
 > **📘 Fork-Friendly Setup:** This template is designed to work out-of-the-box for forks! All advanced features (SonarCloud, GitHub Pages CI, JSDoc) are **disabled by default** and only run when you explicitly enable them. See [.env.example](./.env.example) for minimal setup instructions.
 

@@ -286,6 +286,7 @@ modern-react-template/
 │   └── index.css              # Global styles
 ├── .env.example               # Environment variables template
 ├── .gitignore                 # Git ignore rules
+├── .gitleaks.toml             # Secret scanning config (Gitleaks)
 ├── .gitleaksignore            # Secret scanning ignore rules
 ├── .prettierrc                # Prettier configuration
 ├── eslint.config.js           # ESLint configuration

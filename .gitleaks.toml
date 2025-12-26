@@ -1,0 +1,58 @@
+# Gitleaks configuration file
+# https://github.com/gitleaks/gitleaks
+
+title = "Modern Monorepo Template - Secret Scanning Configuration"
+
+# Extend the base configuration with custom rules
+[extend]
+# Use the default Gitleaks ruleset as a base
+useDefault = true
+
+[allowlist]
+description = "Global allowlist for known false positives"
+
+# Allowlist specific strings that are known false positives
+# Be cautious with regex patterns - overly broad patterns can miss real secrets
+# Prefer using .gitleaksignore for specific false positives with fingerprints
+regexes = [
+  # Example domain placeholders
+  '''example\.com''',
+  '''your-domain-here\.com''',
+  '''placeholder\.local''',
+]
+
+# Paths to ignore globally
+paths = [
+  # Dependencies
+  '''node_modules/''',
+  '''pnpm-lock\.yaml''',
+  '''package-lock\.json''',
+  '''yarn\.lock''',
+  
+  # Build outputs
+  '''dist/''',
+  '''build/''',
+  '''\.turbo/''',
+  '''coverage/''',
+  
+  # Documentation and examples
+  '''docs-html/''',
+  '''playwright-report/''',
+  '''test-results/''',
+  
+  # Git directory
+  '''\.git/''',
+  
+  # Environment example files (these should contain placeholders)
+  '''\.env\.example''',
+]
+
+# Stop words to ignore in commits
+stopwords = [
+  "example",
+  "test",
+  "placeholder",
+  "your-key-here",
+  "fake",
+  "mock",
+]

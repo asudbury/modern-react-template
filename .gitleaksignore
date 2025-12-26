@@ -1,12 +1,23 @@
-# Ignore all .env files
-.env
-.env.*
+# Gitleaks False Positives Ignore File
+# Add fingerprints of known false positives here
+# Generate fingerprints by running: gitleaks detect --report-format json
+# Then copy the fingerprint from the report
 
-# Ignore test credentials
-src/**/test-credentials.json
+# Format:
+# <fingerprint>:<file>:<line>
 
-# Ignore specific patterns (example)
-# [[rules]]
-# description = "Ignore example API key"
-# regex = '''example-api-key-[a-z0-9]{32}'''
-# path = ".*"
+# IMPORTANT: Use this file for specific false positives only
+# Do NOT add broad patterns here - those belong in .gitleaks.toml allowlist
+# Each entry should be a specific fingerprint for a specific line in a specific file
+
+# Example entries (replace with actual fingerprints):
+# 1234567890abcdef1234567890abcdef:apps/web/src/example-config.ts:15
+# a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6:docs/API.md:42
+
+# Guidelines for adding entries:
+# 1. Verify it's truly a false positive (not a real secret)
+# 2. Add a comment explaining why it's safe
+# 3. Review these entries periodically
+
+# Test files with example API keys (for documentation):
+# Add actual fingerprints here when they're detected

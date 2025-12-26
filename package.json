@@ -1,7 +1,7 @@
 {
   "name": "modern-react-template",
   "private": true,
-  "version": "0.0.9",
+  "version": "0.0.10",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -23,7 +23,10 @@
     "build:gh-pages": "ENABLE_GH_PAGES=true npm run build && npm run update:gh-page-details",
     "pre": "npm run prettier && npm run test && npm run lint && npm run build && npm run test:e2e",
     "knip": "knip",
-    "knip:ci": "knip --ci"
+    "knip:ci": "knip --ci",
+    "secrets:scan": "gitleaks detect --config .gitleaks.toml",
+    "secrets:scan-staged": "gitleaks protect --staged --config .gitleaks.toml",
+    "secrets:baseline": "gitleaks detect --report-format json --report-path gitleaks-baseline.json --config .gitleaks.toml"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.90.12",
@@ -62,6 +65,7 @@
     "eslint-plugin-react-refresh": "^0.4.26",
     "eslint-plugin-testing-library": "^7.15.3",
     "eslint-plugin-vitest": "^0.5.4",
+    "gitleaks": "^1.0.0",
     "globals": "^16.5.0",
     "happy-dom": "^20.0.11",
     "husky": "^9.1.7",

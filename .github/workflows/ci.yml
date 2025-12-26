@@ -111,32 +111,22 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
       - run: npm ci
-      - name: Emit JUnit test results (Vitest)
+      - name: Run changed-only unit tests for PR
+        if: github.event_name == 'pull_request'
         run: |
-          mkdir -p test-results
-          npm run test:unit -- --reporter junit --outputFile test-results/junit.xml || true
-      - name: Run unit tests (PRs: changed-only, main: full coverage)
+          echo "Running changed-only unit tests for PR"
+          npm run test:unit -- --changed
+      - name: Run full unit tests with coverage
+        if: github.event_name != 'pull_request'
         run: |
-          if [ "${GITHUB_EVENT_NAME}" = "pull_request" ]; then
-            echo "Running changed-only unit tests for PR"
-            npm run test:unit -- --changed
-          else
-            echo "Running full unit tests with coverage"
-            npm run test:coverage
-          fi
+          echo "Running full unit tests with coverage"
+          npm run test:coverage
       - name: Upload coverage report
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: coverage-report
           path: coverage/
-          retention-days: 7
-      - name: Upload junit test results
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: junit-test-results
-          path: test-results/junit.xml
           retention-days: 7
 
   build:

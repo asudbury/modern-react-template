@@ -1,693 +1,419 @@
+# Gitleaks
 
-# <img src="./public/react-gears.svg" alt="React gears illustration" width="48" style="vertical-align: middle;" /> Modern React Template
-
-A modern, accessibility-first React 19 application built with Vite 7 and TypeScript 5. This template enforces strict rules for accessibility (WCAG 2.2 AA), performance, and code quality.
-
-
-[![SonarQube Cloud](https://sonarcloud.io/images/project_badges/sonarcloud-light.svg)](https://sonarcloud.io/summary/new_code?id=asudbury_modern-react-template)
-
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=asudbury_modern-react-template&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=asudbury_modern-react-template)
-
-
-> **📘 Fork-Friendly Setup:** This template is designed to work out-of-the-box for forks! All advanced features (SonarCloud, GitHub Pages CI, JSDoc) are **disabled by default** and only run when you explicitly enable them. See [.env.example](./.env.example) for minimal setup instructions.
-
-## 📚 DeepWiki Project Knowledge Base
-
-> **Explore the full documentation, architecture, and deep technical notes for this project on DeepWiki:**
->
-> [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/asudbury/modern-react-template)
->
-> - Comprehensive guides, diagrams, and design decisions
-> - Contributor onboarding and advanced usage tips
-> - Maintainer notes, troubleshooting, and best practices
->
-> **This is the canonical knowledge base for the project. If you're contributing, maintaining, or deploying, start here!**
-
-## SonarCloud
-[SonarCloud Dashboard](https://sonarcloud.io/summary/new_code?id=asudbury_modern-react-template)
-
-> ⚠️ **Note for Forks:** The SonarCloud badges above are for the original repository. If you're not using SonarCloud, you can safely remove these badges (lines 3-7).
-
-### Lite version
-There is a lite version available here [modern-react-template-lite](https://github.com/asudbury/modern-react-template-lite)
-
-## Features
-
-### Core Features (Always Enabled)
-- ♿ [**Accessibility-first**](https://www.w3.org/WAI/WCAG22/quickref/) (WCAG 2.2 AA compliant)
-- 🦾 [**Axe-core**](https://github.com/dequelabs/axe-core) automated accessibility checks
-- 📝 [**Commitlint**](https://commitlint.js.org/#/) enforcing conventional commit messages
-- 🛡️ [**Global Error Boundary**](https://github.com/bvaughn/react-error-boundary) with custom fallback UI and reload/reset support
-- 🔒 [**ESLint**](https://eslint.org/) static analysis
-- 🔐 [**Gitleaks**](https://github.com/gitleaks/gitleaks) secret scanning to prevent credential leaks
-- 🪝 [**Husky**](https://typicode.github.io/husky/) pre-commit + commit-msg hooks
-- 🧹 [**Knip**](https://knip.dev/) unused code & dependency analysis (non-blocking, see CI)
-- 🎭 [**Playwright**](https://playwright.dev/) for E2E browser testing
-- 💅 [**Prettier**](https://prettier.io/) code formatting
-- ✨ [**React 19**](https://react.dev/) with the latest features
-- 🎨 [**Tailwind-like CSS**](https://tailwindcss.com/) utility classes in [index.css](src/index.css)
-- 🔄 [**TanStack Query**](https://tanstack.com/query/latest) for server state management
-- 🧭 [**TanStack Router**](https://tanstack.com/router) for type-safe routing
-- 🌗 [**Theming**](#theming) with light/dark mode and design tokens
-- 🧪 [**Vitest + React Testing Library**](https://vitest.dev/) unit testing and accessible queries
-- 🧑‍⚖️ [**Zod**](https://zod.dev/) for data validation
-- 🚫 [**404 Not Found Page**](#404-not-found-page) accessible, customizable fallback for unmatched routes
-
-### Optional Core Features (Disabled by default)
-
-- 🌐 [**GitHub Pages**](https://docs.github.com/en/pages) deployment for app and docs
-- 🔍 [**SonarCloud**](https://sonarcloud.io/) for continuous code quality analysis
-- 📖 [**TypeDoc**](https://typedoc.org/) for automated API documentation
-- ⚙️ **[Feature Configuration](./FEATURES.md)** - Enable/disable optional features
-
-## Global Error Handling
-
-This template uses a global error boundary to catch unexpected errors anywhere in the React component tree and display a user-friendly fallback UI instead of a blank screen or crash.
-
-- Implemented using [`react-error-boundary`](https://github.com/bvaughn/react-error-boundary)
-- Configured in [`src/main.tsx`](src/main.tsx) wrapping the entire app
-- Custom fallback UI in [`src/components/ErrorFallback/ErrorFallback.tsx`](src/components/ErrorFallback/ErrorFallback.tsx)
-- Users can reload the app or reset the error boundary from the fallback UI
-
-**How it works:**
-
-```tsx
-import { ErrorBoundary } from 'react-error-boundary';
-import { ErrorFallback } from './components/ErrorFallback';
-
-<ErrorBoundary
-  FallbackComponent={ErrorFallback}
-  onReset={() => globalThis.location.reload()}
->
-  <App />
-</ErrorBoundary>
+```
+┌─○───┐
+│ │╲  │
+│ │ ○ │
+│ ○ ░ │
+└─░───┘
 ```
 
-**Customizing error handling:**
-- Edit the fallback UI in `ErrorFallback.tsx` to change the error message, add support links, or customize the reload/reset behavior.
-- You can log errors to a service (Sentry, LogRocket, etc.) by adding an `onError` prop to the `ErrorBoundary`.
+<p align="left">
+  <p align="left">
+	  <a href="https://github.com/gitleaks/gitleaks/actions/workflows/test.yml">
+		  <img alt="Github Test" src="https://github.com/gitleaks/gitleaks/actions/workflows/test.yml/badge.svg">
+	  </a>
+	  <a href="https://hub.docker.com/r/zricethezav/gitleaks">
+		  <img src="https://img.shields.io/docker/pulls/zricethezav/gitleaks.svg" />
+	  </a>
+	  <a href="https://github.com/gitleaks/gitleaks-action">
+        	<img alt="gitleaks badge" src="https://img.shields.io/badge/protected%20by-gitleaks-blue">
+    	 </a>
+	  <a href="https://twitter.com/intent/follow?screen_name=zricethezav">
+		  <img src="https://img.shields.io/twitter/follow/zricethezav?label=Follow%20zricethezav&style=social&color=blue" alt="Follow @zricethezav" />
+	  </a>
+  </p>
+</p>
 
-See also: [Error boundaries in React](https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary)
+### Join our Discord! [![Discord](https://img.shields.io/discord/1102689410522284044.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/8Hzbrnkr7E)
 
-### Optional Features (Opt-In, Disabled by Default)
-- 🌐 [**GitHub Pages**](https://docs.github.com/en/pages) deployment for app and docs
-- 🔍 [**SonarCloud**](https://sonarcloud.io/) for continuous code quality analysis
-- 📖 [**TypeDoc**](https://typedoc.org/) for automated API documentation
+Gitleaks is a SAST tool for **detecting** and **preventing** hardcoded secrets like passwords, API keys, and tokens in git repos. Gitleaks is an **easy-to-use, all-in-one solution** for detecting secrets, past or present, in your code.
 
-> 💡 **Tip:** Optional features won't run unless you explicitly enable them. See [QUICKSTART.md](./QUICKSTART.md) to learn which features to enable for your use case.
+```
+➜  ~/code(master) gitleaks git -v
 
-## Quick Start
+    ○
+    │╲
+    │ ○
+    ○ ░
+    ░    gitleaks
 
-**Prerequisites:**
-- Node.js 20 or higher
-- npm (comes with Node.js)
+
+Finding:     "export BUNDLE_ENTERPRISE__CONTRIBSYS__COM=cafebabe:deadbeef",
+Secret:      cafebabe:deadbeef
+RuleID:      sidekiq-secret
+Entropy:     2.609850
+File:        cmd/generate/config/rules/sidekiq.go
+Line:        23
+Commit:      cd5226711335c68be1e720b318b7bc3135a30eb2
+Author:      John
+Email:       john@users.noreply.github.com
+Date:        2022-08-03T12:31:40Z
+Fingerprint: cd5226711335c68be1e720b318b7bc3135a30eb2:cmd/generate/config/rules/sidekiq.go:sidekiq-secret:23
+```
+
+## Getting Started
+
+Gitleaks can be installed using Homebrew, Docker, or Go. Gitleaks is also available in binary form for many popular platforms and OS types on the [releases page](https://github.com/gitleaks/gitleaks/releases). In addition, Gitleaks can be implemented as a pre-commit hook directly in your repo or as a GitHub action using [Gitleaks-Action](https://github.com/gitleaks/gitleaks-action).
+
+### Installing
 
 ```bash
-# Install dependencies
-npm install
-
-# Start development server
-npm run dev
-```
-
-Visit `http://localhost:5173` to see your application.
-
-> 🍴 **Forked this repo?** See [QUICKSTART.md](./QUICKSTART.md) for fork-specific setup instructions. All optional features (SonarCloud, GitHub Pages, etc.) are disabled by default and won't interfere with your fork.
-
-## Routing with TanStack Router
-
-This template uses [TanStack Router](https://tanstack.com/router) for type-safe client-side routing. The router is configured in `src/router.tsx` and integrated into the app via `App.tsx`.
-
-### Navigation
-
-The template includes a `Navigation` component that uses TanStack Router's `Link` component for type-safe navigation:
-
-```tsx
-import { Link } from '@tanstack/react-router';
-
-<Link to="/" activeProps={{ className: 'active' }}>
-  Home
-</Link>
-```
-
-### Available Routes
-
- - `/` - Home page (HomePage component)
- - `*` (any unmatched path) – **404 Not Found page** (NotFoundPage component)
-
-#### 404 Not Found Page
-
-This template includes a fully accessible, customizable 404 Not Found page for unmatched routes. The 404 page:
-- Is automatically shown for any route that does not match a defined path
-- Uses semantic HTML, design tokens, and is keyboard/screen reader accessible
-- Provides a clear message and a link to return home
-
-**Customizing the 404 page:**
-- Edit `src/pages/NotFoundPage/NotFoundPage.tsx` to change the message, add illustrations, or update the layout
-- The route is configured in `src/router.tsx` with `path: '*'`
-
-**Demo:** On the home page, click the "Demo 404 Not Found page" link to preview the 404 page in the app.
-
-### Adding New Routes
-
-To add a new route, update `src/router.tsx`:
-
-```tsx
-import { createRoute } from '@tanstack/react-router';
-import { YourComponent } from './pages/YourComponent';
-
-const yourRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: '/your-path',
-  component: YourComponent,
-});
-
-// Add to routeTree
-const routeTree = rootRoute.addChildren([
-  indexRoute,
-  yourRoute
-]);
-```
-
-### Type-Safe Navigation
-
-TanStack Router provides full TypeScript autocomplete and type checking for routes:
-
-```tsx
-import { Link, useNavigate } from '@tanstack/react-router';
-
-// Link component with autocomplete
-
-// Programmatic navigation
-const navigate = useNavigate();
-navigate({ to: '/' });
-```
-
-For more details, see the [TanStack Router documentation](https://tanstack.com/router/latest/docs/framework/react/overview).
-
-## For Forks: What's Enabled by Default?
-
-This template is designed to be **fork-friendly**. Here's what works out of the box:
-
-### ✅ Enabled by Default (No Configuration Needed)
-React 19 development with Vite
-TypeScript with strict mode
-ESLint + Prettier
-Husky pre-commit hooks
-Commitlint for commit messages
-Unit tests with Vitest
-E2E tests with Playwright
-TypeDoc (local generation only)
-
-### ❌ Disabled by Default (Opt-In Only)
-- **SonarCloud Analysis** - Requires `RUN_SONARCLOUD=true` + configuration
-- **GitHub Pages Deployment** - Requires `ENABLE_GH_PAGES=true` + configuration
-- **TypeDoc in CI** - Requires `ENABLE_JSDOC_BUILD=true`
-
-**No workflows will fail on your fork!** Disabled features simply won't run. See [QUICKSTART.md](./QUICKSTART.md) to enable features you want.
-
-## Available Scripts
-
-### Development
-- `npm run dev` - Start development server
-- `npm run build` - Build for production (no GitHub Pages side effects)
-- `npm run preview` - Preview production build
-
-
-### Code Quality
-- `npm run lint` - Run ESLint
-- `npm run lint:fix` - Fix ESLint issues
-- `npm run prettier` - Format code with Prettier
-- `npm run gitleaks` - Scan for secrets with Gitleaks
-- `npm run knip` - Analyze for unused files, exports, and dependencies (see below)
-- Conventional commits enforced via commitlint on `git commit`
-
-#### Unused Code & Dependency Analysis (Knip)
-
-This template uses [Knip](https://knip.dev/) to detect unused files, exports, and dependencies:
-
-- Run `npm run knip` locally to see a report of unused code and dependencies
-- Knip runs automatically in CI (see the "Knip (Unused Code Analysis)" job)
-- **Knip is non-blocking:** CI and deployments will never fail due to Knip findings; the report is uploaded as an artifact for maintainers to review
-- Use Knip to keep your codebase clean and remove dead code as needed
-
-**Example:**
-
-```bash
-npm run knip
-# or in CI, download the knip-report artifact for details
-```
-
-See [knip.toml](./knip.toml) for configuration details.
-
-### Testing
-- `npm run test` - Run unit tests in watch mode
-- `npm run test:unit` - Run unit tests
-- `npm run test:coverage` - Run unit tests with coverage report
-- `npm run test:ui` - Run tests with UI
-- `npm run test:e2e` - Run E2E tests with Playwright
-
-### Documentation
-- `npm run docs` - Generate both markdown and HTML documentation
-- `npm run docs:md` - Generate markdown documentation in `docs/`
-- `npm run docs:html` - Generate HTML documentation in `docs-html/`
-
-### GitHub Pages (Optional)
-- `npm run update:gh-page-details` - Inject `package.json` version into a copy of `public/gh-pages-index.html` and write it to `dist/gh-pages-index.html` (used for GitHub Pages landing page)
-- `npm run build:gh-pages` - Build the app and, when `ENABLE_GH_PAGES=true`, generate GitHub Pages artifacts (including `dist/gh-pages-index.html`)
-
-## Project Structure
-
-```
-
-modern-react-template/
-├── .github/
-│   ├── workflows/
-│   │   ├── ci.yml             # CI/CD pipeline
-│   │   ├── sonarcloud.yml     # SonarCloud analysis
-│   │   └── pages.yml          # GitHub Pages deployment
-│   └── copilot-instructions.md # Copilot coding guidelines
-├── .husky/
-│   └── pre-commit             # Pre-commit hooks
-├── docs/                      # Generated markdown docs (TypeDoc)
-├── docs-html/                 # Generated HTML docs (TypeDoc)
-├── knip.toml                  # Knip configuration (unused code analysis)
-├── playwright/                # UI tests
-├── src/
-│   ├── components/            # Reusable UI components and samples
-│   │   ├── Button/            # Button component (+ tests, stories, index)
-│   │   ├── Navigation/        # Navigation bar
-│   │   ├── ErrorFallback/     # Global error fallback for error boundary
-│   ├── pages/                 # Route/page components
-│   ├── queries/               # Data fetching/mutations (TanStack Query)
-│   ├── schemas/               # Zod schemas and types
-│   ├── test/                  # Test setup/mocks
-│   ├── App.tsx                # Root app component
-│   ├── main.tsx               # Entry point (includes error boundary)
-│   ├── router.tsx             # Router config
-│   └── index.css              # Global styles
-├── .env.example               # Environment variables template
-├── .gitignore                 # Git ignore rules
-├── .gitleaks.toml             # Gitleaks configuration for secret scanning
-├── .gitleaksignore            # Secret scanning ignore rules
-├── .prettierrc                # Prettier configuration
-├── eslint.config.js           # ESLint configuration
-├── package.json               # Dependencies and scripts
-├── playwright.config.ts       # Playwright configuration
-├── sonar-project.properties   # SonarCloud configuration
-├── tsconfig.json              # TypeScript configuration
-├── typedoc.json               # TypeDoc markdown config
-├── typedoc.html.json          # TypeDoc HTML config
-├── vite.config.ts             # Vite configuration
-└── vitest.config.ts           # Vitest configuration
-```
-
-## Documentation
-
-This template generates comprehensive documentation in multiple formats:
-
-### Markdown Documentation (`docs/`)
-
-The `docs/` directory contains auto-generated markdown documentation from TypeDoc. This is committed to the repository and provides developer-friendly API documentation.
-
-```bash
-npm run docs:md
-```
-
-### HTML Documentation (GitHub Pages)
-
-HTML documentation is automatically generated and deployed to GitHub Pages:
-- **API Docs**: [https://asudbury.github.io/modern-react-template/docs](https://asudbury.github.io/modern-react-template/docs)
-- **Demo App**: [https://asudbury.github.io/modern-react-template/app](https://asudbury.github.io/modern-react-template/app)
-
-## Sample Implementations
-
-This template ships with several concrete samples you can use as references:
-
-- **Home page layout**: `src/pages/HomePage/HomePage.tsx` demonstrates accessible page structure and headings.
-- **Reusable component + tests**: `src/components/Button/` includes the button implementation and unit tests
-- **Data fetching utilities**: `src/queries/fetch.ts` and `src/queries/mutate.ts` show how to use TanStack Query with Zod validation.
-- **E2E + accessibility test**: `playwright/homepage.spec.ts` is a full Playwright + axe-core example for the home page.
-- **Generated API docs**: `docs/` and `docs-html/` contain TypeDoc output you can browse as living samples of the project APIs.
-
-## Code Quality & Security
-
-### SonarCloud Integration
-
-This template uses SonarCloud for continuous code quality and security analysis. Configuration is driven by environment variables so forks can set up their own SonarCloud projects without editing source files.
-
-**Setup Requirements (for your fork or repo):**
-1. Sign up at [SonarCloud](https://sonarcloud.io/)
-2. Import **your** repository into SonarCloud and note the generated:
-  - Organization key (e.g. `my-org`)
-  - Project key (e.g. `my-org_modern-react-template`)
-3. Add `SONAR_TOKEN` to your GitHub repository secrets (Project Settings → Security → Tokens in SonarCloud).
-4. In your GitHub repository settings, add the following **Actions secrets/variables**:
-  - `SONAR_ORGANIZATION` – your SonarCloud organization key
-  - `SONAR_PROJECT_KEY` – your SonarCloud project key
-  - `SONAR_TOKEN` – the token from SonarCloud
-5. (Optional) Go to **Settings → Variables → Actions** in your GitHub repository and create a variable named `RUN_SONARCLOUD` with value `true` to enable SonarCloud analysis. Set it to `false` (or remove it) to skip the SonarCloud job.
-
-The `sonar-project.properties` file reads `SONAR_ORGANIZATION` and `SONAR_PROJECT_KEY` at analysis time, so no changes are required in the file when you fork this template.
-
-View your project's quality metrics on the SonarCloud dashboard when analysis is enabled.
-
-### Secret Scanning with Gitleaks
-
-This template uses [Gitleaks](https://github.com/gitleaks/gitleaks) to automatically scan for secrets, API keys, passwords, and other sensitive credentials in your codebase. Secret scanning runs both in pre-commit hooks and CI to prevent accidental credential leaks.
-
-**How it works:**
-
-1. **Pre-commit scanning**: Gitleaks scans your staged changes before each commit
-2. **CI scanning**: Every push and pull request triggers a full repository scan
-3. **Configuration**: Customize scanning rules in `.gitleaks.toml`
-4. **Allowlist**: Add false positives to `.gitleaksignore`
-
-**Running secret scanning locally:**
-
-```bash
-# Scan the entire repository
-npm run gitleaks
-
-# Scan specific files (requires gitleaks installed)
-gitleaks detect --source . --verbose
-```
-
-**Installing Gitleaks:**
-
-For pre-commit hooks to work properly, install Gitleaks on your system:
-
-```bash
-# macOS
+# MacOS
 brew install gitleaks
 
-# Linux
-wget https://github.com/gitleaks/gitleaks/releases/download/v8.21.2/gitleaks_8.21.2_linux_x64.tar.gz
-tar -xzf gitleaks_8.21.2_linux_x64.tar.gz
-sudo mv gitleaks /usr/local/bin/
+# Docker (DockerHub)
+docker pull zricethezav/gitleaks:latest
+docker run -v ${path_to_host_folder_to_scan}:/path zricethezav/gitleaks:latest [COMMAND] [OPTIONS] [SOURCE_PATH]
 
-# Windows (using Scoop)
-scoop install gitleaks
+# Docker (ghcr.io)
+docker pull ghcr.io/gitleaks/gitleaks:latest
+docker run -v ${path_to_host_folder_to_scan}:/path ghcr.io/gitleaks/gitleaks:latest [COMMAND] [OPTIONS] [SOURCE_PATH]
 
-# Or download from: https://github.com/gitleaks/gitleaks/releases
+# From Source (make sure `go` is installed)
+git clone https://github.com/gitleaks/gitleaks.git
+cd gitleaks
+make build
 ```
 
-**Handling false positives:**
+### GitHub Action
 
-If Gitleaks flags a false positive, you can:
-
-1. Add the specific pattern to `.gitleaksignore`
-2. Use inline comments: `# gitleaks:allow`
-3. Update `.gitleaks.toml` to allowlist specific patterns
-
-**Example `.gitleaksignore` entry:**
+Check out the official [Gitleaks GitHub Action](https://github.com/gitleaks/gitleaks-action)
 
 ```
-# Ignore example API keys in documentation
-src/docs/api-examples.ts:12
+name: gitleaks
+on: [pull_request, push, workflow_dispatch]
+jobs:
+  scan:
+    name: gitleaks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE}} # Only required for Organizations, not personal accounts.
 ```
 
-**Important:** Never commit real secrets. If Gitleaks detects a secret:
-1. Remove the secret from your code
-2. Rotate/invalidate the exposed credential immediately
-3. Use environment variables or secret management tools instead
+### Pre-Commit
 
-For more information, see the [Gitleaks documentation](https://github.com/gitleaks/gitleaks).
+1. Install pre-commit from https://pre-commit.com/#install
+2. Create a `.pre-commit-config.yaml` file at the root of your repository with the following content:
 
-### Pre-commit Hooks
+   ```
+   repos:
+     - repo: https://github.com/gitleaks/gitleaks
+       rev: v8.19.0
+       hooks:
+         - id: gitleaks
+   ```
 
-Husky enforces code quality and security on every commit:
-1. Format code with Prettier
-2. Run unit tests
-3. Lint with ESLint
-4. Build the project
-5. Scan for secrets with Gitleaks
+   for a [native execution of GitLeaks](https://github.com/gitleaks/gitleaks/releases) or use the [`gitleaks-docker` pre-commit ID](https://github.com/gitleaks/gitleaks/blob/master/.pre-commit-hooks.yaml) for executing GitLeaks using the [official Docker images](#docker)
 
-If any of these checks fails, the commit is blocked and the corresponding
-command's error output is shown in your terminal (for example ESLint errors
-or failing tests). Fix the reported issues and re-run `git commit`.
+3. Auto-update the config to the latest repos' versions by executing `pre-commit autoupdate`
+4. Install with `pre-commit install`
+5. Now you're all set!
 
-Additionally, a Husky `commit-msg` hook runs **commitlint** to enforce
-[Conventional Commits](https://www.conventionalcommits.org/) for commit
-messages. Example:
-
-```text
-feat: add a new component
-fix: handle invalid user IDs in updateUser
-chore: configure commitlint for commit messages
+```
+➜ git commit -m "this commit contains a secret"
+Detect hardcoded secrets.................................................Failed
 ```
 
-## GitHub Pages Deployment
+Note: to disable the gitleaks pre-commit hook you can prepend `SKIP=gitleaks` to the commit command
+and it will skip running gitleaks
 
-The template automatically deploys four entry points to GitHub Pages on every push to `main`:
-
-1. **Main Landing Page** – `https://asudbury.github.io/modern-react-template/`
-2. **Demo App** – `https://asudbury.github.io/modern-react-template/app`
-4. **API Documentation** – `https://asudbury.github.io/modern-react-template/docs`
-
-**Setup Requirements:**
-1. Go to repository Settings → Pages
-2. Set Source to "GitHub Actions"
-3. Push to `main` branch to trigger deployment
-
-**Important:** Deployment only happens from the `main` branch. The workflow automatically configures proper base paths for asset loading.
-
-### GitHub Actions Variables (Optional Builds)
-
-Optional build steps for GitHub Pages are controlled via **repository-level
-Actions variables**, not committed to the repo. Configure them at:
-
-https://github.com/asudbury/modern-react-template/settings/variables/actions
-
-Variables used:
-
-- `ENABLE_GH_PAGES` – generate the versioned landing page (`dist/gh-pages-index.html`)
-- `ENABLE_JSDOC_BUILD` – build and publish HTML API docs (`docs-html/`)
-
-Set these to `true` to enable the corresponding steps in CI/Pages; leave them
-unset or `false` (recommended for forks) to skip those builds.
-
-## Theming
-
-This template supports accessible theming with light and dark modes, powered by design tokens and utility classes in `src/index.css`.
-
-### Features
-- Light and dark mode support out of the box
-- Uses CSS custom properties (design tokens) for colors, spacing, and typography
-- Theme toggle button included (see `ThemeToggleButton` component)
-- All components use tokenized styles for full theme compatibility
-
-### How to Use
-- The app automatically detects system theme preference and applies it
-- Users can toggle theme manually using the theme toggle button in the UI
-- To customize themes, edit `src/index.css`
-
-For more, see the `ThemeToggleButton` for reference.
-
----
-
-## Key Conventions
-
-### Accessibility
-
-- Every component is keyboard-navigable
-- Screen reader friendly with proper ARIA attributes
-- WCAG 2.2 AA compliant
-- Color contrast ratios meet minimum requirements
-- Automated accessibility testing with Axe
-
-### Code Style
-
-- **No inline JSX handlers** - Use `useCallback` or named functions
-- **Named exports** - No default exports for components
-- **Design tokens only** - No hardcoded colors or spacing
-- **Strict TypeScript** - All code must be fully typed
-- **Zod validation** - All external data must be validated
-- **JSDoc documentation** - All exported functions, components, and types must have JSDoc comments
-
-### JSDoc Documentation
-
-All public APIs (exported functions, components, types) must include JSDoc comments:
-
-```tsx
-/**
- * Button Component
- *
- * An accessible button component following WCAG 2.2 AA guidelines.
- *
- * @example
- * ```tsx
- * <Button variant="primary" onClick={handleClick}>
- *   Click me
- * </Button>
- * ```
- */
-export function Button({ variant = 'primary', ...props }: ButtonProps) {
-  // Implementation
-}
+```
+➜ SKIP=gitleaks git commit -m "skip gitleaks check"
+Detect hardcoded secrets................................................Skipped
 ```
 
-See `.github/copilot-instructions.md` for detailed JSDoc formatting guidelines.
+## Usage
 
-### Component Guidelines
+```
+Usage:
+  gitleaks [command]
 
-```tsx
-// ✅ Good: Named function with useCallback
-const handleClick = useCallback(() => {
-  doSomething();
-}, [doSomething]);
+Available Commands:
+  completion  generate the autocompletion script for the specified shell
+  dir         scan directories or files for secrets
+  git         scan git repositories for secrets
+  help        Help about any command
+  stdin       detect secrets from stdin
+  version     display gitleaks version
 
-return <button onClick={handleClick}>Click me</button>;
+Flags:
+  -b, --baseline-path string          path to baseline with issues that can be ignored
+  -c, --config string                 config file path
+                                      order of precedence:
+                                      1. --config/-c
+                                      2. env var GITLEAKS_CONFIG
+                                      3. (target path)/.gitleaks.toml
+                                      If none of the three options are used, then gitleaks will use the default config
+      --enable-rule strings           only enable specific rules by id
+      --exit-code int                 exit code when leaks have been encountered (default 1)
+  -i, --gitleaks-ignore-path string   path to .gitleaksignore file or folder containing one (default ".")
+  -h, --help                          help for gitleaks
+      --ignore-gitleaks-allow         ignore gitleaks:allow comments
+  -l, --log-level string              log level (trace, debug, info, warn, error, fatal) (default "info")
+      --max-decode-depth int          allow recursive decoding up to this depth (default "0", no decoding is done)
+      --max-target-megabytes int      files larger than this will be skipped
+      --no-banner                     suppress banner
+      --no-color                      turn off color for verbose output
+      --redact uint[=100]             redact secrets from logs and stdout. To redact only parts of the secret just apply a percent value from 0..100. For example --redact=20 (default 100%)
+  -f, --report-format string          output format (json, csv, junit, sarif) (default "json")
+  -r, --report-path string            report file
+  -v, --verbose                       show verbose output from scan
+      --version                       version for gitleaks
 
-// ❌ Bad: Inline function
-return <button onClick={() => doSomething()}>Click me</button>;
+Use "gitleaks [command] --help" for more information about a command.
 ```
 
-### Testing
+### Commands
 
-- **Unit tests** - Use Vitest + React Testing Library
-- **Query by role** - Use accessible queries (`getByRole`, `getByLabelText`)
-- **User events** - Use `userEvent.setup()`, never `fireEvent`
-- **E2E tests** - Use Playwright with Axe accessibility checks
+⚠️ v8.19.0 introduced a change that deprecated `detect` and `protect`. Those commands are still available but
+are hidden in the `--help` menu. Take a look at this [gist](https://gist.github.com/zricethezav/b325bb93ebf41b9c0b0507acf12810d2) for easy command translations.
+If you find v8.19.0 broke an existing command (`detect`/`protect`), please open an issue.
 
+There are three scanning modes: `git`, `dir`, and `stdin`.
 
-If a commit is rejected due to an invalid commit message, commitlint prints a
-clear error explaining which rule failed (for example, missing `feat:`/`fix:`
-prefix or subject line that is too long). In that case, amend your commit
-message using:
+#### Git
+The `git` command lets you scan local git repos. Under the hood, gitleaks uses the `git log -p` command to scan patches.
+You can configure the behavior of `git log -p` with the `log-opts` option.
+For example, if you wanted to run gitleaks on a range of commits you could use the following
+command: `gitleaks git -v --log-opts="--all commitA..commitB" path_to_repo`. See the [git log](https://git-scm.com/docs/git-log) documentation for more information.
+If there is no target specified as a positional argument, then gitleaks will attempt to scan the current working directory as a git repo.
 
-```bash
-git commit --amend
+#### Dir
+The `dir` (aliases include `files`, `directory`) command lets you scan directories and files. Example: `gitleaks dir -v path_to_directory_or_file`.
+If there is no target specified as a positional argument, then gitleaks will scan the current working directory.
+
+#### Stdin
+You can also stream data to gitleaks with the `stdin` command. Example: `cat some_file | gitleaks -v stdin`
+
+### Creating a baseline
+
+When scanning large repositories or repositories with a long history, it can be convenient to use a baseline. When using a baseline,
+gitleaks will ignore any old findings that are present in the baseline. A baseline can be any gitleaks report. To create a gitleaks report, run gitleaks with the `--report-path` parameter.
+
+```
+gitleaks git --report-path gitleaks-report.json # This will save the report in a file called gitleaks-report.json
 ```
 
-and update the message until commitlint passes.
+Once as baseline is created it can be applied when running the detect command again:
 
-## State Management
-
-### Server State (TanStack Query)
-
-Use TanStack Query for all server data:
-
-```tsx
-import { useQuery } from '@tanstack/react-query';
-import { fetchPosts } from './queries/fetch';
-
-function MyComponent() {
-  const { data, isLoading, error } = useQuery({
-    queryKey: ['posts'],
-    queryFn: fetchPosts,
-  });
-
-  // ...
-}
+```
+gitleaks git --baseline-path gitleaks-report.json --report-path findings.json
 ```
 
-## Environment Variables
+After running the detect command with the --baseline-path parameter, report output (findings.json) will only contain new issues.
 
-Create a `.env` file based on `.env.example`:
+## Pre-Commit hook
 
-```bash
-cp .env.example .env
+You can run Gitleaks as a pre-commit hook by copying the example `pre-commit.py` script into
+your `.git/hooks/` directory.
+
+## Configuration
+
+Gitleaks offers a configuration format you can follow to write your own secret detection rules:
+
+```toml
+# Title for the gitleaks configuration file.
+title = "Gitleaks title"
+
+# Extend the base (this) configuration. When you extend a configuration
+# the base rules take precedence over the extended rules. I.e., if there are
+# duplicate rules in both the base configuration and the extended configuration
+# the base rules will override the extended rules.
+# Another thing to know with extending configurations is you can chain together
+# multiple configuration files to a depth of 2. Allowlist arrays are appended
+# and can contain duplicates.
+# useDefault and path can NOT be used at the same time. Choose one.
+[extend]
+# useDefault will extend the base configuration with the default gitleaks config:
+# https://github.com/gitleaks/gitleaks/blob/master/config/gitleaks.toml
+useDefault = true
+# or you can supply a path to a configuration. Path is relative to where gitleaks
+# was invoked, not the location of the base config.
+path = "common_config.toml"
+
+# An array of tables that contain information that define instructions
+# on how to detect secrets
+[[rules]]
+
+# Unique identifier for this rule
+id = "awesome-rule-1"
+
+# Short human readable description of the rule.
+description = "awesome rule 1"
+
+# Golang regular expression used to detect secrets. Note Golang's regex engine
+# does not support lookaheads.
+regex = '''one-go-style-regex-for-this-rule'''
+
+# Int used to extract secret from regex match and used as the group that will have
+# its entropy checked if `entropy` is set.
+secretGroup = 3
+
+# Float representing the minimum shannon entropy a regex group must have to be considered a secret.
+entropy = 3.5
+
+# Golang regular expression used to match paths. This can be used as a standalone rule or it can be used
+# in conjunction with a valid `regex` entry.
+path = '''a-file-path-regex'''
+
+# Keywords are used for pre-regex check filtering. Rules that contain
+# keywords will perform a quick string compare check to make sure the
+# keyword(s) are in the content being scanned. Ideally these values should
+# either be part of the identiifer or unique strings specific to the rule's regex
+# (introduced in v8.6.0)
+keywords = [
+  "auth",
+  "password",
+  "token",
+]
+
+# Array of strings used for metadata and reporting purposes.
+tags = ["tag","another tag"]
+
+    # ⚠️ In v8.21.0 `[rules.allowlist]` was replaced with `[[rules.allowlists]]`.
+    # This change was backwards-compatible: instances of `[rules.allowlist]` still  work.  
+    #
+    # You can define multiple allowlists for a rule to reduce false positives.
+    # A finding will be ignored if _ANY_ `[[rules.allowlists]]` matches.
+    [[rules.allowlists]]
+    description = "ignore commit A"
+    # When multiple criteria are defined the default condition is "OR".
+    # e.g., this can match on |commits| OR |paths| OR |stopwords|.
+    condition = "OR"
+    commits = [ "commit-A", "commit-B"]
+    paths = [
+      '''go\.mod''',
+      '''go\.sum'''
+    ]
+    # note: stopwords targets the extracted secret, not the entire regex match
+    # like 'regexes' does. (stopwords introduced in 8.8.0)
+    stopwords = [
+      '''client''',
+      '''endpoint''',
+    ]
+
+    [[rules.allowlists]]
+    # The "AND" condition can be used to make sure all criteria match.
+    # e.g., this matches if |regexes| AND |paths| are satisfied.
+    condition = "AND"
+    # note: |regexes| defaults to check the _Secret_ in the finding.
+    # Acceptable values for |regexTarget| are "secret" (default), "match", and "line".
+    regexTarget = "match"
+    regexes = [ '''(?i)parseur[il]''' ]
+    paths = [ '''package-lock\.json''' ]
+
+# You can extend a particular rule from the default config. e.g., gitlab-pat
+# if you have defined a custom token prefix on your GitLab instance
+[[rules]]
+id = "gitlab-pat"
+# all the other attributes from the default rule are inherited
+
+    [[rules.allowlists]]
+    regexTarget = "line"
+    regexes = [ '''MY-glpat-''' ]
+
+# This is a global allowlist which has a higher order of precedence than rule-specific allowlists.
+# If a commit listed in the `commits` field below is encountered then that commit will be skipped and no
+# secrets will be detected for said commit. The same logic applies for regexes and paths.
+[allowlist]
+description = "global allow list"
+commits = [ "commit-A", "commit-B", "commit-C"]
+paths = [
+  '''gitleaks\.toml''',
+  '''(.*?)(jpg|gif|doc)'''
+]
+
+# note: (global) regexTarget defaults to check the _Secret_ in the finding.
+# if regexTarget is not specified then _Secret_ will be used.
+# Acceptable values for regexTarget are "match" and "line"
+regexTarget = "match"
+regexes = [
+  '''219-09-9999''',
+  '''078-05-1120''',
+  '''(9[0-9]{2}|666)-\d{2}-\d{4}''',
+]
+# note: stopwords targets the extracted secret, not the entire regex match
+# like 'regexes' does. (stopwords introduced in 8.8.0)
+stopwords = [
+  '''client''',
+  '''endpoint''',
+]
 ```
 
-All environment variables must be prefixed with `VITE_` to be exposed to the client.
+Refer to the default [gitleaks config](https://github.com/gitleaks/gitleaks/blob/master/config/gitleaks.toml) for examples or follow the [contributing guidelines](https://github.com/gitleaks/gitleaks/blob/master/CONTRIBUTING.md) if you would like to contribute to the default configuration. Additionally, you can check out [this gitleaks blog post](https://blog.gitleaks.io/stop-leaking-secrets-configuration-2-3-aeed293b1fbf) which covers advanced configuration setups.
 
-For local tooling and CI toggles, additional variables are defined in
-`.env.example` (not exposed to the client), including:
+### Additional Configuration
 
-- `SONAR_ORGANIZATION`, `SONAR_PROJECT_KEY`, `SONAR_TOKEN` – SonarCloud config
-- `RUN_SONARCLOUD` – enable/disable SonarCloud in CI
-- `SKIP_COMMITLINT` – set to `true` to temporarily skip commit message
-  linting enforced by Husky + commitlint
+#### gitleaks:allow
 
-## CI/CD Pipeline
+If you are knowingly committing a test secret that gitleaks will catch you can add a `gitleaks:allow` comment to that line which will instruct gitleaks
+to ignore that secret. Ex:
 
-The CI pipeline runs on every push and pull request:
+```
+class CustomClass:
+    discord_client_secret = '8dyfuiRyq=vVc3RRr_edRk-fK__JItpZ'  #gitleaks:allow
 
-1. **Lint** - ESLint checks
-2. **Secret Scan** - Gitleaks secret detection
-3. **Format** - Prettier checks
-4. **Test** - Unit tests with Vitest
-5. **Build** - Production build
-6. **E2E** - Playwright tests with Axe accessibility scans
-7. **Knip** - Unused code analysis (non-blocking)
+```
 
-## Pre-commit Hooks
+#### .gitleaksignore
 
-Husky runs the following checks on every commit:
+You can ignore specific findings by creating a `.gitleaksignore` file at the root of your repo. In release v8.10.0 Gitleaks added a `Fingerprint` value to the Gitleaks report. Each leak, or finding, has a Fingerprint that uniquely identifies a secret. Add this fingerprint to the `.gitleaksignore` file to ignore that specific secret. See Gitleaks' [.gitleaksignore](https://github.com/gitleaks/gitleaks/blob/master/.gitleaksignore) for an example. Note: this feature is experimental and is subject to change in the future.
 
-1. Format code with Prettier
-2. Run unit tests
-3. Lint with ESLint
-4. Build the project
-5. Scan for secrets with Gitleaks
+#### Decoding
 
-If any check fails, the commit is blocked.
+Sometimes secrets are encoded in a way that can make them difficult to find
+with just regex. Now you can tell gitleaks to automatically find and decode
+encoded text. The flag `--max-decode-depth` enables this feature (the default
+value "0" means the feature is disabled by default).
 
-## Extending the Template
+Recursive decoding is supported since decoded text can also contain encoded
+text.  The flag `--max-decode-depth` sets the recursion limit. Recursion stops
+when there are no new segments of encoded text to decode, so setting a really
+high max depth doesn't mean it will make that many passes. It will only make as
+many as it needs to decode the text. Overall, decoding only minimally increases
+scan times.
 
-This template is designed to be extensible. See [EXTENSIONS.md](./EXTENSIONS.md) for comprehensive guides on:
+The findings for encoded text differ from normal findings in the following
+ways:
 
-- 🎨 **TypeDoc Custom Theming** - Customize documentation appearance
-- 📊 **Error Logging Frameworks** - Sentry, LogRocket, Rollbar integration
-- 🔌 **Plug-and-Play Options** - Radix UI, Headless UI, React Hook Form
-- 🏗️ **Infrastructure as Code** - AWS CDK, Terraform, Pulumi guides
-- 🛠️ **Extensibility Scripts** - Component generators and scaffolding tools
-- ☁️ **Cloud Deployments** - AWS, Azure, GCP, Vercel, Netlify guides
-- 💡 **Additional Features** - Authentication, i18n, analytics, monitoring
+- The location points the bounds of the encoded text
+  - If the rule matches outside the encoded text, the bounds are adjusted to
+    include that as well
+- The match and secret contain the decoded value
+- Two tags are added `decoded:<encoding>` and `decode-depth:<depth>`
 
-## Contributing
+Currently supported encodings:
 
-1. Follow the coding conventions outlined in this README
-2. Write tests for all new features
-3. Ensure accessibility compliance
-4. Run all checks before committing
-5. Keep PRs small and focused
+- `base64` (both standard and base64url)
 
-## Browser Support
+## Sponsorships
 
-This template targets modern browsers with the following minimum versions:
-
-- Chrome/Edge: Latest 2 versions
-- Firefox: Latest 2 versions
-- Safari: Latest 2 versions
-
-## License
-
-MIT
-
-## Resources
-
-### Core Framework & Styling
-
-- [React 19 Documentation](https://react.dev)
-- [TypeScript Documentation](https://www.typescriptlang.org/docs/)
-- [Vite Documentation](https://vite.dev)
-
-### Data, Validation & Accessibility
-
-- [Accessibility (WCAG 2.2 AA)](https://www.w3.org/WAI/WCAG22/quickref/)
-- [Axe-core](https://www.deque.com/axe/devtools/)
-- [TanStack Query Documentation](https://tanstack.com/query/latest)
-- [Zod](https://zod.dev/)
-
-### Testing
-
-- [Playwright Documentation](https://playwright.dev)
-- [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
-- [Vitest Documentation](https://vitest.dev)
+<p align="left">
+	<h3><a href="https://coderabbit.ai/?utm_source=oss&utm_medium=sponsorship&utm_campaign=gitleaks">coderabbit.ai</h3>
+	  <a href="https://coderabbit.ai/?utm_source=oss&utm_medium=sponsorship&utm_campaign=gitleaks">
+		  <img alt="CodeRabbit.ai Sponsorship" src="https://github.com/gitleaks/gitleaks/assets/15034943/76c30a85-887b-47ca-9956-17a8e55c6c41" width=200>
+	  </a>
+</p>
+<p align="left">
+	  <a href="https://www.tines.com/?utm_source=oss&utm_medium=sponsorship&utm_campaign=gitleaks">
+		  <img alt="Tines Sponsorship" src="https://user-images.githubusercontent.com/15034943/146411864-4878f936-b4f7-49a0-b625-f9f40c704bfa.png" width=200>
+	  </a>
+  </p>
 
 
-### Linting, Formatting & Git Hooks
+## Exit Codes
 
-- [Commitlint](https://commitlint.js.org/#/)
-- [ESLint](https://eslint.org/)
-- [Husky](https://typicode.github.io/husky/)
-- [Knip](https://knip.dev/) 
-- [Prettier](https://prettier.io/)
+You can always set the exit code when leaks are encountered with the --exit-code flag. Default exit codes below:
 
-### Docs, Analysis & Hosting
-
-- [GitHub Pages](https://docs.github.com/en/pages)
-- [SonarCloud](https://sonarcloud.io/)
-- [TypeDoc](https://typedoc.org/)
+```
+0 - no leaks present
+1 - leaks or error encountered
+126 - unknown flag
+```

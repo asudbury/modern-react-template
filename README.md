@@ -40,7 +40,7 @@ A modern, accessibility-first React 19 application built with Vite 7 and TypeScr
 ### Core Features (Always Enabled)
 - ♿ [**Accessibility-first**](https://www.w3.org/WAI/WCAG22/quickref/) (WCAG 2.2 AA compliant)
 - 🦾 [**Axe-core**](https://github.com/dequelabs/axe-core) automated accessibility checks
- - 🔍 [**CodeQL**](https://codeql.github.com/) GitHub Code Scanning (static analysis)
+- 🛡️ [**CodeQL**](https://codeql.github.com/docs/) for advanced code scanning and security analysis
 - 📝 [**Commitlint**](https://commitlint.js.org/#/) enforcing conventional commit messages
 - 🛡️ [**Global Error Boundary**](https://github.com/bvaughn/react-error-boundary) with custom fallback UI and reload/reset support
 - 🔒 [**ESLint**](https://eslint.org/) static analysis
@@ -62,7 +62,6 @@ A modern, accessibility-first React 19 application built with Vite 7 and TypeScr
 
 - 🌐 [**GitHub Pages**](https://docs.github.com/en/pages) deployment for app and docs
 - 🔍 [**SonarCloud**](https://sonarcloud.io/) for continuous code quality analysis
-- 🛡️ [**CodeQL**](https://codeql.github.com/docs/) for advanced code scanning and security analysis
 - 📖 [**TypeDoc**](https://typedoc.org/) for automated API documentation
 - ⚙️ **[Feature Configuration](./FEATURES.md)** - Enable/disable optional features
 

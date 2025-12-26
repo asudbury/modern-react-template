@@ -28,8 +28,9 @@ A modern, accessibility-first React 19 application built with Vite 7 and TypeScr
 
 > ⚠️ **Note for Forks:** The SonarCloud badges above are for the original repository. If you're not using SonarCloud, you can safely remove these badges (lines 3-7).
 
-### Lite version
-There is a lite version available here [modern-react-template-lite](https://github.com/asudbury/modern-react-template-lite)
+### Other templates
+- There is a lite version available here [modern-react-template-lite](https://github.com/asudbury/modern-react-template-lite)
+- There is a mono repo version available here [modern-monorepo-template](https://github.com/asudbury/modern-monorepo-template)
 
 ## Features
 

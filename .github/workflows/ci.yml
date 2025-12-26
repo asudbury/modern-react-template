@@ -1,5 +1,9 @@
 name: CI
 
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
 on:
   push:
     branches: [main]
@@ -29,6 +33,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+    env:
+      HUSKY: '0'
     steps:
       - uses: actions/checkout@v4
       - name: Log workflow context
@@ -40,6 +46,13 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
+      - name: Cache npm
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
       - run: npm ci
       - run: npm run lint
 
@@ -48,6 +61,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+    env:
+      HUSKY: '0'
     steps:
       - uses: actions/checkout@v4
       - name: Log workflow context
@@ -59,6 +74,13 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
+      - name: Cache npm
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
       - run: npm ci
       - run: npm run prettier -- --check
 
@@ -68,6 +90,8 @@ jobs:
     needs: [lint]
     permissions:
       contents: read
+    env:
+      HUSKY: '0'
     steps:
       - uses: actions/checkout@v4
       - name: Log workflow context
@@ -79,15 +103,40 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
+      - name: Cache npm
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
       - run: npm ci
-      - name: Run unit tests with coverage
-        run: npm run test:coverage
+      - name: Emit JUnit test results (Vitest)
+        run: |
+          mkdir -p test-results
+          npm run test:unit -- --reporter junit --outputFile test-results/junit.xml || true
+      - name: Run unit tests (PRs: changed-only, main: full coverage)
+        run: |
+          if [ "${GITHUB_EVENT_NAME}" = "pull_request" ]; then
+            echo "Running changed-only unit tests for PR"
+            npm run test:unit -- --changed
+          else
+            echo "Running full unit tests with coverage"
+            npm run test:coverage
+          fi
       - name: Upload coverage report
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: coverage-report
           path: coverage/
+          retention-days: 7
+      - name: Upload junit test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: junit-test-results
+          path: test-results/junit.xml
           retention-days: 7
 
   build:
@@ -96,6 +145,8 @@ jobs:
     needs: [test]
     permissions:
       contents: read
+    env:
+      HUSKY: '0'
     steps:
       - uses: actions/checkout@v4
       - name: Log workflow context
@@ -107,7 +158,23 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
+      - name: Cache npm
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
       - run: npm ci
+      - name: Cache Vite build cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules/.vite
+            .vite
+          key: ${{ runner.os }}-vite-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/vite.config.ts') }}
+          restore-keys: |
+            ${{ runner.os }}-vite-
       - run: npm run build
       - uses: actions/upload-artifact@v4
         with:
@@ -121,6 +188,8 @@ jobs:
     needs: [build]
     permissions:
       contents: read
+    env:
+      HUSKY: '0'
     steps:
       - uses: actions/checkout@v4
       - name: Log workflow context
@@ -132,7 +201,24 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
+      - name: Cache npm
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
       - run: npm ci
+      - name: Cache Playwright browsers and cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/ms-playwright
+            ~/.cache/playwright
+            node_modules/.cache
+          key: ${{ runner.os }}-playwright-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-playwright-
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps chromium
       - run: npm run test:e2e
@@ -149,6 +235,8 @@ jobs:
     permissions:
       contents: read
     if: always()
+    env:
+      HUSKY: '0'
     steps:
       - uses: actions/checkout@v4
       - name: Log workflow context
@@ -158,6 +246,13 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
+      - name: Cache npm
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
       - run: npm ci
       - name: Run Knip (non-blocking)
         run: npm run knip

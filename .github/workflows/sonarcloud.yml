@@ -75,15 +75,31 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      # Check for SONAR_TOKEN in secrets; if missing, set output and print reason
+      - id: check-sonar-token
+        name: Check SONAR_TOKEN
+        run: |
+          if [ -z "${SONAR_TOKEN:-}" ]; then
+            echo "SONAR_TOKEN is not set. Skipping SonarCloud analysis." 
+            echo "has_token=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_token=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: "Skip SonarCloud: missing SONAR_TOKEN"
+        if: steps.check-sonar-token.outputs.has_token == 'false'
+        run: |
+          echo "Skipping SonarCloud CI scan because SONAR_TOKEN is not configured in repository secrets."
+          echo "To enable scans, add a SonarCloud token as the `SONAR_TOKEN` secret, or set RUN_SONARCLOUD=false to disable the workflow."
+
+
       - name: Run tests with coverage
         # Generate coverage reports so SonarCloud can import coverage data.
         run: npm run test:unit -- --run --coverage
 
       - name: SonarCloud Scan
-        # The SonarCloud action needs a valid SONAR_TOKEN secret to authenticate
-        # with SonarCloud. Check the job `env.SONAR_TOKEN` for presence to avoid
-        # referencing `secrets` in expressions (not allowed at job-level).
-        if: env.SONAR_TOKEN != ''
+        # The SonarCloud action requires a valid token. Only run when the token check reports true.
+        if: steps.check-sonar-token.outputs.has_token == 'true'
         uses: SonarSource/sonarcloud-github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

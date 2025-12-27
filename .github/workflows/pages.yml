@@ -1,3 +1,20 @@
+# This workflow builds and deploys the app and optional documentation to
+# GitHub Pages. It is intentionally guarded by repository variables so forks
+# do not publish pages unless explicitly enabled.
+#
+# Triggers:
+# - `push` to `main`: a deployment is possible but only runs when
+#   `ENABLE_GH_PAGES` repository variable is set to `true`.
+# - `workflow_dispatch`: manual trigger with an `enable_docs` input to build
+#   documentation on demand.
+#
+# Key points for contributors:
+# - `ENABLE_GH_PAGES` (repo variable) controls automatic deployments from CI.
+# - `ENABLE_JSDOC_BUILD` (repo variable) or the `enable_docs` input controls
+#   whether the documentation (`docs-html`) is built and published.
+# - The job creates a `gh-pages/` directory containing the app, docs, and a
+#   landing page, which is uploaded using `actions/upload-pages-artifact`.
+
 name: Deploy to GitHub Pages
 
 on:
@@ -41,23 +58,45 @@ jobs:
           node-version: '20'
           cache: 'npm'
 
+      - name: Cache Vite build cache
+        # Cache Vite build artifacts to speed up the `npm run build` step for
+        # the Pages job. This is separate from the node/npm cache provided by
+        # `actions/setup-node` and targets Vite's local cache directories.
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules/.vite
+            .vite
+          # Include lockfile and vite config in key so cache invalidates when
+          # dependencies or build configuration change.
+          key: ${{ runner.os }}-vite-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/vite.config.ts') }}
+          restore-keys: |
+            ${{ runner.os }}-vite-
+
       - name: Install dependencies
         run: npm ci
 
       - name: Build app
+        # `VITE_BASE_PATH` sets the app base used by Vite so the app can be
+        # hosted under `/modern-react-template/app/` on GitHub Pages.
         env:
           VITE_BASE_PATH: /modern-react-template/app/
         run: npm run build
 
       - name: Generate documentation (optional)
+        # Builds HTML docs when `ENABLE_JSDOC_BUILD` repo var is true or when
+        # the manual `enable_docs` input is provided at dispatch.
         if: vars.ENABLE_JSDOC_BUILD == 'true' || inputs.enable_docs == true
         run: npm run docs:html
 
       - name: Build GitHub Pages landing (optional)
+        # Some repositories produce a separate landing page build; this step
+        # runs only when the `ENABLE_GH_PAGES` variable is enabled.
         if: ${{ vars.ENABLE_GH_PAGES == 'true' }}
         run: npm run build:gh-pages
 
       - name: Create GitHub Pages structure
+        # Prepare the `gh-pages/` directory structure that will be uploaded.
         run: |
           mkdir -p gh-pages
           # Copy the main app
@@ -74,6 +113,8 @@ jobs:
           fi
 
       - name: Upload artifact
+        # Upload the `gh-pages/` folder as the Pages artifact. The separate
+        # `deploy` job consumes this artifact to publish the site.
         uses: actions/upload-pages-artifact@v3
         with:
           path: gh-pages
@@ -88,4 +129,7 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
+        # `actions/deploy-pages` reads the uploaded artifact and publishes it to
+        # the repository's GitHub Pages site. Check the Actions run logs and the
+        # Pages settings in the repo to verify the published URL.
         uses: actions/deploy-pages@v4

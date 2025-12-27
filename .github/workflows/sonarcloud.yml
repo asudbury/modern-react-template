@@ -1,3 +1,16 @@
+# SonarCloud Analysis
+#
+# This workflow runs SonarCloud static analysis for code quality and security
+# when explicitly enabled. It is disabled by default so forks do not run
+# SonarCloud unless they opt in via repository variables/secrets.
+#
+# Triggers:
+# - `push` and `pull_request` on `main` (but the job is guarded by an `if`
+#   condition so it only executes when `RUN_SONARCLOUD` is `true` or the manual
+#   `workflow_dispatch` input `run_sonarcloud` is provided and a `SONAR_TOKEN`
+#   secret is present.
+# - `workflow_dispatch` allows manual runs with `run_sonarcloud` boolean input.
+
 name: SonarCloud Analysis
 
 on:
@@ -20,15 +33,18 @@ jobs:
   sonarcloud:
     name: SonarCloud Scan
     runs-on: ubuntu-latest
-    # Only run if RUN_SONARCLOUD is explicitly set to 'true' OR workflow_dispatch input is true
-    # and SONAR_TOKEN is present. For forks set vars and secrets accordingly.
+    # Guard: only run when repo variable `RUN_SONARCLOUD` is true OR manual
+    # dispatch requests `run_sonarcloud=true`, and when `SONAR_TOKEN` secret is set.
+    # This protects forks from unintentionally publishing to SonarCloud.
     if: (vars.RUN_SONARCLOUD == 'true' || inputs.run_sonarcloud == true) && secrets.SONAR_TOKEN != ''
     permissions:
       contents: read
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
+          # SonarCloud benefits from a full repo history for better analysis
+          # context; disable shallow clone for accurate results.
+          fetch-depth: 0
 
       - name: Log workflow context
         run: |
@@ -39,6 +55,8 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
+          # Use Node 20 as in other CI workflows; the `cache: 'npm'` option
+          # enables dependency caching via the setup action (lockfile-based).
           node-version: '20'
           cache: 'npm'
 
@@ -46,10 +64,14 @@ jobs:
         run: npm ci
 
       - name: Run tests with coverage
+        # Generate coverage reports so SonarCloud can import coverage data.
         run: npm run test:unit -- --run --coverage
 
       - name: SonarCloud Scan
-        if: env.SONAR_TOKEN != ''
+        # The SonarCloud action needs a valid SONAR_TOKEN secret to authenticate
+        # with SonarCloud. The job-level `if` ensures the secret exists before
+        # reaching this step, but this step also double-checks the token.
+        if: secrets.SONAR_TOKEN != ''
         uses: SonarSource/sonarcloud-github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

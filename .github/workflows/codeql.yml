@@ -1,3 +1,9 @@
+# CodeQL workflow: performs static security analysis using GitHub's CodeQL
+# engine. It runs on pushes and pull requests to `main`, and weekly on Sunday
+# at 03:00 UTC by the scheduled cron job below. The workflow checks JavaScript
+# and TypeScript code and will create security findings in the repository's
+# Security tab when issues are detected.
+
 name: CodeQL
 
 on:
@@ -5,9 +11,11 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+  # Scheduled run: weekly scan to surface newly introduced issues
   schedule:
     - cron: '0 3 * * 0'
 
+# Permissions required for CodeQL to read code and upload results.
 permissions:
   actions: read
   contents: read
@@ -15,6 +23,8 @@ permissions:
 
 jobs:
   codeql-analyze:
+    # Analyze (CodeQL): initializes the CodeQL DB, attempts an autobuild to
+    # discover compilation steps, then runs the analysis to produce results.
     name: Analyze (CodeQL)
     runs-on: ubuntu-latest
     steps:
@@ -22,14 +32,23 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Initialize CodeQL
+        # Initializes the CodeQL action and configures the languages to analyze.
         uses: github/codeql-action/init@v2
         with:
+          # Languages covered by this project. Add languages here if needed.
           languages: javascript,typescript
 
       - name: Autobuild
+        # Attempts to automatically build the project so CodeQL can analyze
+        # compiled artifacts and dependency graphs. If your project requires a
+        # custom build step (monorepos, special toolchains), replace or
+        # augment this step with explicit build commands (for example
+        # `npm ci && npm run build`).
         uses: github/codeql-action/autobuild@v2
 
       - name: Run CodeQL analysis
+        # Runs the analysis and uploads sarif results to GitHub. The `category`
+        # here is informational and groups the analysis in the UI.
         uses: github/codeql-action/analyze@v2
         with:
           category: 'javascript'

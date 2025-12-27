@@ -190,26 +190,7 @@ navigate({ to: '/' });
 
 For more details, see the [TanStack Router documentation](https://tanstack.com/router/latest/docs/framework/react/overview).
 
-## For Forks: What's Enabled by Default?
 
-This template is designed to be **fork-friendly**. Here's what works out of the box:
-
-### ✅ Enabled by Default (No Configuration Needed)
-React 19 development with Vite
-TypeScript with strict mode
-ESLint + Prettier
-Husky pre-commit hooks
-Commitlint for commit messages
-Unit tests with Vitest
-E2E tests with Playwright
-TypeDoc (local generation only)
-
-### ❌ Disabled by Default (Opt-In Only)
-- **SonarCloud Analysis** - Requires `RUN_SONARCLOUD=true` + configuration
-- **GitHub Pages Deployment** - Requires `ENABLE_GH_PAGES=true` + configuration
-- **TypeDoc in CI** - Requires `ENABLE_JSDOC_BUILD=true`
-
-**No workflows will fail on your fork!** Disabled features simply won't run. See [QUICKSTART.md](./QUICKSTART.md) to enable features you want.
 
 ## Available Scripts
 
@@ -550,6 +531,23 @@ The CI pipeline runs on every push and pull request:
 3. **Test** - Unit tests with Vitest
 4. **Build** - Production build
 5. **E2E** - Playwright tests with Axe accessibility scans
+
+### CI cache notes
+
+This repository's GitHub Actions workflows cache npm and build artifacts to
+speed CI runs. Common ways to inspect and control caches:
+
+- Inspect Actions job logs for cache messages like `Cache restored from key:`
+  (cache hit) or `Cache not found for input key:` (cache miss).
+- To force-refresh caches, update `package-lock.json` (recommended) so
+  lockfile-based cache keys change, or temporarily change the workflow
+  cache key (not recommended long-term).
+- Example cache keys used in workflows:
+  - npm cache: `${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}`
+  - Vite cache: `${{ runner.os }}-vite-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/vite.config.ts') }}`
+
+If you want help verifying a cache hit/miss on a recent Actions run, tell me
+which run and I can point to the relevant log lines.
 
 ## Pre-commit Hooks
 

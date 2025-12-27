@@ -39,7 +39,7 @@ jobs:
 
       - name: Initialize CodeQL
         # Initializes the CodeQL action and configures the languages to analyze.
-        uses: github/codeql-action/init@v2
+        uses: github/codeql-action/init@v3
         with:
           # Languages covered by this project. Add languages here if needed.
           languages: javascript,typescript
@@ -50,11 +50,11 @@ jobs:
         # custom build step (monorepos, special toolchains), replace or
         # augment this step with explicit build commands (for example
         # `npm ci && npm run build`).
-        uses: github/codeql-action/autobuild@v2
+        uses: github/codeql-action/autobuild@v3
 
       - name: Run CodeQL analysis
         # Runs the analysis and uploads sarif results to GitHub. The `category`
         # here is informational and groups the analysis in the UI.
-        uses: github/codeql-action/analyze@v2
+        uses: github/codeql-action/analyze@v3
         with:
           category: 'javascript'

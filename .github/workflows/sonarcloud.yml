@@ -51,12 +51,12 @@ jobs:
           # SonarCloud benefits from a full repo history for better analysis
           # context; disable shallow clone for accurate results.
           fetch-depth: 0
-          
+
       # Debug info - can be removed if not required
       - name: Debug Info
         uses: ./.github/actions/debug-info
         with:
-          show-env: 'true'
+          show-env: 'false'
 
       - name: Log workflow context
         run: |

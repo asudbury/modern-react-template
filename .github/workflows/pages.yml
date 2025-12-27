@@ -53,7 +53,7 @@ jobs:
       - name: Debug Info
         uses: ./.github/actions/debug-info
         with:
-          show-env: 'true'
+          show-env: 'false'
 
       - name: Log workflow context
         run: |

@@ -53,6 +53,7 @@ A modern, accessibility-first React 19 application built with Vite 7 and TypeScr
 - 🔄 [**TanStack Query**](https://tanstack.com/query/latest) for server state management
 - 🧭 [**TanStack Router**](https://tanstack.com/router) for type-safe routing
 - 🌗 [**Theming**](#theming) with light/dark mode and design tokens
+- ⚡ [**Vite 7**](https://vite.dev/) — Fast dev server and production build (used for local development, HMR, and building `dist/`)
 - 🧪 [**Vitest + React Testing Library**](https://vitest.dev/) unit testing and accessible queries
 - 🧑‍⚖️ [**Zod**](https://zod.dev/) for data validation
 - 🚫 [**404 Not Found Page**](#404-not-found-page) accessible, customizable fallback for unmatched routes
@@ -93,13 +94,6 @@ import { ErrorFallback } from './components/ErrorFallback';
 - You can log errors to a service (Sentry, LogRocket, etc.) by adding an `onError` prop to the `ErrorBoundary`.
 
 See also: [Error boundaries in React](https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary)
-
-### Optional Features (Opt-In, Disabled by Default)
-- 🌐 [**GitHub Pages**](https://docs.github.com/en/pages) deployment for app and docs
-- 🔍 [**SonarCloud**](https://sonarcloud.io/) for continuous code quality analysis
-- 📖 [**TypeDoc**](https://typedoc.org/) for automated API documentation
-
-> 💡 **Tip:** Optional features won't run unless you explicitly enable them. See [QUICKSTART.md](./QUICKSTART.md) to learn which features to enable for your use case.
 
 ## Quick Start
 

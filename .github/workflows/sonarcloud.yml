@@ -34,11 +34,16 @@ jobs:
     name: SonarCloud Scan
     runs-on: ubuntu-latest
     # Guard: only run when repo variable `RUN_SONARCLOUD` is true OR manual
-    # dispatch requests `run_sonarcloud=true`, and when `SONAR_TOKEN` secret is set.
-    # This protects forks from unintentionally publishing to SonarCloud.
-    if: (vars.RUN_SONARCLOUD == 'true' || inputs.run_sonarcloud == true) && secrets.SONAR_TOKEN != ''
+    # dispatch requests `run_sonarcloud=true`. We cannot reference `secrets` in
+    # a job-level `if` expression, so the presence of `SONAR_TOKEN` is checked
+    # at the step level below. This protects forks from unintentionally
+    # publishing to SonarCloud.
+    if: (vars.RUN_SONARCLOUD == 'true' || inputs.run_sonarcloud == true)
     permissions:
       contents: read
+    # Expose the secret into job env so step-level `if` can test existence
+    env:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -69,13 +74,14 @@ jobs:
 
       - name: SonarCloud Scan
         # The SonarCloud action needs a valid SONAR_TOKEN secret to authenticate
-        # with SonarCloud. The job-level `if` ensures the secret exists before
-        # reaching this step, but this step also double-checks the token.
-        if: secrets.SONAR_TOKEN != ''
+        # with SonarCloud. Check the job `env.SONAR_TOKEN` for presence to avoid
+        # referencing `secrets` in expressions (not allowed at job-level).
+        if: env.SONAR_TOKEN != ''
         uses: SonarSource/sonarcloud-github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          # Pass the token through to the action from the job env
+          SONAR_TOKEN: ${{ env.SONAR_TOKEN }}
         with:
           args: >
             -Dsonar.projectKey=${{ vars.SONAR_PROJECT_KEY }}

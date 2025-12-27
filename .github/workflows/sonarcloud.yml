@@ -1,10 +1,11 @@
 # SonarCloud Analysis
-#
+
 # This workflow runs SonarCloud static analysis for code quality and security
 # when explicitly enabled. It is disabled by default so forks do not run
 # SonarCloud unless they opt in via repository variables/secrets.
 #
 # Triggers:
+
 # - `push` and `pull_request` on `main` (but the job is guarded by an `if`
 #   condition so it only executes when `RUN_SONARCLOUD` is `true` or the manual
 #   `workflow_dispatch` input `run_sonarcloud` is provided and a `SONAR_TOKEN`
@@ -50,6 +51,12 @@ jobs:
           # SonarCloud benefits from a full repo history for better analysis
           # context; disable shallow clone for accurate results.
           fetch-depth: 0
+          
+      # Debug info - can be removed if not required
+      - name: Debug Info
+        uses: ./.github/actions/debug-info
+        with:
+          show-env: 'true'
 
       - name: Log workflow context
         run: |

@@ -1,7 +1,9 @@
 # This GitHub Actions workflow runs the continuous-integration (CI) pipeline
 # for the "modern-react-template" repository.
 #
+
 # Summary:
+
 # - Triggers: `push` to `main` and `pull_request` events targeting `main`.
 # - Concurrency: cancels in-progress runs for the same ref to avoid duplicated work.
 # - Jobs include secret scanning, linting, formatting check, unit tests, build,
@@ -10,6 +12,7 @@
 #   and retained for a short period to help debugging CI failures.
 #
 # Notes for newcomers:
+
 # - Each job runs on `ubuntu-latest` and uses `actions/setup-node` (Node.js 20).
 # - `HUSKY` is disabled in CI (`HUSKY: '0'`) so pre-commit hooks don't run during
 #   automated CI installs.
@@ -20,6 +23,7 @@
 #   logged by several jobs and may toggle additional CI behavior when configured
 #   in the repository settings.
 #
+
 # This file is heavily commented so contributors can understand when and how
 # each job runs. If you change job names or add new steps, also update these
 # comments so the next person can follow the CI flow.
@@ -50,6 +54,11 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+      # Debug info - can be removed if not required
+      - name: Debug Info
+        uses: ./.github/actions/debug-info
+        with:
+          show-env: 'true'
       - name: Secret Scanning
         uses: gitleaks/gitleaks-action@v2
         env:

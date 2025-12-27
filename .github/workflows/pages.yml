@@ -3,12 +3,14 @@
 # do not publish pages unless explicitly enabled.
 #
 # Triggers:
+
 # - `push` to `main`: a deployment is possible but only runs when
 #   `ENABLE_GH_PAGES` repository variable is set to `true`.
 # - `workflow_dispatch`: manual trigger with an `enable_docs` input to build
 #   documentation on demand.
 #
 # Key points for contributors:
+
 # - `ENABLE_GH_PAGES` (repo variable) controls automatic deployments from CI.
 # - `ENABLE_JSDOC_BUILD` (repo variable) or the `enable_docs` input controls
 #   whether the documentation (`docs-html`) is built and published.
@@ -46,6 +48,12 @@ jobs:
     if: vars.ENABLE_GH_PAGES == 'true' || github.event_name == 'workflow_dispatch'
     steps:
       - uses: actions/checkout@v4
+
+      # Debug info - can be removed if not required
+      - name: Debug Info
+        uses: ./.github/actions/debug-info
+        with:
+          show-env: 'true'
 
       - name: Log workflow context
         run: |

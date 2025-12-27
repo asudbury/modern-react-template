@@ -1,0 +1,61 @@
+# Debug Info Composite Action
+
+# Purpose:
+
+# - Prints versions/locations for `node`, `corepack`, and `npm`, plus the
+#   runner `PATH` and the current working directory. Optionally prints sorted
+#   environment variables for troubleshooting CI runs.
+
+# Usage 
+
+# - name: Debug Info
+#   uses: ./.github/actions/debug-info
+#   with:
+#     show-env: 'true' # optional
+#
+# Inputs:
+
+# - show-env (optional): 'true' (default) or 'false'. When 'true', the action
+#   prints sorted environment variables.
+
+# Notes:
+
+# - This composite action uses bash and assumes an Ubuntu/macOS runner. On
+#   Windows runners you may need to adjust the shell or use WSL.
+# - Keep the if guard on manual runs to avoid leaking environment variables in
+#   routine CI runs. `if: github.event_name == 'workflow_dispatch'` for manual debug runs.
+
+name: Debug Info
+description: Print Node/Corepack/npm versions, locations, PATH and environment.
+
+inputs:
+  show-env:
+    description: 'If true, print environment variables'
+    required: false
+    default: 'true'
+
+runs:
+  using: composite
+  steps:
+    - name: Print versions and locations
+      # Uses bash to query installed tools and print PATH/working dir.
+      shell: bash
+      run: |
+        echo "--- Versions ---"
+        echo "Node version:"; node -v || echo "node not found"
+        echo "Corepack version:"; corepack --version || echo "corepack not found"
+        echo "npm version:"; npm --version || echo "npm not found"
+        echo "--- Locations ---"
+        echo "Node location:"; command -v node || true
+        echo "npm location:"; command -v npm || true
+        echo "--- PATH ---"
+        echo "$PATH"
+        echo "--- Working Directory ---"
+        pwd
+    - name: Print environment
+      # Optional: prints sorted environment variables. Be careful with secrets.
+      if: ${{ inputs.show-env == 'true' }}
+      shell: bash
+      run: |
+        echo "--- Environment ---"
+        env | sort

@@ -17,6 +17,11 @@
 # - The job creates a `gh-pages/` directory containing the app, docs, and a
 #   landing page, which is uploaded using `actions/upload-pages-artifact`.
 
+# Note: Publishing with `actions/deploy-pages` uploads an artifact and then
+# GitHub runs its own Pages publish pipeline. That will appear as a separate
+# "pages build and deployment" run in the Actions UI in addition to this
+# workflow run. This is expected behavior.
+
 name: Deploy to GitHub Pages
 
 on:
@@ -37,19 +42,17 @@ permissions:
 
 concurrency:
   group: 'pages'
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
-  build:
-    name: Build
+  log-context:
+    name: Log workflow context
     runs-on: ubuntu-latest
-    # Only run if ENABLE_GH_PAGES is explicitly set to 'true' OR workflow_dispatch is used
-    # For forks: Set this in Settings → Secrets and variables → Actions → Variables
+    # Run only when this workflow would otherwise run (same guard as `build`).
     if: vars.ENABLE_GH_PAGES == 'true' || github.event_name == 'workflow_dispatch'
     steps:
       - uses: actions/checkout@v4
 
-      # Debug info - can be removed if not required
       - name: Debug Info
         uses: ./.github/actions/debug-info
         with:
@@ -57,9 +60,19 @@ jobs:
 
       - name: Log workflow context
         run: |
-          echo "[Pages][build] Triggered by $GITHUB_EVENT_NAME on ref $GITHUB_REF for $GITHUB_REPOSITORY"
-          echo "[Pages][build] ENABLE_JSDOC_BUILD=${{ vars.ENABLE_JSDOC_BUILD }}"
-          echo "[Pages][build] ENABLE_GH_PAGES=${{ vars.ENABLE_GH_PAGES }}"
+          echo "[Pages][log-context] Triggered by $GITHUB_EVENT_NAME on ref $GITHUB_REF for $GITHUB_REPOSITORY"
+          echo "[Pages][log-context] ENABLE_JSDOC_BUILD=${{ vars.ENABLE_JSDOC_BUILD }}"
+          echo "[Pages][log-context] ENABLE_GH_PAGES=${{ vars.ENABLE_GH_PAGES }}"
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    # Only run if ENABLE_GH_PAGES is explicitly set to 'true' OR workflow_dispatch is used
+    # For forks: Set this in Settings → Secrets and variables → Actions → Variables
+    needs: log-context
+    if: vars.ENABLE_GH_PAGES == 'true' || github.event_name == 'workflow_dispatch'
+    steps:
+      - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
         with:

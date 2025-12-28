@@ -44,21 +44,36 @@ permissions:
   contents: read
 
 jobs:
+  log-context:
+    name: Log workflow context
+    runs-on: ubuntu-latest
+    # This job centralizes logging of workflow context so it's printed once
+    # at the start of the run instead of repeated in every job.
+    steps:
+      - uses: actions/checkout@v4
+      - name: Log workflow context
+        run: |
+          echo "[CI][context] Triggered by $GITHUB_EVENT_NAME on ref $GITHUB_REF for $GITHUB_REPOSITORY"
+          echo "[CI][context] ENABLE_JSDOC_BUILD=${{ vars.ENABLE_JSDOC_BUILD }}"
+          echo "[CI][context] ENABLE_GH_PAGES=${{ vars.ENABLE_GH_PAGES }}"
+      - name: Debug Info (non-sensitive)
+        # Run debug-info here once per workflow run; `show-env=false` to avoid
+        # printing environment variables during normal CI runs.
+        uses: ./.github/actions/debug-info
+        with:
+          show-env: 'false'
+
   secret-scan:
     # Secret scanning: detects accidentally committed secrets using Gitleaks.
     # This job is a fast safety check and will fail if secrets are found.
     name: Secret Scanning (Gitleaks)
     runs-on: ubuntu-latest
+    needs: [log-context]
     permissions:
       contents: read
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      # Debug info - can be removed if not required
-      - name: Debug Info
-        uses: ./.github/actions/debug-info
-        with:
-          show-env: 'false'
       - name: Secret Scanning
         uses: gitleaks/gitleaks-action@v2
         env:
@@ -74,13 +89,9 @@ jobs:
       contents: read
     env:
       HUSKY: '0'
+    needs: [log-context]
     steps:
       - uses: actions/checkout@v4
-      - name: Log workflow context
-        run: |
-          echo "[CI][lint] Triggered by $GITHUB_EVENT_NAME on ref $GITHUB_REF for $GITHUB_REPOSITORY"
-          echo "[CI][lint] ENABLE_JSDOC_BUILD=${{ vars.ENABLE_JSDOC_BUILD }}"
-          echo "[CI][lint] ENABLE_GH_PAGES=${{ vars.ENABLE_GH_PAGES }}"
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
@@ -110,13 +121,9 @@ jobs:
       contents: read
     env:
       HUSKY: '0'
+    needs: [log-context]
     steps:
       - uses: actions/checkout@v4
-      - name: Log workflow context
-        run: |
-          echo "[CI][format] Triggered by $GITHUB_EVENT_NAME on ref $GITHUB_REF for $GITHUB_REPOSITORY"
-          echo "[CI][format] ENABLE_JSDOC_BUILD=${{ vars.ENABLE_JSDOC_BUILD }}"
-          echo "[CI][format] ENABLE_GH_PAGES=${{ vars.ENABLE_GH_PAGES }}"
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
@@ -138,18 +145,13 @@ jobs:
     # on main it runs the full test suite with coverage and uploads a report.
     name: Unit Tests
     runs-on: ubuntu-latest
-    needs: [lint]
+    needs: [log-context, lint]
     permissions:
       contents: read
     env:
       HUSKY: '0'
     steps:
       - uses: actions/checkout@v4
-      - name: Log workflow context
-        run: |
-          echo "[CI][test] Triggered by $GITHUB_EVENT_NAME on ref $GITHUB_REF for $GITHUB_REPOSITORY"
-          echo "[CI][test] ENABLE_JSDOC_BUILD=${{ vars.ENABLE_JSDOC_BUILD }}"
-          echo "[CI][test] ENABLE_GH_PAGES=${{ vars.ENABLE_GH_PAGES }}"
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
@@ -188,18 +190,13 @@ jobs:
     # as an artifact so it can be inspected if a release or further checks need it.
     name: Build
     runs-on: ubuntu-latest
-    needs: [test]
+    needs: [log-context, test]
     permissions:
       contents: read
     env:
       HUSKY: '0'
     steps:
       - uses: actions/checkout@v4
-      - name: Log workflow context
-        run: |
-          echo "[CI][build] Triggered by $GITHUB_EVENT_NAME on ref $GITHUB_REF for $GITHUB_REPOSITORY"
-          echo "[CI][build] ENABLE_JSDOC_BUILD=${{ vars.ENABLE_JSDOC_BUILD }}"
-          echo "[CI][build] ENABLE_GH_PAGES=${{ vars.ENABLE_GH_PAGES }}"
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
@@ -239,18 +236,13 @@ jobs:
     # uploaded as artifacts for debugging test failures.
     name: E2E Tests (Playwright + Axe)
     runs-on: ubuntu-latest
-    needs: [build]
+    needs: [log-context, build]
     permissions:
       contents: read
     env:
       HUSKY: '0'
     steps:
       - uses: actions/checkout@v4
-      - name: Log workflow context
-        run: |
-          echo "[CI][e2e] Triggered by $GITHUB_EVENT_NAME on ref $GITHUB_REF for $GITHUB_REPOSITORY"
-          echo "[CI][e2e] ENABLE_JSDOC_BUILD=${{ vars.ENABLE_JSDOC_BUILD }}"
-          echo "[CI][e2e] ENABLE_GH_PAGES=${{ vars.ENABLE_GH_PAGES }}"
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
@@ -296,13 +288,15 @@ jobs:
     permissions:
       contents: read
     if: always()
+    needs: [log-context]
     env:
       HUSKY: '0'
     steps:
       - uses: actions/checkout@v4
       - name: Log workflow context
+        # Keep a brief log here indicating the knip job started (context already logged by `log-context`).
         run: |
-          echo "[CI][knip] Triggered by $GITHUB_EVENT_NAME on ref $GITHUB_REF for $GITHUB_REPOSITORY"
+          echo "[CI][knip] Starting Knip run"
       - uses: actions/setup-node@v4
         with:
           node-version: '20'

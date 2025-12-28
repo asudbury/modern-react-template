@@ -4,6 +4,9 @@
 # and TypeScript code and will create security findings in the repository's
 # Security tab when issues are detected.
 
+# Note: CodeQL runs in a dedicated workflow to isolate heavy analysis,
+# maintain separate scheduling/permissions, and reduce impact on regular CI.
+
 name: CodeQL
 
 on:

@@ -4,13 +4,12 @@
 
 A modern, accessibility-first React 19 application built with Vite 7 and TypeScript 5. This template enforces strict rules for accessibility (WCAG 2.2 AA), performance, and code quality.
 
-
 [![SonarQube Cloud](https://sonarcloud.io/images/project_badges/sonarcloud-light.svg)](https://sonarcloud.io/summary/new_code?id=asudbury_modern-react-template)
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=asudbury_modern-react-template&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=asudbury_modern-react-template)
 
+[![CI](https://github.com/asudbury/modern-react-template/actions/workflows/ci.yml/badge.svg)](https://github.com/asudbury/modern-react-template/actions/workflows/ci.yml) [![CodeQL](https://github.com/asudbury/modern-react-template/actions/workflows/codeql.yml/badge.svg)](https://github.com/asudbury/modern-react-template/actions/workflows/codeql.yml)
 
-[![CodeQL](https://github.com/asudbury/modern-react-template/actions/workflows/codeql.yml/badge.svg)](https://github.com/asudbury/modern-react-template/actions/workflows/codeql.yml)
 
 > **📘 Fork-Friendly Setup:** This template is designed to work out-of-the-box for forks! All advanced features (SonarCloud, GitHub Pages CI, JSDoc) are **disabled by default** and only run when you explicitly enable them. See [.env.example](./.env.example) for minimal setup instructions.
 

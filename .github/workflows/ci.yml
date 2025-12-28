@@ -291,7 +291,7 @@ jobs:
     # Knip: static analysis tool to find unused code and dependencies. This
     # job is marked `if: always()` so it runs even when other jobs fail,
     # and its output is uploaded to help maintainers clean up the codebase.
-    name: Knip (Code Analysis)
+    name: Knip (Unused Code Analysis)
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -317,7 +317,7 @@ jobs:
             ${{ runner.os }}-node-
       - run: npm ci
       - name: Run Knip (non-blocking)
-        run: npm run knip
+        run: npm run knip || true # Always succeed
       - name: Upload Knip report
         if: always()
         uses: actions/upload-artifact@v4

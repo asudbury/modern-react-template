@@ -7,7 +7,6 @@ A modern, accessibility-first React 19 application built with Vite 7 and TypeScr
 [![SonarQube Cloud](https://sonarcloud.io/images/project_badges/sonarcloud-light.svg)](https://sonarcloud.io/summary/new_code?id=asudbury_modern-react-template)
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=asudbury_modern-react-template&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=asudbury_modern-react-template)
-
 [![CI](https://github.com/asudbury/modern-react-template/actions/workflows/ci.yml/badge.svg)](https://github.com/asudbury/modern-react-template/actions/workflows/ci.yml) [![CodeQL](https://github.com/asudbury/modern-react-template/actions/workflows/codeql.yml/badge.svg)](https://github.com/asudbury/modern-react-template/actions/workflows/codeql.yml)
 
 

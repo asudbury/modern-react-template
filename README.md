@@ -344,7 +344,6 @@ This template ships with several concrete samples you can use as references:
 - **Generated API docs**: `docs/` and `docs-html/` contain TypeDoc output you can browse as living samples of the project APIs.
 
 
-
 ### Pre-commit Hooks
 
 Husky enforces code quality on every commit:
@@ -367,15 +366,12 @@ fix: handle invalid user IDs in updateUser
 chore: configure commitlint for commit messages
 ```
 
-
-
 ### GitHub Actions Variables (Optional Builds)
 
 Optional build steps for GitHub Pages are controlled via **repository-level
 Actions variables**, not committed to the repo. Configure them at:
 
 https://github.com/asudbury/modern-react-template/settings/variables/actions
-
 
 
 ## Theming
@@ -418,7 +414,7 @@ For more, see the `ThemeToggleButton` for reference.
 
 ### JSDoc Documentation
 
-All public APIs (exported functions, components, types) must include JSDoc comments:
+All public APIs (exported functions, components, types) should optionally include JSDoc comments:
 
 ```tsx
 /**
@@ -436,22 +432,7 @@ All public APIs (exported functions, components, types) must include JSDoc comme
 export function Button({ variant = 'primary', ...props }: ButtonProps) {
   // Implementation
 }
-```
 
-See `.github/copilot-instructions.md` for detailed JSDoc formatting guidelines.
-
-### Component Guidelines
-
-```tsx
-// ✅ Good: Named function with useCallback
-const handleClick = useCallback(() => {
-  doSomething();
-}, [doSomething]);
-
-return <button onClick={handleClick}>Click me</button>;
-
-// ❌ Bad: Inline function
-return <button onClick={() => doSomething()}>Click me</button>;
 ```
 
 ### Testing
@@ -461,36 +442,6 @@ return <button onClick={() => doSomething()}>Click me</button>;
 - **User events** - Use `userEvent.setup()`, never `fireEvent`
 - **E2E tests** - Use Playwright with Axe accessibility checks
 
-
-If a commit is rejected due to an invalid commit message, commitlint prints a
-clear error explaining which rule failed (for example, missing `feat:`/`fix:`
-prefix or subject line that is too long). In that case, amend your commit
-message using:
-
-```bash
-git commit --amend
-```
-
-and update the message until commitlint passes.
-
-## State Management
-
-### Server State (TanStack Query)
-
-Use TanStack Query for all server data:
-
-```tsx
-import { useQuery } from '@tanstack/react-query';
-import { fetchPosts } from './queries/fetch';
-
-function MyComponent() {
-  const { data, isLoading, error } = useQuery({
-    queryKey: ['posts'],
-    queryFn: fetchPosts,
-  });
-
-  // ...
-}
 ```
 
 ## Environment Variables
@@ -588,13 +539,6 @@ This template is designed to be extensible. See [EXTENSIONS.md](./EXTENSIONS.md)
 4. Run all checks before committing
 5. Keep PRs small and focused
 
-## Browser Support
-
-This template targets modern browsers with the following minimum versions:
-
-- Chrome/Edge: Latest 2 versions
-- Firefox: Latest 2 versions
-- Safari: Latest 2 versions
 
 ## License
 

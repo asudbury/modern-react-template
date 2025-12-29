@@ -43,8 +43,8 @@ jobs:
     name: Analyze (CodeQL)
     # Gate the job so CodeQL is opt-out by default. The job runs if:
     # - the workflow was manually dispatched; OR
-    # - a repo-level variable/secret/env named ENABLE_CODEQL is set to 'true'.
-    if: ${{ github.event_name == 'workflow_dispatch' || env.ENABLE_CODEQL == 'true' || vars.ENABLE_CODEQL == 'true' || secrets.ENABLE_CODEQL == 'true' }}
+    # - a repo-level variable named ENABLE_CODEQL is set to 'true'.
+    if: ${{ github.event_name == 'workflow_dispatch' || vars.ENABLE_CODEQL == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository

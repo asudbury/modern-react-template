@@ -1,4 +1,3 @@
-// ...existing code...
 import packageJson from '../../../package.json';
 import type { ReactNode } from 'react';
 
@@ -12,6 +11,7 @@ import type { ReactNode } from 'react';
  * @property description - Short supporting description shown after the label
  * @property icon - Optional visual indicator (emoji or SVG). Rendered with aria-hidden when present.
  */
+
 interface Feature {
   label: string;
   url?: string;
@@ -26,6 +26,7 @@ interface Feature {
  * repeating the literal inline array and to make the content easier to reuse
  * or localize in the future.
  */
+
 const keyFeatureCards: readonly { heading: string; content: string }[] = [
   {
     heading: 'Accessibility First',
@@ -43,6 +44,7 @@ const keyFeatureCards: readonly { heading: string; content: string }[] = [
       'No inline handlers, optimized rendering, and efficient state management.',
   },
 ];
+
 /**
  * makeFeatures
  *
@@ -150,6 +152,7 @@ function FeatureSection({
  * @example
  * <CardSection title="Key Features" ariaId="features-title" cards={[{heading:'A',content:'B'}]} />
  */
+
 function CardSection({
   title,
   cards,
@@ -181,6 +184,7 @@ function CardSection({
  * @param props.index - Index used to create the article heading id
  * @param props.ariaId - Section aria-labelledby prefix
  */
+
 function CardItem({
   card,
   index,

@@ -63,16 +63,6 @@ jobs:
           echo "[SonarCloud] Triggered by $GITHUB_EVENT_NAME on ref $GITHUB_REF for $GITHUB_REPOSITORY"
           echo "[SonarCloud] ENABLE_SONARCLOUD=${{ vars.ENABLE_SONARCLOUD }}"
 
-      - uses: actions/setup-node@v4
-        with:
-          # Use Node 20 as in other CI workflows; the `cache: 'npm'` option
-          # enables dependency caching via the setup action (lockfile-based).
-          node-version: '20'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
       # Check for SONAR_TOKEN in secrets; if missing, set output and print reason
       - id: check-sonar-token
         name: Check SONAR_TOKEN
@@ -90,8 +80,20 @@ jobs:
           echo "Skipping SonarCloud CI scan because SONAR_TOKEN is not configured in repository secrets."
           echo "To enable scans, add a SonarCloud token as the `SONAR_TOKEN` secret, or set ENABLE_SONARCLOUD=false to disable the workflow."
 
+      - uses: actions/setup-node@v4
+        if: steps.check-sonar-token.outputs.has_token == 'true'
+        with:
+          # Use Node 20 as in other CI workflows; the `cache: 'npm'` option
+          # enables dependency caching via the setup action (lockfile-based).
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        if: steps.check-sonar-token.outputs.has_token == 'true'
+        run: npm ci
 
       - name: Run tests with coverage
+        if: steps.check-sonar-token.outputs.has_token == 'true'
         # Generate coverage reports so SonarCloud can import coverage data.
         run: npm run test:unit -- --run --coverage
 

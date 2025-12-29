@@ -157,7 +157,7 @@ function CardSection({
 }: Readonly<{
   title: string;
   ariaId: string;
-  cards: { heading: string; content: string }[];
+  cards: readonly { heading: string; content: string }[];
 }>) {
   return (
     <section className="mt-16" aria-labelledby={ariaId}>

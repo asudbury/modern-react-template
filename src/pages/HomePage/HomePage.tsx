@@ -18,6 +18,41 @@ interface Feature {
   description: string;
   icon?: ReactNode;
 }
+
+/**
+ * keyFeatureCards
+ *
+ * The cards displayed in the "Key Features" section. Extracted to avoid
+ * repeating the literal inline array and to make the content easier to reuse
+ * or localize in the future.
+ */
+const keyFeatureCards: readonly { heading: string; content: string }[] = [
+  {
+    heading: 'Accessibility First',
+    content:
+      'Every component is keyboard-navigable, screen-reader friendly, and meets WCAG 2.2 AA standards.',
+  },
+  {
+    heading: 'Type Safety',
+    content:
+      'Strict TypeScript configuration with Zod validation for all external data.',
+  },
+  {
+    heading: 'Performance',
+    content:
+      'No inline handlers, optimized rendering, and efficient state management.',
+  },
+];
+/**
+ * makeFeatures
+ *
+ * Lightweight factory to centralize creation of feature lists. Keeping this
+ * as a small helper makes it explicit when data is intentionally static and
+ * provides a single place to add transformations later if needed.
+ *
+ * @param features - Array of `Feature` objects
+ * @returns The same array of features (identity helper)
+ */
 function makeFeatures(features: Feature[]): Feature[] {
   return features;
 }
@@ -25,18 +60,16 @@ function makeFeatures(features: Feature[]): Feature[] {
 /**
  * FeatureListItem
  *
- * Render a single feature as an accessible list item.
+ * Render a single `Feature` as an accessible list item.
  *
  * Accessibility:
- * - Uses a native <li> element inside a list
- * - Decorative icons are rendered with aria-hidden="true"
- * - External links include rel="noopener noreferrer" and open in a new tab
+ * - Uses a native `<li>` element inside a list
+ * - Decorative icons are rendered with `aria-hidden="true"`
+ * - External links include `rel="noopener noreferrer"` and open in a new tab
  *
- * @param param0.feature - Feature data to render
- * @param param0.idx - Index used to create stable IDs/keys when necessary
- *
+ * @param props.feature - Feature data to render
  * @example
- * <ul><FeatureListItem feature={feature} idx={0} /></ul>
+ * <ul><FeatureListItem feature={feature} /></ul>
  */
 function FeatureListItem({ feature }: Readonly<{ feature: Feature }>) {
   return (
@@ -52,10 +85,30 @@ function FeatureListItem({ feature }: Readonly<{ feature: Feature }>) {
   );
 }
 
+/**
+ * featureKey
+ *
+ * Stable key generator for feature list items.
+ *
+ * @param feature - Feature object used to derive a readable key
+ * @param idx - Index of the feature in the list
+ * @returns A stable string key for React list rendering
+ */
 function featureKey(feature: Feature, idx: number) {
   return `${feature.label}-${idx}`;
 }
 
+/**
+ * FeatureSection
+ *
+ * Reusable section that renders a titled card containing a list of
+ * features. This consolidates the previously duplicated markup used for
+ * core and optional feature lists.
+ *
+ * @param props.title - Visible section title
+ * @param props.ariaId - ID used for `aria-labelledby` and inner heading id
+ * @param props.features - Array of features to render in the list
+ */
 function FeatureSection({
   title,
   ariaId,
@@ -101,27 +154,51 @@ function CardSection({
   title,
   cards,
   ariaId,
-}: {
+}: Readonly<{
   title: string;
   ariaId: string;
   cards: { heading: string; content: string }[];
-}) {
+}>) {
   return (
     <section className="mt-16" aria-labelledby={ariaId}>
       <h2 className="text-secondary">{title}</h2>
       <div className="grid grid-cols-1 gap-4">
         {cards.map((c, i) => (
-          <article
-            className="card mb-4"
-            aria-labelledby={`${ariaId}-${i}`}
-            key={c.heading}
-          >
-            <h3 id={`${ariaId}-${i}`}>{c.heading}</h3>
-            <p>{c.content}</p>
-          </article>
+          <CardItem card={c} index={i} ariaId={ariaId} key={c.heading} />
         ))}
       </div>
     </section>
+  );
+}
+
+/**
+ * CardItem
+ *
+ * Small presentational component for a single card/article used by
+ * `CardSection` to avoid repeating the same markup inline.
+ *
+ * @param props.card - Object with `heading` and `content`
+ * @param props.index - Index used to create the article heading id
+ * @param props.ariaId - Section aria-labelledby prefix
+ */
+function CardItem({
+  card,
+  index,
+  ariaId,
+}: Readonly<{
+  card: { heading: string; content: string };
+  index: number;
+  ariaId: string;
+}>) {
+  return (
+    <article
+      className="card mb-4"
+      aria-labelledby={`${ariaId}-${index}`}
+      key={card.heading}
+    >
+      <h3 id={`${ariaId}-${index}`}>{card.heading}</h3>
+      <p>{card.content}</p>
+    </article>
   );
 }
 
@@ -285,23 +362,7 @@ export function HomePage() {
           <CardSection
             title="Key Features"
             ariaId="features-title"
-            cards={[
-              {
-                heading: 'Accessibility First',
-                content:
-                  'Every component is keyboard-navigable, screen-reader friendly, and meets WCAG 2.2 AA standards.',
-              },
-              {
-                heading: 'Type Safety',
-                content:
-                  'Strict TypeScript configuration with Zod validation for all external data.',
-              },
-              {
-                heading: 'Performance',
-                content:
-                  'No inline handlers, optimized rendering, and efficient state management.',
-              },
-            ]}
+            cards={keyFeatureCards}
           />
 
           <FeatureSection

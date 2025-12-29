@@ -51,6 +51,8 @@ jobs:
     # at the start of the run instead of repeated in every job.
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Log workflow context
         run: |
           echo "[CI][context] Triggered by $GITHUB_EVENT_NAME on ref $GITHUB_REF for $GITHUB_REPOSITORY"
@@ -72,6 +74,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Secret Scanning
         uses: gitleaks/gitleaks-action@v2
         env:
@@ -90,6 +94,8 @@ jobs:
     needs: [log-context]
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
@@ -122,6 +128,8 @@ jobs:
     needs: [log-context]
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
@@ -150,6 +158,8 @@ jobs:
       HUSKY: '0'
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
@@ -195,6 +205,8 @@ jobs:
       HUSKY: '0'
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
@@ -241,6 +253,8 @@ jobs:
       HUSKY: '0'
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: '20'

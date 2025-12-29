@@ -1,5 +1,3 @@
-
-
 <img src="./public/hero-image.png" >
 
 # <img src="./public/react-gears.svg" alt="React gears illustration" width="48" style="vertical-align: middle;" /> Modern React Template
@@ -64,14 +62,9 @@ A modern, accessibility-first React 19 application built with Vite 7 and TypeScr
 - 🌐 [**GitHub Pages**](https://docs.github.com/en/pages) deployment for app and docs
 - 🔍 [**SonarCloud**](https://sonarcloud.io/) for continuous code quality analysis
 - 📖 [**TypeDoc**](https://typedoc.org/) for automated API documentation
-- ⚙️ **[Feature Configuration](./FEATURES.md)** - Enable/disable optional features
 
-Env / Repository Actions Variables (optional):
 
-- `ENABLE_GH_PAGES` — Set to `true` to generate GitHub Pages artifacts (writes `dist/gh-pages-index.html`) and enable the Pages deployment workflow.
-- `ENABLE_JSDOC_BUILD` — Set to `true` to build and publish HTML API documentation into `docs-html/`.
-- `ENABLE_CODEQL` — Set to `true` to enable automated CodeQL scans. The `codeql.yml` workflow is gated (manual `workflow_dispatch` by default); setting this variable allows scheduled/push/PR runs.
-- `ENABLE_SONARCLOUD` — Set to `true` to enable SonarCloud analysis. In addition to this variable, SonarCloud requires the `SONAR_TOKEN` secret and the `SONAR_ORGANIZATION` / `SONAR_PROJECT_KEY` variables to be configured in the repository settings.
+See [Feature Configuration](./FEATURES.md) for a canonical list of optional repository Actions variables (ENABLE_*) and detailed setup instructions for CodeQL, SonarCloud, GitHub Pages, and JSDoc.
 
 ### CodeQL (Opt-in)
 

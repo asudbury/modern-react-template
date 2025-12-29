@@ -66,11 +66,12 @@ A modern, accessibility-first React 19 application built with Vite 7 and TypeScr
 - 📖 [**TypeDoc**](https://typedoc.org/) for automated API documentation
 - ⚙️ **[Feature Configuration](./FEATURES.md)** - Enable/disable optional features
 
-Env/ Repo Variables used:
+Env / Repository Actions Variables (optional):
 
-- `ENABLE_GH_PAGES` – generate the versioned landing page (`dist/gh-pages-index.html`)
-- `ENABLE_JSDOC_BUILD` – build and publish HTML API docs (`docs-html/`)
-- `ENABLE_CODEQL` – set to `true` to enable CodeQL workflow runs. `codeql.yml` is opt-out by default and will only run when manually dispatched or when this variable is set to `true`.
+- `ENABLE_GH_PAGES` — Set to `true` to generate GitHub Pages artifacts (writes `dist/gh-pages-index.html`) and enable the Pages deployment workflow.
+- `ENABLE_JSDOC_BUILD` — Set to `true` to build and publish HTML API documentation into `docs-html/`.
+- `ENABLE_CODEQL` — Set to `true` to enable automated CodeQL scans. The `codeql.yml` workflow is gated (manual `workflow_dispatch` by default); setting this variable allows scheduled/push/PR runs.
+- `ENABLE_SONARCLOUD` — Set to `true` to enable SonarCloud analysis. In addition to this variable, SonarCloud requires the `SONAR_TOKEN` secret and the `SONAR_ORGANIZATION` / `SONAR_PROJECT_KEY` variables to be configured in the repository settings.
 
 ### CodeQL (Opt-in)
 

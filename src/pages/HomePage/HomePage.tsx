@@ -1,6 +1,6 @@
+// ...existing code...
 import packageJson from '../../../package.json';
 import type { ReactNode } from 'react';
-import { useCallback } from 'react';
 
 /**
  * Feature
@@ -20,6 +20,64 @@ export interface Feature {
 }
 function makeFeatures(features: Feature[]): Feature[] {
   return features;
+}
+
+/**
+ * FeatureListItem
+ *
+ * Render a single feature list item.
+ */
+export function FeatureListItem({
+  feature,
+  idx,
+}: {
+  feature: Feature;
+  idx: number;
+}) {
+  return (
+    <li key={feature.label + idx} className="gap-2 mb-2">
+      {feature.icon && <span aria-hidden="true">{feature.icon}</span>}
+      <span>
+        <a href={feature.url} target="_blank" rel="noopener noreferrer">
+          {feature.label}
+        </a>
+        {feature.description && <span> {feature.description}</span>}
+      </span>
+    </li>
+  );
+}
+
+/**
+ * CardSection
+ *
+ * Generic card section renderer for repeated article/card blocks.
+ */
+export function CardSection({
+  title,
+  cards,
+  ariaId,
+}: {
+  title: string;
+  ariaId: string;
+  cards: { heading: string; content: string }[];
+}) {
+  return (
+    <section className="mt-16" aria-labelledby={ariaId}>
+      <h2 className="text-secondary">{title}</h2>
+      <div className="grid grid-cols-1 gap-4">
+        {cards.map((c, i) => (
+          <article
+            className="card mb-4"
+            aria-labelledby={`${ariaId}-${i}`}
+            key={c.heading}
+          >
+            <h3 id={`${ariaId}-${i}`}>{c.heading}</h3>
+            <p>{c.content}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
 }
 
 /**
@@ -127,6 +185,12 @@ const coreFeatures = makeFeatures([
  */
 const optionalFeatures = makeFeatures([
   {
+    icon: '🔎',
+    label: 'CodeQL',
+    url: 'https://securitylab.github.com/tools/codeql',
+    description: 'static security analysis (opt-in via ENABLE_CODEQL)',
+  },
+  {
     icon: '🐙',
     label: 'GitHub Pages',
     url: 'https://docs.github.com/en/pages',
@@ -153,33 +217,11 @@ const optionalFeatures = makeFeatures([
  *
  * Features:
  * - Semantic HTML and proper heading hierarchy
- * - No inline event handlers (uses useCallback)
+ * - No inline event handlers (uses stable functions/components)
  * - Accessible lists and keyboard navigation
  * - Strict TypeScript types
  */
 export function HomePage() {
-  /**
-   * Render a feature list item.
-   *
-   * @param feature - Feature to render
-   * @param idx - Index in the list
-   * @returns List item node
-   */
-  const renderFeatureItem = useCallback(
-    (feature: Feature, idx: number) => (
-      <li key={feature.label + idx} className="gap-2 mb-2">
-        {feature.icon && <span aria-hidden="true">{feature.icon}</span>}
-        <span>
-          <a href={feature.url} target="_blank" rel="noopener noreferrer">
-            {feature.label}
-          </a>
-          {feature.description && <span> {feature.description}</span>}
-        </span>
-      </li>
-    ),
-    []
-  );
-
   return (
     <main
       className="bg-surface text-text-primary min-h-screen"
@@ -195,47 +237,35 @@ export function HomePage() {
             Vite and TypeScript.
           </p>
 
-          <section className="mt-16" aria-labelledby="features-title">
-            <h2 className="text-secondary">Key Features</h2>
-            <div className="grid grid-cols-1 gap-4">
-              <article
-                className="card mb-4"
-                aria-labelledby="accessibility-title"
-              >
-                <h3 id="accessibility-title">Accessibility First</h3>
-                <p>
-                  Every component is keyboard-navigable, screen-reader friendly,
-                  and meets WCAG 2.2 AA standards.
-                </p>
-              </article>
-              <article
-                className="card mb-4"
-                aria-labelledby="type-safety-title"
-              >
-                <h3 id="type-safety-title">Type Safety</h3>
-                <p>
-                  Strict TypeScript configuration with Zod validation for all
-                  external data.
-                </p>
-              </article>
-              <article
-                className="card mb-4"
-                aria-labelledby="performance-title"
-              >
-                <h3 id="performance-title">Performance</h3>
-                <p>
-                  No inline handlers, optimized rendering, and efficient state
-                  management.
-                </p>
-              </article>
-            </div>
-          </section>
+          <CardSection
+            title="Key Features"
+            ariaId="features-title"
+            cards={[
+              {
+                heading: 'Accessibility First',
+                content:
+                  'Every component is keyboard-navigable, screen-reader friendly, and meets WCAG 2.2 AA standards.',
+              },
+              {
+                heading: 'Type Safety',
+                content:
+                  'Strict TypeScript configuration with Zod validation for all external data.',
+              },
+              {
+                heading: 'Performance',
+                content:
+                  'No inline handlers, optimized rendering, and efficient state management.',
+              },
+            ]}
+          />
 
           <section className="mt-8" aria-labelledby="core-features-title">
             <article className="card mb-4">
               <h3 id="core-features-title">Core features</h3>
               <ul className="list-none">
-                {coreFeatures.map(renderFeatureItem)}
+                {coreFeatures.map((f, i) => (
+                  <FeatureListItem feature={f} idx={i} key={f.label + i} />
+                ))}
               </ul>
             </article>
           </section>
@@ -244,7 +274,9 @@ export function HomePage() {
             <article className="card mb-4">
               <h3 id="optional-features-title">Optional features</h3>
               <ul className="list-none">
-                {optionalFeatures.map(renderFeatureItem)}
+                {optionalFeatures.map((f, i) => (
+                  <FeatureListItem feature={f} idx={i} key={f.label + i} />
+                ))}
               </ul>
             </article>
           </section>
@@ -255,3 +287,4 @@ export function HomePage() {
 }
 
 export default HomePage;
+// ...existing code...

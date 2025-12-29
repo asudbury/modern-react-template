@@ -12,7 +12,7 @@ import type { ReactNode } from 'react';
  * @property description - Short supporting description shown after the label
  * @property icon - Optional visual indicator (emoji or SVG). Rendered with aria-hidden when present.
  */
-export interface Feature {
+interface Feature {
   label: string;
   url?: string;
   description: string;
@@ -38,15 +38,9 @@ function makeFeatures(features: Feature[]): Feature[] {
  * @example
  * <ul><FeatureListItem feature={feature} idx={0} /></ul>
  */
-export function FeatureListItem({
-  feature,
-  idx,
-}: {
-  feature: Feature;
-  idx: number;
-}) {
+function FeatureListItem({ feature }: Readonly<{ feature: Feature }>) {
   return (
-    <li key={feature.label + idx} className="gap-2 mb-2">
+    <li className="gap-2 mb-2">
       {feature.icon && <span aria-hidden="true">{feature.icon}</span>}
       <span>
         <a href={feature.url} target="_blank" rel="noopener noreferrer">
@@ -57,6 +51,34 @@ export function FeatureListItem({
     </li>
   );
 }
+
+function featureKey(feature: Feature, idx: number) {
+  return `${feature.label}-${idx}`;
+}
+
+function FeatureSection({
+  title,
+  ariaId,
+  features,
+}: Readonly<{
+  title: string;
+  ariaId: string;
+  features: Feature[];
+}>) {
+  return (
+    <section className="mt-8" aria-labelledby={ariaId}>
+      <article className="card mb-4">
+        <h3 id={ariaId}>{title}</h3>
+        <ul className="list-none">
+          {features.map((f, i) => (
+            <FeatureListItem feature={f} key={featureKey(f, i)} />
+          ))}
+        </ul>
+      </article>
+    </section>
+  );
+}
+
 /**
  * CardSection
  *
@@ -75,7 +97,7 @@ export function FeatureListItem({
  * @example
  * <CardSection title="Key Features" ariaId="features-title" cards={[{heading:'A',content:'B'}]} />
  */
-export function CardSection({
+function CardSection({
   title,
   cards,
   ariaId,
@@ -282,31 +304,19 @@ export function HomePage() {
             ]}
           />
 
-          <section className="mt-8" aria-labelledby="core-features-title">
-            <article className="card mb-4">
-              <h3 id="core-features-title">Core features</h3>
-              <ul className="list-none">
-                {coreFeatures.map((f, i) => (
-                  <FeatureListItem feature={f} idx={i} key={f.label + i} />
-                ))}
-              </ul>
-            </article>
-          </section>
+          <FeatureSection
+            title="Core features"
+            ariaId="core-features-title"
+            features={coreFeatures}
+          />
 
-          <section className="mt-8" aria-labelledby="optional-features-title">
-            <article className="card mb-4">
-              <h3 id="optional-features-title">Optional features</h3>
-              <ul className="list-none">
-                {optionalFeatures.map((f, i) => (
-                  <FeatureListItem feature={f} idx={i} key={f.label + i} />
-                ))}
-              </ul>
-            </article>
-          </section>
+          <FeatureSection
+            title="Optional features"
+            ariaId="optional-features-title"
+            features={optionalFeatures}
+          />
         </section>
       </div>
     </main>
   );
 }
-
-export default HomePage;

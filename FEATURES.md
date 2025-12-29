@@ -7,6 +7,7 @@ This document provides a comprehensive overview of how to configure optional fea
 | Feature | Default | Enable With | Purpose |
 |---------|---------|-------------|---------|
 | **SonarCloud** | ❌ Disabled | `ENABLE_SONARCLOUD=true` | Code quality & security analysis |
+| **CodeQL** | ❌ Disabled | `ENABLE_CODEQL=true` or manual `workflow_dispatch` | Static security analysis |
 | **GitHub Pages** | ❌ Disabled | `ENABLE_GH_PAGES=true` | Deploy demo app publicly |
 | **JSDoc in CI** | ❌ Disabled | `ENABLE_JSDOC_BUILD=true` | Generate API documentation in CI |
 
@@ -36,7 +37,8 @@ Variables to set:
 ├── SONAR_ORGANIZATION=your-org
 ├── SONAR_PROJECT_KEY=your-project
 ├── ENABLE_GH_PAGES=true
-└── ENABLE_JSDOC_BUILD=true
+├── ENABLE_JSDOC_BUILD=true
+└── ENABLE_CODEQL=true
 
 Secrets to set:
 └── SONAR_TOKEN=your-token
@@ -113,6 +115,26 @@ All workflows support manual triggering via GitHub Actions UI.
 - Personal experiments
 - Prototypes
 
+### CodeQL
+
+**Benefits:**
+- Deep semantic static analysis focused on security and vulnerability detection
+- Finds code patterns associated with security issues across many languages
+
+**Cost:**
+- Free for public repositories via GitHub Advanced Security (subject to GitHub plan)
+
+**Setup time:** 2-5 minutes
+
+**When to enable:**
+- Projects requiring security scanning in CI
+- Repositories where automated vulnerability detection is desired
+
+**When to skip:**
+- Small personal projects without security compliance needs
+- Projects where the extra CI time is not acceptable
+
+
 ### GitHub Pages
 
 **Benefits:**
@@ -175,6 +197,12 @@ All workflows support manual triggering via GitHub Actions UI.
    - Settings → Secrets and variables → Actions → Secrets
      - Add `SONAR_TOKEN` = your token
 5. **Push:** Next push to main will trigger SonarCloud analysis
+
+### Enable CodeQL
+
+1. **Manual run:** In GitHub Actions, go to the CodeQL workflow and click "Run workflow". Set the `run_codeql`/`runCodeQL` input to `true` if present.
+2. **Enable automated runs (optional):** Add a repository variable `ENABLE_CODEQL=true` under Settings → Secrets and variables → Actions → Variables to allow scheduled/push/PR runs. The `codeql.yml` workflow is gated by default to avoid running on forks unless explicitly enabled.
+3. **Push:** If `ENABLE_CODEQL` is set, future pushes and PRs will include CodeQL analysis per the workflow configuration.
 
 ### Enable GitHub Pages
 

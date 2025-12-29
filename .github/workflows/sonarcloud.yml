@@ -62,8 +62,6 @@ jobs:
         run: |
           echo "[SonarCloud] Triggered by $GITHUB_EVENT_NAME on ref $GITHUB_REF for $GITHUB_REPOSITORY"
           echo "[SonarCloud] ENABLE_SONARCLOUD=${{ vars.ENABLE_SONARCLOUD }}"
-          echo "[SonarCloud] SONAR_ORGANIZATION=${{ vars.SONAR_ORGANIZATION }}"
-          echo "[SonarCloud] SONAR_PROJECT_KEY=${{ vars.SONAR_PROJECT_KEY }}"
 
       - uses: actions/setup-node@v4
         with:

@@ -5,12 +5,12 @@ import type { ReactNode } from 'react';
 /**
  * Feature
  *
- * Represents a feature displayed on the HomePage.
+ * Describes a single feature item shown on the Home page.
  *
- * @property label - Display label for the feature
- * @property url - URL for more information
- * @property description - Short description of the feature
- * @property icon - Optional icon (emoji or SVG)
+ * @property label - Visible label for the feature (used as list item text and key)
+ * @property url - Optional external URL with more information (opens in new tab)
+ * @property description - Short supporting description shown after the label
+ * @property icon - Optional visual indicator (emoji or SVG). Rendered with aria-hidden when present.
  */
 export interface Feature {
   label: string;
@@ -25,7 +25,18 @@ function makeFeatures(features: Feature[]): Feature[] {
 /**
  * FeatureListItem
  *
- * Render a single feature list item.
+ * Render a single feature as an accessible list item.
+ *
+ * Accessibility:
+ * - Uses a native <li> element inside a list
+ * - Decorative icons are rendered with aria-hidden="true"
+ * - External links include rel="noopener noreferrer" and open in a new tab
+ *
+ * @param param0.feature - Feature data to render
+ * @param param0.idx - Index used to create stable IDs/keys when necessary
+ *
+ * @example
+ * <ul><FeatureListItem feature={feature} idx={0} /></ul>
  */
 export function FeatureListItem({
   feature,
@@ -46,11 +57,23 @@ export function FeatureListItem({
     </li>
   );
 }
-
 /**
  * CardSection
  *
- * Generic card section renderer for repeated article/card blocks.
+ * Generic, accessible section used to render repeated card/article blocks.
+ *
+ * Features:
+ * - Renders a section with an aria-labelledby reference for proper semantics
+ * - Accepts an array of cards where each card contains a heading and content
+ * - Each article has an id tied to the section aria-labelledby to preserve accessibility
+ *
+ * @param title - Visible section title
+ * @param ariaId - ID string used for aria-labelledby and per-card heading IDs
+ * @param cards - Array of card objects { heading, content } to render
+ * @returns JSX.Element - a semantic section containing the provided cards
+ *
+ * @example
+ * <CardSection title="Key Features" ariaId="features-title" cards={[{heading:'A',content:'B'}]} />
  */
 export function CardSection({
   title,
@@ -287,4 +310,3 @@ export function HomePage() {
 }
 
 export default HomePage;
-// ...existing code...

@@ -22,9 +22,9 @@ Use this file to guide Copilot suggestions and human contributors — prefer sol
 
 The following features are **disabled by default** to make this template fork-friendly:
 
-- **SonarCloud**: Only runs if `RUN_SONARCLOUD=true` in repository variables
-- **GitHub Pages**: Only runs if `ENABLE_GH_PAGES=true` in repository variables
-- **JSDoc in CI**: Only builds if `ENABLE_JSDOC_BUILD=true` in repository variables
+-- **SonarCloud**: Only runs if `ENABLE_SONARCLOUD=true` in repository variables
+-- **GitHub Pages**: Only runs if `ENABLE_GH_PAGES=true` in repository variables
+-- **JSDoc in CI**: Only builds if `ENABLE_JSDOC_BUILD=true` in repository variables
 
 ## Core Principles
 

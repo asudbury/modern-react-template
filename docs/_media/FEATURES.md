@@ -6,7 +6,7 @@ This document provides a comprehensive overview of how to configure optional fea
 
 | Feature | Default | Enable With | Purpose |
 |---------|---------|-------------|---------|
-| **SonarCloud** | ❌ Disabled | `RUN_SONARCLOUD=true` | Code quality & security analysis |
+| **SonarCloud** | ❌ Disabled | `ENABLE_SONARCLOUD=true` | Code quality & security analysis |
 | **GitHub Pages** | ❌ Disabled | `ENABLE_GH_PAGES=true` | Deploy demo app publicly |
 | **JSDoc in CI** | ❌ Disabled | `ENABLE_JSDOC_BUILD=true` | Generate API documentation in CI |
 
@@ -32,7 +32,7 @@ No variables needed! Everything works out of the box.
 
 ```
 Variables to set:
-├── RUN_SONARCLOUD=true
+├── ENABLE_SONARCLOUD=true
 ├── SONAR_ORGANIZATION=your-org
 ├── SONAR_PROJECT_KEY=your-project
 ├── ENABLE_GH_PAGES=true
@@ -54,7 +54,7 @@ Choose features based on your needs:
 
 ```
 # Code quality only
-RUN_SONARCLOUD=true
+ENABLE_SONARCLOUD=true
 SONAR_ORGANIZATION=your-org
 SONAR_PROJECT_KEY=your-project
 SONAR_TOKEN=secret
@@ -169,7 +169,7 @@ All workflows support manual triggering via GitHub Actions UI.
    - Token: Account → Security → Generate Token
 4. **Configure GitHub:**
    - Settings → Secrets and variables → Actions → Variables
-     - Add `RUN_SONARCLOUD` = `true`
+   - Add `ENABLE_SONARCLOUD` = `true`
      - Add `SONAR_ORGANIZATION` = your organization
      - Add `SONAR_PROJECT_KEY` = your project key
    - Settings → Secrets and variables → Actions → Secrets

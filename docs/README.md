@@ -185,7 +185,7 @@ E2E tests with Playwright
 TypeDoc (local generation only)
 
 ### ❌ Disabled by Default (Opt-In Only)
-- **SonarCloud Analysis** - Requires `RUN_SONARCLOUD=true` + configuration
+- **SonarCloud Analysis** - Requires `ENABLE_SONARCLOUD=true` + configuration
 - **GitHub Pages Deployment** - Requires `ENABLE_GH_PAGES=true` + configuration
 - **TypeDoc in CI** - Requires `ENABLE_JSDOC_BUILD=true`
 
@@ -292,25 +292,7 @@ This template ships with several concrete samples you can use as references:
 
 ## Code Quality & Security
 
-### SonarCloud Integration
 
-This template uses SonarCloud for continuous code quality and security analysis. Configuration is driven by environment variables so forks can set up their own SonarCloud projects without editing source files.
-
-**Setup Requirements (for your fork or repo):**
-1. Sign up at [SonarCloud](https://sonarcloud.io/)
-2. Import **your** repository into SonarCloud and note the generated:
-  - Organization key (e.g. `my-org`)
-  - Project key (e.g. `my-org_modern-react-template`)
-3. Add `SONAR_TOKEN` to your GitHub repository secrets (Project Settings → Security → Tokens in SonarCloud).
-4. In your GitHub repository settings, add the following **Actions secrets/variables**:
-  - `SONAR_ORGANIZATION` – your SonarCloud organization key
-  - `SONAR_PROJECT_KEY` – your SonarCloud project key
-  - `SONAR_TOKEN` – the token from SonarCloud
-5. (Optional) Go to **Settings → Variables → Actions** in your GitHub repository and create a variable named `RUN_SONARCLOUD` with value `true` to enable SonarCloud analysis. Set it to `false` (or remove it) to skip the SonarCloud job.
-
-The `sonar-project.properties` file reads `SONAR_ORGANIZATION` and `SONAR_PROJECT_KEY` at analysis time, so no changes are required in the file when you fork this template.
-
-View your project's quality metrics on the SonarCloud dashboard when analysis is enabled.
 
 ### Pre-commit Hooks
 
@@ -473,7 +455,7 @@ For local tooling and CI toggles, additional variables are defined in
 `.env.example` (not exposed to the client), including:
 
 - `SONAR_ORGANIZATION`, `SONAR_PROJECT_KEY`, `SONAR_TOKEN` – SonarCloud config
-- `RUN_SONARCLOUD` – enable/disable SonarCloud in CI
+- `ENABLE_SONARCLOUD` – enable/disable SonarCloud in CI
 - `SKIP_COMMITLINT` – set to `true` to temporarily skip commit message
   linting enforced by Husky + commitlint
 

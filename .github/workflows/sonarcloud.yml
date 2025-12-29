@@ -7,7 +7,7 @@
 # Triggers:
 
 # - `push` and `pull_request` on `main` (but the job is guarded by an `if`
-#   condition so it only executes when `RUN_SONARCLOUD` is `true` or the manual
+#   condition so it only executes when `ENABLE_SONARCLOUD` is `true` or the manual
 #   `workflow_dispatch` input `run_sonarcloud` is provided and a `SONAR_TOKEN`
 #   secret is present.
 # - `workflow_dispatch` allows manual runs with `run_sonarcloud` boolean input.
@@ -34,12 +34,12 @@ jobs:
   sonarcloud:
     name: SonarCloud Scan
     runs-on: ubuntu-latest
-    # Guard: only run when repo variable `RUN_SONARCLOUD` is true OR manual
+    # Guard: only run when repo variable `ENABLE_SONARCLOUD` is true OR manual
     # dispatch requests `run_sonarcloud=true`. We cannot reference `secrets` in
     # a job-level `if` expression, so the presence of `SONAR_TOKEN` is checked
     # at the step level below. This protects forks from unintentionally
     # publishing to SonarCloud.
-    if: (vars.RUN_SONARCLOUD == 'true' || inputs.run_sonarcloud == true)
+    if: (vars.ENABLE_SONARCLOUD == 'true' || inputs.run_sonarcloud == true)
     permissions:
       contents: read
     # Expose the secret into job env so step-level `if` can test existence
@@ -61,7 +61,7 @@ jobs:
       - name: Log workflow context
         run: |
           echo "[SonarCloud] Triggered by $GITHUB_EVENT_NAME on ref $GITHUB_REF for $GITHUB_REPOSITORY"
-          echo "[SonarCloud] RUN_SONARCLOUD=${{ vars.RUN_SONARCLOUD }}"
+          echo "[SonarCloud] ENABLE_SONARCLOUD=${{ vars.ENABLE_SONARCLOUD }}"
           echo "[SonarCloud] SONAR_ORGANIZATION=${{ vars.SONAR_ORGANIZATION }}"
           echo "[SonarCloud] SONAR_PROJECT_KEY=${{ vars.SONAR_PROJECT_KEY }}"
 
@@ -90,7 +90,7 @@ jobs:
         if: steps.check-sonar-token.outputs.has_token == 'false'
         run: |
           echo "Skipping SonarCloud CI scan because SONAR_TOKEN is not configured in repository secrets."
-          echo "To enable scans, add a SonarCloud token as the `SONAR_TOKEN` secret, or set RUN_SONARCLOUD=false to disable the workflow."
+          echo "To enable scans, add a SonarCloud token as the `SONAR_TOKEN` secret, or set ENABLE_SONARCLOUD=false to disable the workflow."
 
 
       - name: Run tests with coverage

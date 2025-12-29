@@ -10,13 +10,25 @@
 name: CodeQL
 
 on:
+  # Keep a manual dispatch so maintainers can run CodeQL on demand.
+  workflow_dispatch:
+    inputs:
+      run_codeql:
+        description: 'Set to true to run CodeQL on this dispatch'
+        required: false
+        default: 'true'
+
+  # Note: push / PR / scheduled runs are retained as triggers but the job
+  # is gated so CodeQL is opt-out by default. To enable automatic runs set
+  # the repository variable/secret `ENABLE_CODEQL=true` (or dispatch manually).
   push:
     branches: [ main ]
   pull_request:
     branches: [ main ]
-  # Scheduled run: weekly scan to surface newly introduced issues
-  schedule:
-    - cron: '0 3 * * 0'
+  # schedule is intentionally left commented out to avoid automatic runs
+  # unless the controlling variable is enabled
+  # schedule:
+  #   - cron: '0 3 * * 0'
 
 # Permissions required for CodeQL to read code and upload results.
 permissions:
@@ -29,6 +41,10 @@ jobs:
     # Analyze (CodeQL): initializes the CodeQL DB, attempts an autobuild to
     # discover compilation steps, then runs the analysis to produce results.
     name: Analyze (CodeQL)
+    # Gate the job so CodeQL is opt-out by default. The job runs if:
+    # - the workflow was manually dispatched; OR
+    # - a repo-level variable/secret/env named ENABLE_CODEQL is set to 'true'.
+    if: ${{ github.event_name == 'workflow_dispatch' || env.ENABLE_CODEQL == 'true' || vars.ENABLE_CODEQL == 'true' || secrets.ENABLE_CODEQL == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository

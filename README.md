@@ -12,7 +12,7 @@ A modern, accessibility-first React 19 application built with Vite 7 and TypeScr
 [![CI](https://github.com/asudbury/modern-react-template/actions/workflows/ci.yml/badge.svg)](https://github.com/asudbury/modern-react-template/actions/workflows/ci.yml) [![CodeQL](https://github.com/asudbury/modern-react-template/actions/workflows/codeql.yml/badge.svg)](https://github.com/asudbury/modern-react-template/actions/workflows/codeql.yml)
 
 
-> **📘 Fork-Friendly Setup:** This template is designed to work out-of-the-box for forks! All advanced features (SonarCloud, GitHub Pages CI, JSDoc) are **disabled by default** and only run when you explicitly enable them. See [.env.example](./.env.example) for minimal setup instructions.
+> **📘 Fork-Friendly Setup:** This template is designed to work out-of-the-box for forks! All advanced features (CodeQL, SonarCloud, GitHub Pages CI, JSDoc) are **disabled by default** and only run when you explicitly enable them. See [.env.example](./.env.example) for minimal setup instructions.
 
 ## 📚 DeepWiki Project Knowledge Base
 
@@ -31,6 +31,7 @@ A modern, accessibility-first React 19 application built with Vite 7 and TypeScr
 
 > ⚠️ **Note for Forks:** The SonarCloud badges above are for the original repository. If you're not using SonarCloud, you can safely remove these badges (lines 3-7).
 
+
 ### Other templates
 - There is a lite version available here [modern-react-template-lite](https://github.com/asudbury/modern-react-template-lite)
 - There is a mono repo version available here [modern-monorepo-template](https://github.com/asudbury/modern-monorepo-template)
@@ -40,7 +41,6 @@ A modern, accessibility-first React 19 application built with Vite 7 and TypeScr
 ### Core Features (Always Enabled)
 - ♿ [**Accessibility-first**](https://www.w3.org/WAI/WCAG22/quickref/) (WCAG 2.2 AA compliant)
 - 🦾 [**Axe-core**](https://github.com/dequelabs/axe-core) automated accessibility checks
-- 🛡️ [**CodeQL**](https://codeql.github.com/docs/) for advanced code scanning and security analysis
 - 📝 [**Commitlint**](https://commitlint.js.org/#/) enforcing conventional commit messages
 - 🛡️ [**Global Error Boundary**](https://github.com/bvaughn/react-error-boundary) with custom fallback UI and reload/reset support
 - 🔒 [**ESLint**](https://eslint.org/) static analysis
@@ -60,11 +60,61 @@ A modern, accessibility-first React 19 application built with Vite 7 and TypeScr
 
 
 ### Optional Core Features (Disabled by default)
-
+- 🛡️ [**CodeQL**](https://codeql.github.com/docs/) for advanced code scanning and security analysis
 - 🌐 [**GitHub Pages**](https://docs.github.com/en/pages) deployment for app and docs
 - 🔍 [**SonarCloud**](https://sonarcloud.io/) for continuous code quality analysis
 - 📖 [**TypeDoc**](https://typedoc.org/) for automated API documentation
 - ⚙️ **[Feature Configuration](./FEATURES.md)** - Enable/disable optional features
+
+Env/ Repo Variables used:
+
+- `ENABLE_GH_PAGES` – generate the versioned landing page (`dist/gh-pages-index.html`)
+- `ENABLE_JSDOC_BUILD` – build and publish HTML API docs (`docs-html/`)
+- `ENABLE_CODEQL` – set to `true` to enable CodeQL workflow runs. `codeql.yml` is opt-out by default and will only run when manually dispatched or when this variable is set to `true`.
+
+### CodeQL (Opt-in)
+
+By default, this repository treats CodeQL scans as opt-out to avoid heavy analysis running automatically on forks and CI. Use one of these methods to run CodeQL:
+
+ - **Run manually:** In GitHub, go to Actions → CodeQL → Run workflow. Ensure the `run_codeql` input is `true`.
+ - **Enable automated runs:** Add a repository Variable or Secret named `ENABLE_CODEQL` with value `true` under Settings → Secrets and variables → Actions → Variables (or Secrets). When set to `true`, scheduled/push/PR runs will be allowed.
+
+This matches the workflow gating in `.github/workflows/codeql.yml`.
+
+### SonarCloud Integration (Opt-in)
+
+This template uses SonarCloud for continuous code quality and security analysis. Configuration is driven by environment variables so forks can set up their own SonarCloud projects without editing source files.
+
+**Setup Requirements (for your fork or repo):**
+1. Sign up at [SonarCloud](https://sonarcloud.io/)
+2. Import **your** repository into SonarCloud and note the generated:
+  - Organization key (e.g. `my-org`)
+  - Project key (e.g. `my-org_modern-react-template`)
+3. Add `SONAR_TOKEN` to your GitHub repository secrets (Project Settings → Security → Tokens in SonarCloud).
+4. In your GitHub repository settings, add the following **Actions secrets/variables**:
+  - `SONAR_ORGANIZATION` – your SonarCloud organization key
+  - `SONAR_PROJECT_KEY` – your SonarCloud project key
+  - `SONAR_TOKEN` – the token from SonarCloud
+5. (Optional) Go to **Settings → Variables → Actions** in your GitHub repository and create a variable named `ENABLE_SONARCLOUD` with value `true` to enable SonarCloud analysis. Set it to `false` (or remove it) to skip the SonarCloud job.
+
+The `sonar-project.properties` file reads `SONAR_ORGANIZATION` and `SONAR_PROJECT_KEY` at analysis time, so no changes are required in the file when you fork this template.
+
+View your project's quality metrics on the SonarCloud dashboard when analysis is enabled.
+
+### GitHub Pages Deployment (Opt-in)
+
+The template automatically deploys four entry points to GitHub Pages on every push to `main`:
+
+1. **Main Landing Page** – `https://asudbury.github.io/modern-react-template/`
+2. **Demo App** – `https://asudbury.github.io/modern-react-template/app`
+4. **API Documentation** – `https://asudbury.github.io/modern-react-template/docs`
+
+**Setup Requirements:**
+1. Go to repository Settings → Pages
+2. Set Source to "GitHub Actions"
+3. Push to `main` branch to trigger deployment
+
+**Important:** Deployment only happens from the `main` branch. The workflow automatically configures proper base paths for asset loading.
 
 ## Global Error Handling
 
@@ -75,25 +125,7 @@ This template uses a global error boundary to catch unexpected errors anywhere i
 - Custom fallback UI in [`src/components/ErrorFallback/ErrorFallback.tsx`](src/components/ErrorFallback/ErrorFallback.tsx)
 - Users can reload the app or reset the error boundary from the fallback UI
 
-**How it works:**
 
-```tsx
-import { ErrorBoundary } from 'react-error-boundary';
-import { ErrorFallback } from './components/ErrorFallback';
-
-<ErrorBoundary
-  FallbackComponent={ErrorFallback}
-  onReset={() => globalThis.location.reload()}
->
-  <App />
-</ErrorBoundary>
-```
-
-**Customizing error handling:**
-- Edit the fallback UI in `ErrorFallback.tsx` to change the error message, add support links, or customize the reload/reset behavior.
-- You can log errors to a service (Sentry, LogRocket, etc.) by adding an `onError` prop to the `ErrorBoundary`.
-
-See also: [Error boundaries in React](https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary)
 
 ## Quick Start
 
@@ -242,43 +274,45 @@ See [knip.toml](./knip.toml) for configuration details.
 modern-react-template/
 ├── .github/
 │   ├── workflows/
-│   │   ├── ci.yml             # CI/CD pipeline
-│   │   ├── sonarcloud.yml     # SonarCloud analysis
-│   │   └── pages.yml          # GitHub Pages deployment
+│   │   ├── ci.yml              # CI/CD pipeline
+│   │   ├── codeql.yml          # CodeQL security scanning (opt-in)
+│   │   ├── sonarcloud.yml      # SonarCloud analysis (opt-in)
+│   │   └── pages.yml           # GitHub Pages deployment (opt-in)
 │   └── copilot-instructions.md # Copilot coding guidelines
 ├── .husky/
-│   └── pre-commit             # Pre-commit hooks
-├── docs/                      # Generated markdown docs (TypeDoc)
-├── docs-html/                 # Generated HTML docs (TypeDoc)
-├── knip.toml                  # Knip configuration (unused code analysis)
-├── playwright/                # UI tests
+│   └── pre-commit              # Pre-commit hooks
+│   └── pre-commit-secrets      # Pre-commit secrets hooks
+├── docs/                       # Generated markdown docs (TypeDoc)
+├── docs-html/                  # Generated HTML docs (TypeDoc)
+├── knip.toml                   # Knip configuration (unused code analysis)
+├── playwright/                 # UI tests
 ├── src/
-│   ├── components/            # Reusable UI components and samples
-│   │   ├── Button/            # Button component (+ tests, stories, index)
-│   │   ├── Navigation/        # Navigation bar
-│   │   ├── ErrorFallback/     # Global error fallback for error boundary
-│   ├── pages/                 # Route/page components
-│   ├── queries/               # Data fetching/mutations (TanStack Query)
-│   ├── schemas/               # Zod schemas and types
-│   ├── test/                  # Test setup/mocks
-│   ├── App.tsx                # Root app component
-│   ├── main.tsx               # Entry point (includes error boundary)
-│   ├── router.tsx             # Router config
-│   └── index.css              # Global styles
-├── .env.example               # Environment variables template
-├── .gitignore                 # Git ignore rules
-├── .gitleaks.toml             # Secret scanning config (Gitleaks)
-├── .gitleaksignore            # Secret scanning ignore rules
-├── .prettierrc                # Prettier configuration
-├── eslint.config.js           # ESLint configuration
-├── package.json               # Dependencies and scripts
-├── playwright.config.ts       # Playwright configuration
-├── sonar-project.properties   # SonarCloud configuration
-├── tsconfig.json              # TypeScript configuration
-├── typedoc.json               # TypeDoc markdown config
-├── typedoc.html.json          # TypeDoc HTML config
-├── vite.config.ts             # Vite configuration
-└── vitest.config.ts           # Vitest configuration
+│   ├── components/             # Reusable UI components and samples
+│   │   ├── Button/             # Button component (+ tests, stories, index)
+│   │   ├── Navigation/         # Navigation bar
+│   │   ├── ErrorFallback/      # Global error fallback for error boundary
+│   ├── pages/                  # Route/page components
+│   ├── queries/                # Data fetching/mutations (TanStack Query)
+│   ├── schemas/                # Zod schemas and types
+│   ├── test/                   # Test setup/mocks
+│   ├── App.tsx                 # Root app component
+│   ├── main.tsx                # Entry point (includes error boundary)
+│   ├── router.tsx              # Router config
+│   └── index.css               # Global styles
+├── .env.example                # Environment variables template
+├── .gitignore                  # Git ignore rules
+├── .gitleaks.toml              # Secret scanning config (Gitleaks)
+├── .gitleaksignore             # Secret scanning ignore rules
+├── .prettierrc                 # Prettier configuration
+├── eslint.config.js            # ESLint configuration
+├── package.json                # Dependencies and scripts
+├── playwright.config.ts        # Playwright configuration
+├── sonar-project.properties    # SonarCloud configuration
+├── tsconfig.json               # TypeScript configuration
+├── typedoc.json                # TypeDoc markdown config
+├── typedoc.html.json           # TypeDoc HTML config
+├── vite.config.ts              # Vite configuration
+└── vitest.config.ts            # Vitest configuration
 ```
 
 ## Documentation
@@ -309,27 +343,7 @@ This template ships with several concrete samples you can use as references:
 - **E2E + accessibility test**: `playwright/homepage.spec.ts` is a full Playwright + axe-core example for the home page.
 - **Generated API docs**: `docs/` and `docs-html/` contain TypeDoc output you can browse as living samples of the project APIs.
 
-## Code Quality & Security
 
-### SonarCloud Integration
-
-This template uses SonarCloud for continuous code quality and security analysis. Configuration is driven by environment variables so forks can set up their own SonarCloud projects without editing source files.
-
-**Setup Requirements (for your fork or repo):**
-1. Sign up at [SonarCloud](https://sonarcloud.io/)
-2. Import **your** repository into SonarCloud and note the generated:
-  - Organization key (e.g. `my-org`)
-  - Project key (e.g. `my-org_modern-react-template`)
-3. Add `SONAR_TOKEN` to your GitHub repository secrets (Project Settings → Security → Tokens in SonarCloud).
-4. In your GitHub repository settings, add the following **Actions secrets/variables**:
-  - `SONAR_ORGANIZATION` – your SonarCloud organization key
-  - `SONAR_PROJECT_KEY` – your SonarCloud project key
-  - `SONAR_TOKEN` – the token from SonarCloud
-5. (Optional) Go to **Settings → Variables → Actions** in your GitHub repository and create a variable named `RUN_SONARCLOUD` with value `true` to enable SonarCloud analysis. Set it to `false` (or remove it) to skip the SonarCloud job.
-
-The `sonar-project.properties` file reads `SONAR_ORGANIZATION` and `SONAR_PROJECT_KEY` at analysis time, so no changes are required in the file when you fork this template.
-
-View your project's quality metrics on the SonarCloud dashboard when analysis is enabled.
 
 ### Pre-commit Hooks
 
@@ -353,20 +367,7 @@ fix: handle invalid user IDs in updateUser
 chore: configure commitlint for commit messages
 ```
 
-## GitHub Pages Deployment
 
-The template automatically deploys four entry points to GitHub Pages on every push to `main`:
-
-1. **Main Landing Page** – `https://asudbury.github.io/modern-react-template/`
-2. **Demo App** – `https://asudbury.github.io/modern-react-template/app`
-4. **API Documentation** – `https://asudbury.github.io/modern-react-template/docs`
-
-**Setup Requirements:**
-1. Go to repository Settings → Pages
-2. Set Source to "GitHub Actions"
-3. Push to `main` branch to trigger deployment
-
-**Important:** Deployment only happens from the `main` branch. The workflow automatically configures proper base paths for asset loading.
 
 ### GitHub Actions Variables (Optional Builds)
 
@@ -375,13 +376,7 @@ Actions variables**, not committed to the repo. Configure them at:
 
 https://github.com/asudbury/modern-react-template/settings/variables/actions
 
-Variables used:
 
-- `ENABLE_GH_PAGES` – generate the versioned landing page (`dist/gh-pages-index.html`)
-- `ENABLE_JSDOC_BUILD` – build and publish HTML API docs (`docs-html/`)
-
-Set these to `true` to enable the corresponding steps in CI/Pages; leave them
-unset or `false` (recommended for forks) to skip those builds.
 
 ## Theming
 
@@ -512,7 +507,7 @@ For local tooling and CI toggles, additional variables are defined in
 `.env.example` (not exposed to the client), including:
 
 - `SONAR_ORGANIZATION`, `SONAR_PROJECT_KEY`, `SONAR_TOKEN` – SonarCloud config
-- `RUN_SONARCLOUD` – enable/disable SonarCloud in CI
+- `ENABLE_SONARCLOUD` – enable/disable SonarCloud in CI
 - `SKIP_COMMITLINT` – set to `true` to temporarily skip commit message
   linting enforced by Husky + commitlint
 
@@ -553,6 +548,25 @@ Husky runs the following checks on every commit:
 4. Build the project
 
 If any check fails, the commit is blocked.
+
+### Pre-commit secret scanning
+
+This repository includes local and CI secret scanning using `gitleaks`.
+
+- Local npm scripts (defined in `package.json`):
+
+```bash
+# Full repo scan
+npm run secrets:scan
+
+# Scan only staged changes (good for pre-commit hooks)
+npm run secrets:scan-staged
+
+# Create/update baseline report
+npm run secrets:baseline
+```
+
+- To enable blocking secret checks locally, add `npm run secrets:scan-staged` to your Husky `pre-commit` hook (or run it manually before committing). CI still runs a full scan via the `secret-scan` job.
 
 ## Extending the Template
 

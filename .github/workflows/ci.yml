@@ -54,8 +54,6 @@ jobs:
       - name: Log workflow context
         run: |
           echo "[CI][context] Triggered by $GITHUB_EVENT_NAME on ref $GITHUB_REF for $GITHUB_REPOSITORY"
-          echo "[CI][context] ENABLE_JSDOC_BUILD=${{ vars.ENABLE_JSDOC_BUILD }}"
-          echo "[CI][context] ENABLE_GH_PAGES=${{ vars.ENABLE_GH_PAGES }}"
       - name: Debug Info (non-sensitive)
         # Run debug-info here once per workflow run; `show-env=false` to avoid
         # printing environment variables during normal CI runs.

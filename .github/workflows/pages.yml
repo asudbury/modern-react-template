@@ -61,7 +61,6 @@ jobs:
       - name: Log workflow context
         run: |
           echo "[Pages][log-context] Triggered by $GITHUB_EVENT_NAME on ref $GITHUB_REF for $GITHUB_REPOSITORY"
-          echo "[Pages][log-context] ENABLE_JSDOC_BUILD=${{ vars.ENABLE_JSDOC_BUILD }}"
           echo "[Pages][log-context] ENABLE_GH_PAGES=${{ vars.ENABLE_GH_PAGES }}"
 
   build:

@@ -9,20 +9,19 @@ A modern, accessibility-first React 19 application built with Vite 7 and TypeScr
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=asudbury_modern-react-template&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=asudbury_modern-react-template)
 [![CI](https://github.com/asudbury/modern-react-template/actions/workflows/ci.yml/badge.svg)](https://github.com/asudbury/modern-react-template/actions/workflows/ci.yml) [![CodeQL](https://github.com/asudbury/modern-react-template/actions/workflows/codeql.yml/badge.svg)](https://github.com/asudbury/modern-react-template/actions/workflows/codeql.yml)
 
-
 > **📘 Fork-Friendly Setup:** This template is designed to work out-of-the-box for forks! All advanced features (CodeQL, SonarCloud, GitHub Pages CI, JSDoc) are **disabled by default** and only run when you explicitly enable them. See [.env.example](./.env.example) for minimal setup instructions.
+
+## 🗂️ Google Code Wiki
+
+> A compact, searchable wiki for quick project notes, operational runbooks, diagrams, and short HOWTOs.
+>
+> [![Google Code Wiki](https://img.shields.io/badge/Google-Code%20Wiki-blue.svg)](https://codewiki.google/github.com/asudbury/modern-react-template)
 
 ## 📚 DeepWiki Project Knowledge Base
 
 > **Explore the full documentation, architecture, and deep technical notes for this project on DeepWiki:**
 >
 > [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/asudbury/modern-react-template)
->
-> - Comprehensive guides, diagrams, and design decisions
-> - Contributor onboarding and advanced usage tips
-> - Maintainer notes, troubleshooting, and best practices
->
-> **This is the canonical knowledge base for the project. If you're contributing, maintaining, or deploying, start here!**
 
 ## SonarCloud
 [SonarCloud Dashboard](https://sonarcloud.io/summary/new_code?id=asudbury_modern-react-template)

@@ -19,7 +19,7 @@ A modern, accessibility-first React 19 application built with Vite 7 and TypeScr
 
 ## 📚 DeepWiki Project Knowledge Base
 
-> **Explore the full documentation, architecture, and deep technical notes for this project on DeepWiki:**
+> Explore the full documentation, architecture, and deep technical notes for this project on DeepWiki:
 >
 > [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/asudbury/modern-react-template)
 

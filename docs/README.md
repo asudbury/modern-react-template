@@ -12,6 +12,11 @@
 
 [SonarCloud Dashboard](https://sonarcloud.io/summary/new_code?id=asudbury_modern-react-template)
 
+## Articles
+
+- [Dev.to](https://dev.to/asudbury/modern-react-template-for-2026-4clc)
+- [Medium](https://medium.com/@sudburya/modern-react-template-for-2026-b73b4e420b83)
+
 > ⚠️ **Note for Forks:** The SonarCloud badges above are for the original repository. If you're not using SonarCloud, you can safely remove these badges (lines 3-7).
 
 A modern, accessibility-first React 19 application built with Vite 7 and TypeScript 5. This template enforces strict rules for accessibility (WCAG 2.2 AA), performance, and code quality.

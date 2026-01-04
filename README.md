@@ -11,6 +11,12 @@ A modern, accessibility-first React 19 application built with Vite 7 and TypeScr
 
 > **📘 Fork-Friendly Setup:** This template is designed to work out-of-the-box for forks! All advanced features (CodeQL, SonarCloud, GitHub Pages CI, JSDoc) are **disabled by default** and only run when you explicitly enable them. See [.env.example](./.env.example) for minimal setup instructions.
 
+## Articles
+
+- [Dev.to](https://dev.to/asudbury/modern-react-template-for-2026-4clc)
+- [Medium](https://medium.com/@sudburya/modern-react-template-for-2026-b73b4e420b83)
+
+
 ## 🗂️ Google Code Wiki
 
 > A compact, searchable wiki for quick project notes, operational runbooks, diagrams, and short HOWTOs.

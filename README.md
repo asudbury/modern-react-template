@@ -13,10 +13,15 @@ A modern, accessibility-first React 19 application built with Vite 7 and TypeScr
 
 ## Articles
 
+
+- [YouTube](https://www.youtube.com/watch?v=tZM2NNjjNyE&t=8s)
+
+
+  [![Watch demo on YouTube](https://img.youtube.com/vi/tZM2NNjjNyE/hqdefault.jpg)](https://youtu.be/tZM2NNjjNyE?t=8s)
+
+
 - [Dev.to](https://dev.to/asudbury/modern-react-template-for-2026-4clc)
 - [Medium](https://medium.com/@sudburya/modern-react-template-for-2026-b73b4e420b83)
-
-
 ## 🗂️ Google Code Wiki
 
 > A compact, searchable wiki for quick project notes, operational runbooks, diagrams, and short HOWTOs.

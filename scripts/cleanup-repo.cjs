@@ -377,6 +377,105 @@ async function removeGitHubPages(rl) {
   return false;
 }
 
+// Remove all test files
+async function removeAllTests(rl) {
+  console.log(`\n${colors.blue}━━━ Test Files ━━━${colors.reset}`);
+  console.log(`${colors.yellow}Warning: This will remove ALL test files (.test.tsx, .test.ts, .spec.tsx, .spec.ts).${colors.reset}`);
+  console.log(`${colors.yellow}This includes unit tests, component tests, and test setup files.${colors.reset}`);
+  
+  if (await askQuestion(rl, 'Remove all test files?')) {
+    // Remove test files from src directory
+    const testFiles = [
+      'src/components/Button/Button.test.tsx',
+      'src/components/ErrorFallback/ErrorFallback.test.tsx',
+      'src/components/RootComponent.test.tsx',
+      'src/components/ThemeToggleButton/ThemeToggleButton.test.tsx',
+      'src/pages/HomePage/HomePage.test.tsx',
+      'src/pages/NotFoundPage/NotFoundPage.test.tsx',
+    ];
+    
+    let filesRemoved = 0;
+    testFiles.forEach(file => {
+      if (deletePath(file)) {
+        filesRemoved++;
+      }
+    });
+    
+    // Remove test setup directory
+    deletePath('src/test');
+    
+    // Update package.json to remove test-related scripts and dependencies
+    const pkg = readJsonFile(packageJsonPath);
+    delete pkg.scripts.test;
+    delete pkg.scripts['test:unit'];
+    delete pkg.scripts['test:coverage'];
+    delete pkg.scripts['test:ui'];
+    delete pkg.devDependencies['@testing-library/jest-dom'];
+    delete pkg.devDependencies['@testing-library/react'];
+    delete pkg.devDependencies['@testing-library/user-event'];
+    delete pkg.devDependencies['@vitest/coverage-v8'];
+    delete pkg.devDependencies['@vitest/ui'];
+    delete pkg.devDependencies['happy-dom'];
+    delete pkg.devDependencies['jsdom'];
+    delete pkg.devDependencies['vitest'];
+    delete pkg.devDependencies['eslint-plugin-testing-library'];
+    delete pkg.devDependencies['eslint-plugin-vitest'];
+    
+    // Update pre script if it exists
+    if (pkg.scripts.pre) {
+      pkg.scripts.pre = pkg.scripts.pre.replace(/npm run test &&\s*/g, '');
+      pkg.scripts.pre = pkg.scripts.pre.replace(/&&\s*npm run test/g, '');
+      pkg.scripts.pre = pkg.scripts.pre.replace(/npm run test/g, '');
+    }
+    
+    writeJsonFile(packageJsonPath, pkg);
+    
+    // Remove vitest config
+    deletePath('vitest.config.ts');
+    
+    console.log(`${colors.green}✓${colors.reset} Removed ${filesRemoved} test files and test infrastructure`);
+    console.log(`${colors.yellow}Note: Update .husky/pre-commit if it references test commands.${colors.reset}`);
+    return true;
+  }
+  return false;
+}
+
+// Make HomePage blank
+async function makeHomePageBlank(rl) {
+  console.log(`\n${colors.blue}━━━ HomePage Content ━━━${colors.reset}`);
+  console.log(`${colors.yellow}This will replace HomePage with a minimal blank page.${colors.reset}`);
+  
+  if (await askQuestion(rl, 'Make HomePage a blank page?')) {
+    const blankHomePage = `/**
+ * HomePage
+ *
+ * Minimal home page for the application.
+ *
+ * @returns JSX.Element representing the Home page
+ */
+export function HomePage() {
+  return (
+    <main
+      className="bg-surface text-text-primary min-h-screen"
+      id="main-content"
+    >
+      <div className="container">
+        <h1 className="text-primary">Welcome</h1>
+        <p>Your application is ready.</p>
+      </div>
+    </main>
+  );
+}
+`;
+    
+    const homePagePath = path.join(rootDir, 'src/pages/HomePage/HomePage.tsx');
+    fs.writeFileSync(homePagePath, blankHomePage, 'utf8');
+    console.log(`${colors.green}✓${colors.reset} HomePage replaced with blank template`);
+    return true;
+  }
+  return false;
+}
+
 // Additional suggestions
 async function additionalCleanup(rl) {
   console.log(`\n${colors.blue}━━━ Additional Cleanup Suggestions ━━━${colors.reset}`);
@@ -461,6 +560,8 @@ ${colors.reset}`);
     if (await removeReadmeImages(rl)) changesCount++;
     if (await simplifyReadme(rl)) changesCount++;
     if (await tidyPackageJson(rl)) changesCount++;
+    if (await removeAllTests(rl)) changesCount++;
+    if (await makeHomePageBlank(rl)) changesCount++;
     
     await additionalCleanup(rl);
     

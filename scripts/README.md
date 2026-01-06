@@ -19,6 +19,7 @@ The script will prompt you for each removal action, allowing you to selectively 
 - **Commitlint** - Commit message linting
 - **Knip** - Unused code detection
 - **TypeDoc** - API documentation generation
+- **All Test Files** - Remove all unit tests, component tests, and test infrastructure (Vitest, RTL, etc.)
 
 ### CI/CD & Quality Tools
 - **SonarCloud** - Code quality and security analysis
@@ -30,6 +31,7 @@ The script will prompt you for each removal action, allowing you to selectively 
 - **ThemeToggleButton** - Dark/light mode toggle component
 - **ErrorFallback** - Custom error boundary UI
 - **NotFoundPage** - 404 page component
+- **HomePage Content** - Replace with blank/minimal page
 
 ### Documentation & Assets
 - **QUICKSTART.md** - Quick start guide

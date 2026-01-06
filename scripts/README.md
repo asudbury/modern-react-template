@@ -39,8 +39,9 @@ The script will prompt you for each removal action, allowing you to selectively 
 - **Bare-bones README** - Replace with minimal version
 
 ### Configuration Files
-- **Gitleaks** - Secret scanning configuration
+- **Gitleaks** - Secret scanning configuration and pre-commit hook
 - **Example schemas** - Sample API validation schemas
+- **Lint-staged** - Pre-commit linting configuration
 
 ### Package Management
 - **Tidy package.json** - Remove optional npm scripts

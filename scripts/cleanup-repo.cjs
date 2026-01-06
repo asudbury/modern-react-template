@@ -324,17 +324,9 @@ async function tidyPackageJson(rl) {
   if (await askQuestion(rl, 'Remove additional optional scripts from package.json?')) {
     const pkg = readJsonFile(packageJsonPath);
     
-    // Remove GitHub Pages related scripts
+    // Remove GitHub Pages related scripts (if not already removed by removeGitHubPages)
     delete pkg.scripts['update:gh-page-details'];
     delete pkg.scripts['build:gh-pages'];
-    
-    // Remove secrets scanning scripts
-    delete pkg.scripts['secrets:scan'];
-    delete pkg.scripts['secrets:scan-staged'];
-    delete pkg.scripts['secrets:baseline'];
-    
-    // Remove gitleaks dependency
-    delete pkg.devDependencies.gitleaks;
     
     // Clean up pre script
     if (pkg.scripts.pre) {
@@ -399,15 +391,34 @@ async function additionalCleanup(rl) {
     deletePath('AGENTS.md');
   }
   
-  // Remove gitleaks config
-  if (await askQuestion(rl, 'Remove gitleaks configuration (.gitleaks.toml, .gitleaksignore)?')) {
+  // Remove gitleaks config and secrets hook
+  if (await askQuestion(rl, 'Remove gitleaks configuration and pre-commit secrets hook?')) {
     deletePath('.gitleaks.toml');
     deletePath('.gitleaksignore');
+    deletePath('.husky/pre-commit-secrets');
+    
+    const pkg = readJsonFile(packageJsonPath);
+    delete pkg.scripts['secrets:scan'];
+    delete pkg.scripts['secrets:scan-staged'];
+    delete pkg.scripts['secrets:baseline'];
+    delete pkg.devDependencies.gitleaks;
+    writeJsonFile(packageJsonPath, pkg);
   }
   
   // Remove example schemas
   if (await askQuestion(rl, 'Remove example API schemas (src/schemas/api.ts)?')) {
     deletePath('src/schemas');
+  }
+  
+  // Remove lint-staged and pre-commit hook
+  if (await askQuestion(rl, 'Remove lint-staged and pre-commit hook (keeps Husky for commitlint)?')) {
+    const pkg = readJsonFile(packageJsonPath);
+    delete pkg['lint-staged'];
+    delete pkg.devDependencies['lint-staged'];
+    writeJsonFile(packageJsonPath, pkg);
+    
+    deletePath('.husky/pre-commit');
+    console.log(`${colors.yellow}Note: Husky is retained for commit-msg hook unless you remove commitlint.${colors.reset}`);
   }
 }
 

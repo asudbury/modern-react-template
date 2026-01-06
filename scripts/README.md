@@ -10,9 +10,33 @@ The `cleanup-repo.cjs` script is an interactive tool that helps users who fork t
 npm run cleanup
 ```
 
+## Cleanup Modes
+
+The script offers three different modes to suit your workflow:
+
+### 1. Interactive Mode (Default)
+Prompts you for each item one-by-one, allowing you to carefully review and decide on each feature removal.
+
+### 2. Batch Select Mode
+Shows all available options upfront and lets you select multiple items at once by entering numbers separated by spaces.
+
+**Example:**
+```
+Select items to remove (enter numbers separated by spaces, or 'all' for everything):
+  1. Playwright E2E testing
+  2. QUICKSTART.md
+  3. Commitlint configuration
+  ...
+  
+Your selection: 1 3 5 8
+```
+
+### 3. Remove All Mode
+Removes all optional features at once without individual prompts. Asks for confirmation before proceeding.
+
 ## What It Does
 
-The script will prompt you for each removal action, allowing you to selectively remove:
+The script can selectively remove:
 
 ### Build & Testing Tools
 - **Playwright** - E2E testing framework and related files
@@ -49,11 +73,14 @@ The script will prompt you for each removal action, allowing you to selectively 
 - **Tidy package.json** - Remove optional npm scripts
 - **Rename package** - Update package name
 
-## Interactive Workflow
+## Workflow
 
 1. The script displays a welcome message and warning
 2. You confirm whether to proceed
-3. For each feature, you're asked if you want to remove it
+3. Select your preferred cleanup mode:
+   - **Interactive**: Prompted for each item individually
+   - **Batch Select**: Choose multiple items upfront (e.g., `1 3 5` or `all`)
+   - **Remove All**: Remove everything with one confirmation
 4. The script:
    - Deletes files and directories
    - Updates `package.json` (dependencies, scripts)
@@ -67,8 +94,9 @@ The script will prompt you for each removal action, allowing you to selectively 
 - **Color-coded output** - Easy to read status messages
 - **Non-destructive** - Only removes what you explicitly approve
 
-## Example Session
+## Example Sessions
 
+### Interactive Mode
 ```
 ╔═══════════════════════════════════════════════════════════╗
 ║     Modern React Template - Repository Cleanup Tool      ║
@@ -76,11 +104,60 @@ The script will prompt you for each removal action, allowing you to selectively 
 
 Do you want to proceed with the cleanup? (y/n): y
 
+Select cleanup mode:
+  1. Interactive (prompt for each item one-by-one)
+  2. Batch Select (choose multiple items at once)
+  3. Remove All (remove everything without prompts)
+Enter your choice (1-3): 1
+
 ━━━ Playwright E2E Testing ━━━
 Remove Playwright and E2E tests? (y/n): y
 ✓ Removed directory: playwright
 ✓ Removed file: playwright.config.ts
 ...
+```
+
+### Batch Select Mode
+```
+Select cleanup mode:
+  1. Interactive (prompt for each item one-by-one)
+  2. Batch Select (choose multiple items at once)
+  3. Remove All (remove everything without prompts)
+Enter your choice (1-3): 2
+
+Select items to remove (enter numbers separated by spaces, or 'all' for everything):
+  1. Playwright E2E testing
+  2. QUICKSTART.md
+  3. Commitlint configuration
+  4. Knip unused code detection
+  ...
+  
+  Example: 1 3 5 or all
+
+Your selection: 1 5 8 12
+
+━━━ Processing 4 selected items ━━━
+━━━ Playwright E2E testing ━━━
+✓ Removed directory: playwright
+...
+```
+
+### Remove All Mode
+```
+Select cleanup mode:
+  1. Interactive (prompt for each item one-by-one)
+  2. Batch Select (choose multiple items at once)
+  3. Remove All (remove everything without prompts)
+Enter your choice (1-3): 3
+
+⚠️  WARNING: This will remove ALL optional features!
+Are you absolutely sure you want to remove everything? (y/n): y
+
+━━━ Removing all optional features ━━━
+✓ Removed directory: playwright
+✓ Removed file: QUICKSTART.md
+...
+```
 ```
 
 ## Post-Cleanup Steps

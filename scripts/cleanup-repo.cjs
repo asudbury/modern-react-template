@@ -79,6 +79,51 @@ function askText(rl, question) {
   });
 }
 
+// Helper to ask for multiple choice
+function askChoice(rl, question, choices) {
+  return new Promise((resolve) => {
+    console.log(`\n${colors.cyan}${question}${colors.reset}`);
+    choices.forEach((choice, index) => {
+      console.log(`  ${colors.yellow}${index + 1}.${colors.reset} ${choice}`);
+    });
+    rl.question(`${colors.cyan}Enter your choice (1-${choices.length}): ${colors.reset}`, (answer) => {
+      const choice = parseInt(answer.trim());
+      if (choice >= 1 && choice <= choices.length) {
+        resolve(choice);
+      } else {
+        resolve(null);
+      }
+    });
+  });
+}
+
+// Helper to ask for multi-select with numbers
+function askMultiSelect(rl, options) {
+  return new Promise((resolve) => {
+    console.log(`\n${colors.cyan}Select items to remove (enter numbers separated by spaces, or 'all' for everything):${colors.reset}`);
+    options.forEach((option, index) => {
+      console.log(`  ${colors.yellow}${index + 1}.${colors.reset} ${option.label}`);
+    });
+    console.log(`\n  ${colors.yellow}Example:${colors.reset} 1 3 5 or ${colors.yellow}all${colors.reset}`);
+    
+    rl.question(`${colors.cyan}Your selection: ${colors.reset}`, (answer) => {
+      const input = answer.trim().toLowerCase();
+      
+      if (input === 'all') {
+        resolve(options.map((_, i) => i));
+      } else if (input === '') {
+        resolve([]);
+      } else {
+        const selections = input
+          .split(/\s+/)
+          .map(s => parseInt(s) - 1)
+          .filter(i => i >= 0 && i < options.length);
+        resolve(selections);
+      }
+    });
+  });
+}
+
 // Remove Playwright
 async function removePlaywright(rl) {
   console.log(`\n${colors.blue}━━━ Playwright E2E Testing ━━━${colors.reset}`);
@@ -543,29 +588,126 @@ ${colors.reset}`);
       return;
     }
     
+    // Ask for cleanup mode
+    const mode = await askChoice(rl, 'Select cleanup mode:', [
+      'Interactive (prompt for each item one-by-one)',
+      'Batch Select (choose multiple items at once)',
+      'Remove All (remove everything without prompts)'
+    ]);
+    
+    if (!mode) {
+      console.log(`\n${colors.red}Invalid choice. Cleanup cancelled.${colors.reset}`);
+      rl.close();
+      return;
+    }
+    
     let changesCount = 0;
+    let selectedItems = [];
     
-    // Run all cleanup functions
-    if (await removePlaywright(rl)) changesCount++;
-    if (await removeQuickstart(rl)) changesCount++;
-    if (await removeCommitlint(rl)) changesCount++;
-    if (await removeKnip(rl)) changesCount++;
-    if (await removeSonarCloud(rl)) changesCount++;
-    if (await removeTypeDoc(rl)) changesCount++;
-    if (await removeGitHubPages(rl)) changesCount++;
-    if (await removeQueries(rl)) changesCount++;
-    if (await removeThemeToggle(rl)) changesCount++;
-    if (await removeErrorFallback(rl)) changesCount++;
-    if (await removeNotFoundPage(rl)) changesCount++;
-    if (await removeReadmeImages(rl)) changesCount++;
-    if (await simplifyReadme(rl)) changesCount++;
-    if (await tidyPackageJson(rl)) changesCount++;
-    if (await removeAllTests(rl)) changesCount++;
-    if (await makeHomePageBlank(rl)) changesCount++;
+    // Define all cleanup options
+    const cleanupOptions = [
+      { label: 'Playwright E2E testing', fn: () => removePlaywright(rl) },
+      { label: 'QUICKSTART.md', fn: () => removeQuickstart(rl) },
+      { label: 'Commitlint configuration', fn: () => removeCommitlint(rl) },
+      { label: 'Knip unused code detection', fn: () => removeKnip(rl) },
+      { label: 'SonarCloud integration', fn: () => removeSonarCloud(rl) },
+      { label: 'TypeDoc documentation', fn: () => removeTypeDoc(rl) },
+      { label: 'GitHub Pages workflow', fn: () => removeGitHubPages(rl) },
+      { label: 'TanStack Query utilities (src/queries)', fn: () => removeQueries(rl) },
+      { label: 'ThemeToggle component', fn: () => removeThemeToggle(rl) },
+      { label: 'ErrorFallback component', fn: () => removeErrorFallback(rl) },
+      { label: 'NotFoundPage component', fn: () => removeNotFoundPage(rl) },
+      { label: 'README images', fn: () => removeReadmeImages(rl) },
+      { label: 'Simplify README to bare bones', fn: () => simplifyReadme(rl) },
+      { label: 'Tidy package.json scripts', fn: () => tidyPackageJson(rl) },
+      { label: 'All test files and infrastructure', fn: () => removeAllTests(rl) },
+      { label: 'Make HomePage blank', fn: () => makeHomePageBlank(rl) },
+    ];
     
-    await additionalCleanup(rl);
-    
-    if (await renamePackage(rl)) changesCount++;
+    if (mode === 1) {
+      // Interactive mode - prompt for each item
+      for (const option of cleanupOptions) {
+        if (await option.fn()) changesCount++;
+      }
+      await additionalCleanup(rl);
+      if (await renamePackage(rl)) changesCount++;
+      
+    } else if (mode === 2) {
+      // Batch select mode
+      selectedItems = await askMultiSelect(rl, cleanupOptions);
+      
+      if (selectedItems.length === 0) {
+        console.log(`\n${colors.yellow}No items selected.${colors.reset}`);
+      } else {
+        console.log(`\n${colors.blue}━━━ Processing ${selectedItems.length} selected items ━━━${colors.reset}\n`);
+        
+        for (const index of selectedItems) {
+          // Execute the cleanup function directly without prompting
+          const option = cleanupOptions[index];
+          console.log(`${colors.blue}━━━ ${option.label} ━━━${colors.reset}`);
+          
+          // Call the function but skip the internal prompt
+          // We need to modify functions to accept a "skipPrompt" parameter
+          const result = await executeCleanupDirect(index);
+          if (result) changesCount++;
+        }
+        
+        // Ask about additional cleanup and rename
+        const wantAdditional = await askQuestion(rl, 'Configure additional cleanup options (FEATURES.md, AGENTS.md, etc)?');
+        if (wantAdditional) {
+          await additionalCleanup(rl);
+        }
+        
+        const wantRename = await askQuestion(rl, 'Rename package in package.json?');
+        if (wantRename) {
+          if (await renamePackage(rl)) changesCount++;
+        }
+      }
+      
+    } else if (mode === 3) {
+      // Remove all mode
+      console.log(`\n${colors.red}⚠️  WARNING: This will remove ALL optional features!${colors.reset}`);
+      const confirmAll = await askQuestion(rl, 'Are you absolutely sure you want to remove everything?');
+      
+      if (confirmAll) {
+        console.log(`\n${colors.blue}━━━ Removing all optional features ━━━${colors.reset}\n`);
+        
+        for (let i = 0; i < cleanupOptions.length; i++) {
+          const result = await executeCleanupDirect(i);
+          if (result) changesCount++;
+        }
+        
+        // Execute additional cleanup without prompts
+        console.log(`\n${colors.blue}━━━ Additional Cleanup ━━━${colors.reset}`);
+        deletePath('FEATURES.md');
+        deletePath('AGENTS.md');
+        deletePath('.gitleaks.toml');
+        deletePath('.gitleaksignore');
+        deletePath('.husky/pre-commit-secrets');
+        deletePath('src/schemas');
+        deletePath('.husky/pre-commit');
+        
+        const pkg = readJsonFile(packageJsonPath);
+        delete pkg.scripts['secrets:scan'];
+        delete pkg.scripts['secrets:scan-staged'];
+        delete pkg.scripts['secrets:baseline'];
+        delete pkg.devDependencies.gitleaks;
+        delete pkg['lint-staged'];
+        delete pkg.devDependencies['lint-staged'];
+        writeJsonFile(packageJsonPath, pkg);
+        
+        console.log(`${colors.green}✓${colors.reset} Additional cleanup completed`);
+        changesCount++;
+        
+        // Ask if they want to rename package
+        const wantRename = await askQuestion(rl, 'Rename package in package.json?');
+        if (wantRename) {
+          if (await renamePackage(rl)) changesCount++;
+        }
+      } else {
+        console.log(`\n${colors.yellow}Remove all cancelled.${colors.reset}`);
+      }
+    }
     
     console.log(`\n${colors.green}╔═══════════════════════════════════════════════════════════╗`);
     console.log(`║                    Cleanup Complete!                      ║`);
@@ -590,6 +732,216 @@ ${colors.reset}`);
   }
 }
 
+// Helper function to execute cleanup without prompts for batch/remove-all modes
+async function executeCleanupDirect(index) {
+  switch(index) {
+    case 0: // Playwright
+      deletePath('playwright');
+      deletePath('playwright.config.ts');
+      deletePath('.github/workflows/codeql.yml');
+      const pkg0 = readJsonFile(packageJsonPath);
+      delete pkg0.scripts['test:e2e'];
+      delete pkg0.devDependencies['@playwright/test'];
+      delete pkg0.devDependencies['playwright'];
+      delete pkg0.devDependencies['@axe-core/playwright'];
+      delete pkg0.devDependencies['@vitest/browser-playwright'];
+      if (pkg0.scripts.pre) {
+        pkg0.scripts.pre = pkg0.scripts.pre.replace(/&& npm run test:e2e/g, '');
+        pkg0.scripts.pre = pkg0.scripts.pre.replace(/npm run test:e2e &&/g, '');
+        pkg0.scripts.pre = pkg0.scripts.pre.replace(/npm run test:e2e/g, '');
+      }
+      writeJsonFile(packageJsonPath, pkg0);
+      return true;
+      
+    case 1: // QUICKSTART.md
+      return deletePath('QUICKSTART.md');
+      
+    case 2: // Commitlint
+      deletePath('commitlint.config.cjs');
+      deletePath('.husky/commit-msg');
+      const pkg2 = readJsonFile(packageJsonPath);
+      delete pkg2.devDependencies['@commitlint/cli'];
+      delete pkg2.devDependencies['@commitlint/config-conventional'];
+      writeJsonFile(packageJsonPath, pkg2);
+      return true;
+      
+    case 3: // Knip
+      deletePath('knip.toml');
+      const pkg3 = readJsonFile(packageJsonPath);
+      delete pkg3.scripts.knip;
+      delete pkg3.scripts['knip:ci'];
+      delete pkg3.devDependencies.knip;
+      writeJsonFile(packageJsonPath, pkg3);
+      return true;
+      
+    case 4: // SonarCloud
+      deletePath('sonar-project.properties');
+      deletePath('.github/workflows/sonarcloud.yml');
+      return true;
+      
+    case 5: // TypeDoc
+      deletePath('typedoc.json');
+      deletePath('typedoc.html.json');
+      deletePath('docs');
+      deletePath('docs-html');
+      const pkg5 = readJsonFile(packageJsonPath);
+      delete pkg5.scripts['docs:md'];
+      delete pkg5.scripts['docs:html'];
+      delete pkg5.scripts.docs;
+      delete pkg5.devDependencies.typedoc;
+      delete pkg5.devDependencies['typedoc-plugin-markdown'];
+      delete pkg5.devDependencies.jsdoc;
+      delete pkg5.devDependencies['jsdoc-to-markdown'];
+      writeJsonFile(packageJsonPath, pkg5);
+      return true;
+      
+    case 6: // GitHub Pages
+      deletePath('.github/workflows/pages.yml');
+      deletePath('public/gh-pages-index.html');
+      deletePath('scripts/update-gh-pages-details.cjs');
+      return true;
+      
+    case 7: // Queries
+      deletePath('src/queries');
+      deletePath('docs/queries');
+      return true;
+      
+    case 8: // ThemeToggle
+      deletePath('src/components/ThemeToggleButton');
+      deletePath('docs/components/ThemeToggleButton');
+      return true;
+      
+    case 9: // ErrorFallback
+      deletePath('src/components/ErrorFallback');
+      deletePath('docs/components/ErrorFallback');
+      return true;
+      
+    case 10: // NotFoundPage
+      deletePath('src/pages/NotFoundPage');
+      deletePath('docs/pages/NotFoundPage');
+      return true;
+      
+    case 11: // README images
+      deletePath('public/hero-image.png');
+      deletePath('public/react-gears.svg');
+      return true;
+      
+    case 12: // Simplify README
+      const pkg12 = readJsonFile(packageJsonPath);
+      const packageName = pkg12.name;
+      const bareBonesReadme = `# ${packageName}
+
+A modern React application built with Vite and TypeScript.
+
+## Quick Start
+
+\`\`\`bash
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+\`\`\`
+
+## Available Scripts
+
+- \`npm run dev\` - Start development server
+- \`npm run build\` - Build for production
+- \`npm run lint\` - Run ESLint
+- \`npm run prettier\` - Format code with Prettier
+- \`npm run test\` - Run tests
+
+## Tech Stack
+
+- React 19
+- TypeScript 5
+- Vite 7
+- Vitest (testing)
+
+## License
+
+See LICENSE file for details.
+`;
+      fs.writeFileSync(path.join(rootDir, 'README.md'), bareBonesReadme, 'utf8');
+      return true;
+      
+    case 13: // Tidy package.json
+      const pkg13 = readJsonFile(packageJsonPath);
+      delete pkg13.scripts['update:gh-page-details'];
+      delete pkg13.scripts['build:gh-pages'];
+      writeJsonFile(packageJsonPath, pkg13);
+      return true;
+      
+    case 14: // Remove all tests
+      const testFiles = [
+        'src/components/Button/Button.test.tsx',
+        'src/components/ErrorFallback/ErrorFallback.test.tsx',
+        'src/components/RootComponent.test.tsx',
+        'src/components/ThemeToggleButton/ThemeToggleButton.test.tsx',
+        'src/pages/HomePage/HomePage.test.tsx',
+        'src/pages/NotFoundPage/NotFoundPage.test.tsx',
+      ];
+      testFiles.forEach(file => deletePath(file));
+      deletePath('src/test');
+      deletePath('vitest.config.ts');
+      const pkg14 = readJsonFile(packageJsonPath);
+      delete pkg14.scripts.test;
+      delete pkg14.scripts['test:unit'];
+      delete pkg14.scripts['test:coverage'];
+      delete pkg14.scripts['test:ui'];
+      delete pkg14.devDependencies['@testing-library/jest-dom'];
+      delete pkg14.devDependencies['@testing-library/react'];
+      delete pkg14.devDependencies['@testing-library/user-event'];
+      delete pkg14.devDependencies['@vitest/coverage-v8'];
+      delete pkg14.devDependencies['@vitest/ui'];
+      delete pkg14.devDependencies['happy-dom'];
+      delete pkg14.devDependencies['jsdom'];
+      delete pkg14.devDependencies['vitest'];
+      delete pkg14.devDependencies['eslint-plugin-testing-library'];
+      delete pkg14.devDependencies['eslint-plugin-vitest'];
+      if (pkg14.scripts.pre) {
+        pkg14.scripts.pre = pkg14.scripts.pre.replace(/npm run test &&\s*/g, '');
+        pkg14.scripts.pre = pkg14.scripts.pre.replace(/&&\s*npm run test/g, '');
+        pkg14.scripts.pre = pkg14.scripts.pre.replace(/npm run test/g, '');
+      }
+      writeJsonFile(packageJsonPath, pkg14);
+      return true;
+      
+    case 15: // Make HomePage blank
+      const blankHomePage = `/**
+ * HomePage
+ *
+ * Minimal home page for the application.
+ *
+ * @returns JSX.Element representing the Home page
+ */
+export function HomePage() {
+  return (
+    <main
+      className="bg-surface text-text-primary min-h-screen"
+      id="main-content"
+    >
+      <div className="container">
+        <h1 className="text-primary">Welcome</h1>
+        <p>Your application is ready.</p>
+      </div>
+    </main>
+  );
+}
+`;
+      fs.writeFileSync(path.join(rootDir, 'src/pages/HomePage/HomePage.tsx'), blankHomePage, 'utf8');
+      return true;
+      
+    default:
+      return false;
+  }
+}
+
+// Run the script
+main().catch((error) => {
+  console.error(`${colors.red}Fatal error:${colors.reset}`, error);
+  process.exit(1);
+});
 // Run the script
 main().catch((error) => {
   console.error(`${colors.red}Fatal error:${colors.reset}`, error);

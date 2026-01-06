@@ -271,6 +271,11 @@ See [knip.toml](./knip.toml) for configuration details.
 - `npm run update:gh-page-details` - Inject `package.json` version into a copy of `public/gh-pages-index.html` and write it to `dist/gh-pages-index.html` (used for GitHub Pages landing page)
 - `npm run build:gh-pages` - Build the app and, when `ENABLE_GH_PAGES=true`, generate GitHub Pages artifacts (including `dist/gh-pages-index.html`)
 
+### Repository Customization
+- `npm run cleanup` - Interactive script to remove optional features and customize the template to your needs
+
+> **🧹 Cleanup Tool:** Use `npm run cleanup` to interactively remove features you don't need (Playwright, commitlint, SonarCloud, TypeDoc, GitHub Pages, etc.). This helps you start with a minimal setup tailored to your project. See [scripts/README.md](./scripts/README.md) for details.
+
 ## Project Structure
 
 ```

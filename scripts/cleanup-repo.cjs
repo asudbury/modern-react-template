@@ -167,18 +167,24 @@ function removeNotFoundPageFromRouter() {
   
   let content = fs.readFileSync(routerPath, 'utf8');
   
-  // Remove import line
-  content = content.replace(/import\s*{\s*NotFoundPageAdapter\s*}\s*from\s*['"].*NotFoundPageAdapter['"];?\n?/g, '');
+  // Step 1: Remove import line
+  content = content.replace(/import\s*{\s*NotFoundPageAdapter\s*}\s*from\s*['"].*NotFoundPageAdapter['"];?\s*\n?/g, '');
   
-  // Remove notFoundComponent from root route
-  content = content.replace(/,?\s*notFoundComponent:\s*NotFoundPageAdapter,?/g, '');
+  // Step 2: Remove notFoundComponent from root route (with trailing comma handling)
+  content = content.replace(/,?\s*notFoundComponent:\s*NotFoundPageAdapter\s*,?/g, '');
   
-  // Remove the notFoundRoute definition and its usage
-  content = content.replace(/\/\*\*[\s\S]*?\*\/\s*const notFoundRoute = createRoute\({[\s\S]*?}\);?\s*/g, '');
+  // Step 3: Remove the notFoundRoute definition more precisely
+  // Match: JSDoc comment specific to notFoundRoute + const notFoundRoute = createRoute({ ... });
+  content = content.replace(/\/\*\*\s*\n\s*\*\s*Route tree configuration[\s\S]*?\*\/\s*\n?\s*const notFoundRoute\s*=\s*createRoute\s*\(\s*\{[\s\S]*?\}\s*\)\s*;?\s*\n*/g, '');
+  
+  // Step 4: Remove notFoundRoute from routeTree.addChildren
   content = content.replace(/,\s*notFoundRoute/g, '');
   
-  // Remove defaultNotFoundComponent from router config
-  content = content.replace(/,?\s*defaultNotFoundComponent:\s*NotFoundPageAdapter,?/g, '');
+  // Step 5: Remove defaultNotFoundComponent from router config (with trailing comma handling)
+  content = content.replace(/,?\s*defaultNotFoundComponent:\s*NotFoundPageAdapter\s*,?/g, '');
+  
+  // Step 6: Clean up any trailing commas in objects
+  content = content.replace(/,(\s*\})/g, '$1');
   
   if (!logDry(`Would update router.tsx to remove NotFoundPageAdapter usage`)) {
     fs.writeFileSync(routerPath, content, 'utf8');

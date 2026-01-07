@@ -26,6 +26,29 @@ const colors = {
 const rootDir = process.cwd();
 const packageJsonPath = path.join(rootDir, 'package.json');
 
+// CLI args
+const args = process.argv.slice(2);
+const dryRun = args.includes('--dry-run') || args.includes('-n');
+
+function logDry(action) {
+  if (dryRun) {
+    console.log(`${colors.yellow}DRY RUN:${colors.reset} ${action}`);
+    return true;
+  }
+  return false;
+}
+
+function safeWriteFile(relativePath, content) {
+  const fullPath = path.join(rootDir, relativePath);
+  if (dryRun) {
+    console.log(`${colors.yellow}DRY RUN:${colors.reset} Would write file: ${relativePath}`);
+    return true;
+  }
+  fs.writeFileSync(fullPath, content, 'utf8');
+  console.log(`${colors.green}✓${colors.reset} Wrote file: ${relativePath}`);
+  return true;
+}
+
 // Helper to read/write JSON files
 function readJsonFile(filepath) {
   const content = fs.readFileSync(filepath, 'utf8');
@@ -33,24 +56,30 @@ function readJsonFile(filepath) {
 }
 
 function writeJsonFile(filepath, data) {
-  fs.writeFileSync(filepath, JSON.stringify(data, null, 2) + '\n', 'utf8');
+  const content = JSON.stringify(data, null, 2) + '\n';
+  if (logDry(`Would update JSON file: ${filepath}`)) return;
+  fs.writeFileSync(filepath, content, 'utf8');
 }
 
 // Helper to delete file or directory
 function deletePath(filepath) {
   const fullPath = path.join(rootDir, filepath);
-  if (fs.existsSync(fullPath)) {
-    const stats = fs.statSync(fullPath);
-    if (stats.isDirectory()) {
-      fs.rmSync(fullPath, { recursive: true, force: true });
-      console.log(`${colors.green}✓${colors.reset} Removed directory: ${filepath}`);
-    } else {
-      fs.unlinkSync(fullPath);
-      console.log(`${colors.green}✓${colors.reset} Removed file: ${filepath}`);
-    }
+  if (!fs.existsSync(fullPath)) return false;
+
+  if (dryRun) {
+    console.log(`${colors.yellow}DRY RUN:${colors.reset} Would remove: ${filepath}`);
     return true;
   }
-  return false;
+
+  const stats = fs.statSync(fullPath);
+  if (stats.isDirectory()) {
+    fs.rmSync(fullPath, { recursive: true, force: true });
+    console.log(`${colors.green}✓${colors.reset} Removed directory: ${filepath}`);
+  } else {
+    fs.unlinkSync(fullPath);
+    console.log(`${colors.green}✓${colors.reset} Removed file: ${filepath}`);
+  }
+  return true;
 }
 
 // Helper to remove import statement from a file
@@ -68,8 +97,10 @@ function removeImportFromFile(filepath, importName) {
   });
   
   if (lines.length !== newLines.length) {
-    fs.writeFileSync(fullPath, newLines.join('\n'), 'utf8');
-    console.log(`${colors.green}✓${colors.reset} Removed ${importName} import from ${filepath}`);
+    if (!logDry(`Would remove import ${importName} from ${filepath}`)) {
+      fs.writeFileSync(fullPath, newLines.join('\n'), 'utf8');
+      console.log(`${colors.green}✓${colors.reset} Removed ${importName} import from ${filepath}`);
+    }
     return true;
   }
   return false;
@@ -90,8 +121,12 @@ function removeThemeToggleFromApp() {
   // Remove the theme toggle div and its content (with the comment)
   content = content.replace(/\s*{\/\*\s*Theme toggle button.*?\*\/}\s*<div[^>]*>\s*<ThemeToggleButton\s*\/>\s*<\/div>\s*/gs, '');
   
-  fs.writeFileSync(appPath, content, 'utf8');
-  console.log(`${colors.green}✓${colors.reset} Removed ThemeToggleButton usage from App.tsx`);
+  if (!logDry(`Would update App.tsx to remove ThemeToggleButton usage`)) {
+    fs.writeFileSync(appPath, content, 'utf8');
+    console.log(`${colors.green}✓${colors.reset} Removed ThemeToggleButton usage from App.tsx`);
+  } else {
+    console.log(`${colors.yellow}DRY RUN:${colors.reset} Would remove ThemeToggleButton usage from App.tsx`);
+  }
   return true;
 }
 
@@ -114,8 +149,12 @@ function removeErrorFallbackFromMain() {
     '<App />'
   );
   
-  fs.writeFileSync(mainPath, content, 'utf8');
-  console.log(`${colors.green}✓${colors.reset} Removed ErrorFallback usage from main.tsx`);
+  if (!logDry(`Would update main.tsx to remove ErrorFallback usage`)) {
+    fs.writeFileSync(mainPath, content, 'utf8');
+    console.log(`${colors.green}✓${colors.reset} Removed ErrorFallback usage from main.tsx`);
+  } else {
+    console.log(`${colors.yellow}DRY RUN:${colors.reset} Would remove ErrorFallback usage from main.tsx`);
+  }
   return true;
 }
 
@@ -141,8 +180,12 @@ function removeNotFoundPageFromRouter() {
   // Remove defaultNotFoundComponent from router config
   content = content.replace(/,?\s*defaultNotFoundComponent:\s*NotFoundPageAdapter,?/g, '');
   
-  fs.writeFileSync(routerPath, content, 'utf8');
-  console.log(`${colors.green}✓${colors.reset} Removed NotFoundPageAdapter usage from router.tsx`);
+  if (!logDry(`Would update router.tsx to remove NotFoundPageAdapter usage`)) {
+    fs.writeFileSync(routerPath, content, 'utf8');
+    console.log(`${colors.green}✓${colors.reset} Removed NotFoundPageAdapter usage from router.tsx`);
+  } else {
+    console.log(`${colors.yellow}DRY RUN:${colors.reset} Would remove NotFoundPageAdapter usage from router.tsx`);
+  }
   return true;
 }
 
@@ -454,8 +497,8 @@ npm run dev
 See LICENSE file for details.
 `;
     
-    fs.writeFileSync(path.join(rootDir, 'README.md'), bareBonesReadme, 'utf8');
-    console.log(`${colors.green}✓${colors.reset} README.md replaced with bare-bones version`);
+    safeWriteFile('README.md', bareBonesReadme);
+    if (!dryRun) console.log(`${colors.green}✓${colors.reset} README.md replaced with bare-bones version`);
     return true;
   }
   return false;
@@ -611,9 +654,8 @@ export function HomePage() {
 }
 `;
     
-    const homePagePath = path.join(rootDir, 'src/pages/HomePage/HomePage.tsx');
-    fs.writeFileSync(homePagePath, blankHomePage, 'utf8');
-    console.log(`${colors.green}✓${colors.reset} HomePage replaced with blank template`);
+    safeWriteFile('src/pages/HomePage/HomePage.tsx', blankHomePage);
+    if (!dryRun) console.log(`${colors.green}✓${colors.reset} HomePage replaced with blank template`);
     return true;
   }
   return false;
@@ -963,7 +1005,7 @@ npm run dev
 
 See LICENSE file for details.
 `;
-      fs.writeFileSync(path.join(rootDir, 'README.md'), bareBonesReadme, 'utf8');
+      safeWriteFile('README.md', bareBonesReadme);
       return true;
       
     case 13: // Tidy package.json
@@ -1030,7 +1072,7 @@ export function HomePage() {
   );
 }
 `;
-      fs.writeFileSync(path.join(rootDir, 'src/pages/HomePage/HomePage.tsx'), blankHomePage, 'utf8');
+      safeWriteFile('src/pages/HomePage/HomePage.tsx', blankHomePage);
       return true;
       
     default:

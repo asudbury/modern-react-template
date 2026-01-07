@@ -570,7 +570,7 @@ async function additionalCleanup(rl) {
 async function main() {
   console.log(`${colors.green}
 ╔═══════════════════════════════════════════════════════════╗
-║     Modern React Template - Repository Cleanup Tool      ║
+║     Modern React Template - Repository Cleanup Tool       ║
 ╚═══════════════════════════════════════════════════════════╝
 ${colors.reset}`);
   
@@ -937,11 +937,6 @@ export function HomePage() {
   }
 }
 
-// Run the script
-main().catch((error) => {
-  console.error(`${colors.red}Fatal error:${colors.reset}`, error);
-  process.exit(1);
-});
 // Run the script
 main().catch((error) => {
   console.error(`${colors.red}Fatal error:${colors.reset}`, error);

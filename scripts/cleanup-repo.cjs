@@ -53,6 +53,99 @@ function deletePath(filepath) {
   return false;
 }
 
+// Helper to remove import statement from a file
+function removeImportFromFile(filepath, importName) {
+  const fullPath = path.join(rootDir, filepath);
+  if (!fs.existsSync(fullPath)) {
+    return false;
+  }
+  
+  let content = fs.readFileSync(fullPath, 'utf8');
+  const lines = content.split('\n');
+  const newLines = lines.filter(line => {
+    // Remove lines that import the specified component
+    return !line.includes(`import`) || !line.includes(importName);
+  });
+  
+  if (lines.length !== newLines.length) {
+    fs.writeFileSync(fullPath, newLines.join('\n'), 'utf8');
+    console.log(`${colors.green}✓${colors.reset} Removed ${importName} import from ${filepath}`);
+    return true;
+  }
+  return false;
+}
+
+// Helper to remove component usage from App.tsx (ThemeToggleButton)
+function removeThemeToggleFromApp() {
+  const appPath = path.join(rootDir, 'src/App.tsx');
+  if (!fs.existsSync(appPath)) {
+    return false;
+  }
+  
+  let content = fs.readFileSync(appPath, 'utf8');
+  
+  // Remove import line
+  content = content.replace(/import\s*{\s*ThemeToggleButton\s*}\s*from\s*['"].*ThemeToggleButton['"];?\n?/g, '');
+  
+  // Remove the theme toggle div and its content (with the comment)
+  content = content.replace(/\s*{\/\*\s*Theme toggle button.*?\*\/}\s*<div[^>]*>\s*<ThemeToggleButton\s*\/>\s*<\/div>\s*/gs, '');
+  
+  fs.writeFileSync(appPath, content, 'utf8');
+  console.log(`${colors.green}✓${colors.reset} Removed ThemeToggleButton usage from App.tsx`);
+  return true;
+}
+
+// Helper to remove ErrorFallback from main.tsx
+function removeErrorFallbackFromMain() {
+  const mainPath = path.join(rootDir, 'src/main.tsx');
+  if (!fs.existsSync(mainPath)) {
+    return false;
+  }
+  
+  let content = fs.readFileSync(mainPath, 'utf8');
+  
+  // Remove import lines
+  content = content.replace(/import\s*{\s*ErrorBoundary\s*}\s*from\s*['"]react-error-boundary['"];?\n?/g, '');
+  content = content.replace(/import\s*{\s*ErrorFallback\s*}\s*from\s*['"].*ErrorFallback['"];?\n?/g, '');
+  
+  // Remove ErrorBoundary wrapper, keeping the App component
+  content = content.replace(
+    /<ErrorBoundary\s+FallbackComponent={ErrorFallback}\s+onReset={\(\)\s*=>\s*globalThis\.location\.reload\(\)}\s*>\s*<App\s*\/>\s*<\/ErrorBoundary>/gs,
+    '<App />'
+  );
+  
+  fs.writeFileSync(mainPath, content, 'utf8');
+  console.log(`${colors.green}✓${colors.reset} Removed ErrorFallback usage from main.tsx`);
+  return true;
+}
+
+// Helper to remove NotFoundPage from router.tsx
+function removeNotFoundPageFromRouter() {
+  const routerPath = path.join(rootDir, 'src/router.tsx');
+  if (!fs.existsSync(routerPath)) {
+    return false;
+  }
+  
+  let content = fs.readFileSync(routerPath, 'utf8');
+  
+  // Remove import line
+  content = content.replace(/import\s*{\s*NotFoundPageAdapter\s*}\s*from\s*['"].*NotFoundPageAdapter['"];?\n?/g, '');
+  
+  // Remove notFoundComponent from root route
+  content = content.replace(/,?\s*notFoundComponent:\s*NotFoundPageAdapter,?/g, '');
+  
+  // Remove the notFoundRoute definition and its usage
+  content = content.replace(/\/\*\*[\s\S]*?\*\/\s*const notFoundRoute = createRoute\({[\s\S]*?}\);?\s*/g, '');
+  content = content.replace(/,\s*notFoundRoute/g, '');
+  
+  // Remove defaultNotFoundComponent from router config
+  content = content.replace(/,?\s*defaultNotFoundComponent:\s*NotFoundPageAdapter,?/g, '');
+  
+  fs.writeFileSync(routerPath, content, 'utf8');
+  console.log(`${colors.green}✓${colors.reset} Removed NotFoundPageAdapter usage from router.tsx`);
+  return true;
+}
+
 // Helper to create readline interface
 function createPrompt() {
   return readline.createInterface({
@@ -250,13 +343,15 @@ async function removeQueries(rl) {
 // Remove ThemeToggle
 async function removeThemeToggle(rl) {
   console.log(`\n${colors.blue}━━━ Theme Toggle Component ━━━${colors.reset}`);
-  console.log(`${colors.yellow}Warning: You may need to update components that import ThemeToggleButton.${colors.reset}`);
+  console.log(`${colors.yellow}Warning: This will also update App.tsx to remove the ThemeToggleButton.${colors.reset}`);
   
   if (await askQuestion(rl, 'Remove ThemeToggleButton component?')) {
     deletePath('src/components/ThemeToggleButton');
     deletePath('docs/components/ThemeToggleButton');
     
-    console.log(`${colors.yellow}Note: Update HomePage.tsx or any other files that import ThemeToggleButton.${colors.reset}`);
+    // Remove from App.tsx
+    removeThemeToggleFromApp();
+    
     return true;
   }
   return false;
@@ -265,12 +360,14 @@ async function removeThemeToggle(rl) {
 // Remove ErrorFallback
 async function removeErrorFallback(rl) {
   console.log(`\n${colors.blue}━━━ Error Fallback Component ━━━${colors.reset}`);
-  console.log(`${colors.yellow}Warning: This removes the custom error boundary UI.${colors.reset}`);
-  console.log(`${colors.yellow}You'll need to provide an alternative error boundary or remove it from RootComponent.${colors.reset}`);
+  console.log(`${colors.yellow}Warning: This will update main.tsx to remove the ErrorBoundary.${colors.reset}`);
   
   if (await askQuestion(rl, 'Remove ErrorFallback component?')) {
     deletePath('src/components/ErrorFallback');
     deletePath('docs/components/ErrorFallback');
+    
+    // Remove from main.tsx
+    removeErrorFallbackFromMain();
     
     // Update package.json to remove react-error-boundary if desired
     const removeLib = await askQuestion(rl, 'Also remove react-error-boundary dependency?');
@@ -280,7 +377,6 @@ async function removeErrorFallback(rl) {
       writeJsonFile(packageJsonPath, pkg);
     }
     
-    console.log(`${colors.yellow}Note: Update RootComponent.tsx to remove ErrorBoundary usage.${colors.reset}`);
     return true;
   }
   return false;
@@ -289,13 +385,15 @@ async function removeErrorFallback(rl) {
 // Remove NotFoundPage
 async function removeNotFoundPage(rl) {
   console.log(`\n${colors.blue}━━━ Not Found Page ━━━${colors.reset}`);
-  console.log(`${colors.yellow}Warning: You'll need to update router.tsx to handle 404 routes differently.${colors.reset}`);
+  console.log(`${colors.yellow}Warning: This will update router.tsx to remove NotFoundPage references.${colors.reset}`);
   
   if (await askQuestion(rl, 'Remove NotFoundPage component?')) {
     deletePath('src/pages/NotFoundPage');
     deletePath('docs/pages/NotFoundPage');
     
-    console.log(`${colors.yellow}Note: Update router.tsx to remove NotFoundPage references.${colors.reset}`);
+    // Remove from router.tsx
+    removeNotFoundPageFromRouter();
+    
     return true;
   }
   return false;
@@ -809,16 +907,19 @@ async function executeCleanupDirect(index) {
     case 8: // ThemeToggle
       deletePath('src/components/ThemeToggleButton');
       deletePath('docs/components/ThemeToggleButton');
+      removeThemeToggleFromApp();
       return true;
       
     case 9: // ErrorFallback
       deletePath('src/components/ErrorFallback');
       deletePath('docs/components/ErrorFallback');
+      removeErrorFallbackFromMain();
       return true;
       
     case 10: // NotFoundPage
       deletePath('src/pages/NotFoundPage');
       deletePath('docs/pages/NotFoundPage');
+      removeNotFoundPageFromRouter();
       return true;
       
     case 11: // README images

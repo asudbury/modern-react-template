@@ -137,6 +137,18 @@ This template uses a global error boundary to catch unexpected errors anywhere i
 - Node.js 20 or higher
 - npm (comes with Node.js)
 
+This repository includes a root `.npmrc` with shared install defaults:
+
+```ini
+# Wait 7 days before allowing newly published package versions.
+min-release-age=7
+
+# Allow package lifecycle scripts to run during install.
+# Change to true to stop install scripts
+ignore-scripts=false
+
+```
+
 ```bash
 # Install dependencies
 npm install

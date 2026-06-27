@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import type { FallbackProps } from 'react-error-boundary';
 import { Button } from '../Button';
 
@@ -16,6 +16,12 @@ export function ErrorFallback({
   error,
   resetErrorBoundary,
 }: Readonly<FallbackProps>) {
+  const errorMessage = useMemo(
+    () =>
+      error instanceof Error ? error.message : 'An unexpected error occurred.',
+    [error]
+  );
+
   const handleReload = useCallback(() => {
     // Try to reset the boundary first
     resetErrorBoundary();
@@ -45,7 +51,7 @@ export function ErrorFallback({
 
         <h1>Something went wrong</h1>
 
-        <div>{error.message}</div>
+        <div>{errorMessage}</div>
 
         <p>
           We apologize for the inconvenience. Please try reloading the page.

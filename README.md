@@ -602,3 +602,12 @@ MIT
 - [SonarCloud](https://sonarcloud.io/)
 - [CodeQL](https://codeql.github.com/docs/)
 - [TypeDoc](https://typedoc.org/)
+
+
+## ❤️ Support My Work
+
+<a href="https://www.buymeacoffee.com/asudbury">
+  <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png"
+       alt="Buy Me A Coffee"
+       height="60">
+</a>
